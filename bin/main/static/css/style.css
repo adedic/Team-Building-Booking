@@ -1,0 +1,7 @@
+
+.background-img{
+	 height: 100%; 
+	 width: 100%;
+	 background-image: url('/resources/static/img/login.jpeg'); 
+	 background-size: cover;
+}
