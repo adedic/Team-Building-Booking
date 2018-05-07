@@ -28,7 +28,7 @@
 3. In the **Import project** window choose **Import project from external name** and choose **Gradle** from the list below. Click **Next**
 4. Make sure that there is **.gradle** file at the end under the Gradle project: field. Put a check next to **Use auto-import**. **Use default grade wrapper** should be selected. Grade JVM should point to **Java 1.8 folder**. Click **Finish**
 
-### Run cinderella-rest or cinderella-admin-rest
+### Run Spring Boot Application
 
 If you have **IntelliJ IDEA Ultimate** version, do the following:
  
