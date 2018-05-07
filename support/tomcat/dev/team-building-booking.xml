@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+
+    <Manager pathname="" />
+
+    <Resource auth="Container"
+              driverClassName="org.postgresql.Driver"
+              maxIdle="10"
+              maxTotal="20"
+              maxWaitMillis="-1"
+              name="jdbc/tulipani"
+              type="javax.sql.DataSource"
+
+              url="jdbc:postgresql://localhost:5432/tulipani?currentSchema=teambuildingbooking"
+              username="dbuser"
+              password="secret" />
+
+
+    <Environment type="java.lang.String"
+                 name="spring.profiles.active"
+                 value="dev" />
+
+</Context>

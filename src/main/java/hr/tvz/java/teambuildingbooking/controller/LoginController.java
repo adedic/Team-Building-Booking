@@ -1,6 +1,7 @@
 package hr.tvz.java.teambuildingbooking.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -12,7 +13,7 @@ public class LoginController {
     private final static String LOGIN_VIEW_NAME = "login";
 
     @RequestMapping("/login")
-    private String login() {
+    private String login(Model model) {
         return LOGIN_VIEW_NAME;
     }
 }
