@@ -52,13 +52,9 @@ Add the following line:
   
 Then run the **Spring Boot** application.
 
-### Run Spring Boot Application
-
 #### Credits:    
-
-**Team Tulipani:**
-   * Ana Dedić
-   * Maja Puljić
-   * Filip Blažević
-   * Antonio Barić
-   * Marko Štuban
+* Ana Dedić
+* Maja Puljić
+* Filip Blažević
+* Antonio Barić
+* Marko Štuban
