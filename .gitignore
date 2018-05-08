@@ -2,3 +2,5 @@
 /.gradle/
 /.idea/
 /team-building-booking.iml
+/.settings/
+/bin
