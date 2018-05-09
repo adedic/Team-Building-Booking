@@ -1,34 +1,50 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
 <head>
 <title>Prijava</title>
-<th:block th:include="fragments/headerincludes :: head" />
+
+<th:block th:replace="fragments :: css"></th:block>
 </head>
-<body style=" height: 100%; 
-	 width: 100%; 
-	 background-size: cover;">
+
+<body>
+	
+<th:block th:include="fragments :: header"></th:block>
+	
+	<div layout:fragment="content">
+	
 	<div class="container" style="padding-top: 20vh;">
 		<div class="row justify-content-md-center">
 			<div class="col-md-5">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Prijav korisnika</h3>
+						<h3 class="panel-title">Prijava korisnika</h3>
 						<br></br>
 					</div>
 					<div class="panel-body">
 
 						<form role="form" method="POST" name="formLogin"
-							th:action='@{/login}'>
+							th:action='@{/login}' class="needs-validation" novalidate>
 							<fieldset>
 								<div class="form-group">
 									<input class="form-control" autofocus="autofocus"
 										required="required" placeholder="Email" name="email"
 										type="text" />
+									<div class="invalid-feedback">
+									  Unesi email!
+									</div>
 								</div>
+								
 								<div class="form-group">
 									<input class="form-control" required="required"
 										placeholder="Lozinka" name="password" type="password" value="" />
+									<div class="invalid-feedback">
+									  Unesi lozinku!
+									</div>
 								</div>
+								
 
 								<input class="btn btn-lg btn-outline-primary btn-block"
 									type="submit" value="Prijava" />
@@ -58,5 +74,11 @@
 
 
 	</div>
+	</div>
+	
+	<th:block th:include="fragments :: footer"></th:block>
+	
+<th:block th:include="fragments :: loginScript"></th:block>
+	<th:block th:include="fragments :: additionalScripts"></th:block>
 </body>
 </html>
