@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class RegisterController {
 
-    private final static String REGISTER_VIEW_NAME = "register";
+    private static final String REGISTER_VIEW_NAME = "register";
 
     @RequestMapping("/register")
-    private String login(Model model) {
+    private String register(Model model) {
         return REGISTER_VIEW_NAME;
     }
 }
