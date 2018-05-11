@@ -2,6 +2,9 @@
 
 ## Requirements
 * [Java JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* [PostgreSQL 9.5.12](https://www.postgresql.org/download/)
+* [PgAdmin](https://www.pgadmin.org/download/)
+* [Tomcat](http://tomcat.apache.org/download-80.cgi) - or any other embedded server
 
 ## Setup (First time)
 1. Clone the repository: `git clone git@bitbucket.org:{yourUsernameGoesHere}/team-building-booking.git`
