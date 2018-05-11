@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Nova ponuda</title>
+
+    <th:block th:replace="fragments :: css"></th:block>
+</head>
+<body>
+    <th:block th:include="fragments :: header"></th:block>
+
+    <div layout:fragment="content">
+        <div class="container" style="padding-top: 20vh;">
+
+            <div class="row justify-content-md-center">
+                <div class="col-md-5">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Nova team building ponuda</h3>
+                        </div>
+
+                        <div class="panel-body">
+
+                            <form role="form" method="POST" name="formNewOffer" th:action='@{/newoffer.html}' class="needs-validation" novalidate>
+                                <div class="form-group">
+                                    <select class="custom-select mr-sm-2" id="category">
+                                        <!--
+                                        Mock podatke kasnije zamijeniti s podatcima iz baze, tablica Kategorija
+                                        -->
+                                        <option selected value="1">Sport</option>
+                                        <option value="2">Putovanja</option>
+                                        <option value="3">Rekreacija</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" name="country" class="form-control" id="country"
+                                           placeholder="Država" required autofocus>
+
+                                    <div class="invalid-feedback">
+                                        Unesite državu!
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" name="city" class="form-control" id="city"
+                                           placeholder="Grad" required autofocus>
+
+                                    <div class="invalid-feedback">
+                                        Unesite grad!
+                                    </div>
+                                </div>
+
+                                <div class="form-group-">
+                                    <input type="number" min="0" onkeypress="return event.charCode >= 48" name="min" class="form-control" id="min"
+                                           placeholder="Minimalni broj osoba" required autofocus>
+
+                                    <div class="invalid-feedback">
+                                        Unesite najmanji broj osoba potreban za održavanje team buildinga!
+                                    </div>
+
+                                    <input type="number" min="0" onkeypress="return event.charCode >= 48" name="max" class="form-control" id="max"
+                                           placeholder="Maksimalan broj osoba" required autofocus>
+
+                                    <div class="invalid-feedback">
+                                        Unesite najveći mogući broj osoba na team building ponudi!
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="number" min="0" onkeypress="return event.charCode >= 48" name="price" class="form-control" id="price"
+                                           placeholder="Cijena po osobi" required autofocus>
+
+                                    <div class="invalid-feedback">
+                                        Unesite cijenu!
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="date" name="availableFrom" class="form-control" id="availableFrom"
+                                           placeholder="Ponuda raspoloživa od" required autofocus>
+
+                                    <small id="availableFromHelp" class="form-text text-muted">Ponuda raspoloživa od:</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="date" name="availableUntil" class="form-control" id="availableUntil"
+                                           placeholder="Ponuda raspoloživa do" required autofocus>
+
+                                    <small id="availableUntilHelp" class="form-text text-muted">Ponuda raspoloživa do:</small>
+                                </div>
+
+                                <input class="btn btn-lg btn-outline-primary btn-block" type="submit" value="Dodaj ponudu!" />
+
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <th:block th:include="fragments :: footer"></th:block>
+
+    <th:block th:include="fragments :: registerScript"></th:block>
+    <th:block th:include="fragments :: additionalScripts"></th:block>
+</body>
+</html>
