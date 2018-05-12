@@ -10,7 +10,6 @@
               maxWaitMillis="-1"
               name="jdbc/tulipani"
               type="javax.sql.DataSource"
-
               url="jdbc:postgresql://localhost:5432/tulipani?currentSchema=teambuildingbooking"
               username="dbuser"
               password="secret" />
