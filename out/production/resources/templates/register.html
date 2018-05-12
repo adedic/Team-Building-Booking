@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<title>Registracija</title>
+
+<th:block th:replace="fragments :: css"></th:block>
+</head>
+
+<body>
+	
+<th:block th:include="fragments :: header"></th:block>
+
+
+<div layout:fragment="content">
+<div class="container" style="padding-top: 20vh;">
+
+    <div class="row justify-content-md-center">
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Registracija korisnika</h3>
+                    <br></br>
+                </div>
+                <div class="panel-body">
+				
+                    <form role="form" method="POST" name="formRegister" th:action='@{/register}' class="needs-validation" novalidate>
+						
+                        <div class="form-group">
+							<select class="custom-select mr-sm-2" id="roleSelect">
+								<option selected value="1">Korisnik</option>
+								<option value="2">Ponuditelj</option>
+							 </select>
+							 
+							<small id="roleSelectHelp" class="form-text text-muted">Odaberi ulogu u Team Building Booking sustavu</small>
+						</div>
+                        <div class="form-group">
+                            <input type="text" name="name" class="form-control" id="name"
+                                   placeholder="Ime" required autofocus>
+						   
+							<div class="invalid-feedback">
+							  Unesi ime!
+							</div>
+                        </div>
+                        <div class="form-group">
+                                <input type="text" name="lastName" class="form-control" id="lastName"
+                                       placeholder="Prezime" required autofocus>
+								
+								<div class="invalid-feedback">
+								  Unesi prezime!
+								</div>
+								  
+                        </div>
+                        <div class="form-group">
+                            <input type="date" name="dateOfBirth" class="form-control" id="dateOfBirth"
+                                   placeholder="Datum rođenja" required autofocus>
+							
+							<small id="roleSelectHelp" class="form-text text-muted">Unesi svoj datum rođenja</small>
+                        </div>
+						
+                        <div class="form-group">
+                            <input type="email" name="email" class="form-control" id="email"
+                                   placeholder="E-mail" required autofocus>
+                            
+							<div class="invalid-feedback">
+							  Unesi ispravan e-mail!
+							</div>
+                        </div>
+						
+						<div class="form-group">
+                            <input type="tel" name="phone" class="form-control" id="phone"
+                                   placeholder="Broj telefona" autofocus maxlength="20">
+							
+							<div class="invalid-feedback">
+							  Unesi ispravan broj telefona!
+							</div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" class="form-control" id="password" 
+                                   placeholder="Lozinka" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password2" class="form-control" id="password2" 
+                                   placeholder="Ponovi lozinku" required>
+							
+							<div class="invalid-feedback">
+							  Unesi (jednake) lozinke!
+							</div>
+                        </div>
+						
+                        <input class="btn btn-lg btn-outline-primary btn-block" type="submit" value="Registriraj se" />
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+ 
+</div>
+</div>
+
+<th:block th:include="fragments :: footer"></th:block>
+
+<th:block th:include="fragments :: registerScript"></th:block>
+<th:block th:include="fragments :: additionalScripts"></th:block>
+</body>
