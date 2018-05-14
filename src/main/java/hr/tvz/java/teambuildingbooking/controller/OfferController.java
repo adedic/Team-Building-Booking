@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class OfferController {
 
     private static final String NEW_OFFER_VIEW_NAME = "offer/new-offer";
-    private final static String SEARCH_OFFER_VIEW_NAME = "offer/search-offer";
-    private final static String SEARCH_RESULTS_VIEW_NAME = "offer/search-results";
+    private static final String SEARCH_OFFER_VIEW_NAME = "offer/search-offer";
+    private static final String SEARCH_RESULTS_VIEW_NAME = "offer/search-results";
 
     @RequestMapping("/new")
     private String newOffer(Model model) {
