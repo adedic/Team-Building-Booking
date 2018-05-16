@@ -55,7 +55,7 @@ public class RegisterController {
             return "register";
         }
 
-        redirectAttributes.addFlashAttribute("registrationSuccess", "You have successfully created an account! Please login!");
+        redirectAttributes.addFlashAttribute("registrationSuccess", "Registracija uspješna! Prijavite se sa podacima koje ste unijeli.");
 
         return "redirect:/login";
     }

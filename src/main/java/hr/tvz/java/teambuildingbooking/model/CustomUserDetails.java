@@ -1,10 +1,7 @@
 package hr.tvz.java.teambuildingbooking.model;
 
-import hr.tvz.java.teambuildingbooking.model.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.util.StringUtils;
 
 import java.util.Collection;
 

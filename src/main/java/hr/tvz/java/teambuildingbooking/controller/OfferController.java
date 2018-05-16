@@ -23,7 +23,7 @@ public class OfferController {
     private String searchOffer(Model model) {
         return SEARCH_OFFER_VIEW_NAME;
     }
-    
+
     @RequestMapping("/results")
     private String showResults(Model model) {
         return SEARCH_RESULTS_VIEW_NAME;

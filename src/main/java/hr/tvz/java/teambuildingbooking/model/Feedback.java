@@ -30,7 +30,7 @@ public class Feedback {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "OFFER", referencedColumnName = "OFFER_ID")
-    private  Offer offer;
+    private Offer offer;
 
     //@Column(name = "TIMESTAMP", nullable = false)
     //private Timestamp tStamp;

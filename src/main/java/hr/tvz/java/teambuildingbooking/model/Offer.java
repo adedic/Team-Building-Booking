@@ -43,7 +43,7 @@ public class Offer {
     private Integer maxNumberOfUsers;
 
     @Column(name = "PRICE_PER_PEARSON", nullable = false)
-    private  Double pricePerPearson;
+    private Double pricePerPearson;
 
     @Column(name = "AVAILABLE_FROM", nullable = false)
     private Date availableFrom;

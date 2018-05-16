@@ -22,5 +22,4 @@ public class OfferPicture {
     private Offer offer;
 
 
-
 }
