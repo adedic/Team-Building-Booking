@@ -15,6 +15,10 @@ public class Reservation {
     @Column(name = "RESERVATION_ID", nullable = false)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "`USER`", referencedColumnName = "ID")
+    private User user;
+
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "OFFER", referencedColumnName = "OFFER_ID")
     private Offer offer;

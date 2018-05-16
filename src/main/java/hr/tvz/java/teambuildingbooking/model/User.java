@@ -41,6 +41,12 @@ public class User {
     @Column(name = "ENABLED", nullable = false)
     private Boolean enabled;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.REMOVE)
+    private Set<Offer> offers;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.REMOVE)
+    private Set<Reservation> reservations;
+
     @Column(name = "DATE_OF_BIRTH")
     private Date dateOfBirth;
 
@@ -52,6 +58,9 @@ public class User {
 
     @Column(name = "DATE_OF_REGISTRATION", nullable = false)
     private Date dateOfRegistration;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.REMOVE)
+    private Set<Feedback> feedbacks;
 
     //@Column(name = "TIMESTAMP", nullable = false)
     //private Timestamp tStamp;

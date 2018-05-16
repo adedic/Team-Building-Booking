@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Set;
 
 @Data
 @Entity
@@ -15,11 +16,25 @@ public class Offer {
     @Column(name = "OFFER_ID", nullable = false)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "`USER`", referencedColumnName = "ID")
+    private User user;
+
     @Column(name = "STATE", nullable = false)
     private String state;
 
     @Column(name = "CITY", nullable = false)
     private String city;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private Set<Category> categories;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private Set<Feedback> feedbacks;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "OFFER_PICTURE", referencedColumnName = "OFFER_PICTURE_ID")
+    private OfferPicture offerPicture;
 
     @Column(name = "MIN_NUMBER_OF_USERS", nullable = false)
     private Integer minNumberOfUsers;
@@ -28,7 +43,7 @@ public class Offer {
     private Integer maxNumberOfUsers;
 
     @Column(name = "PRICE_PER_PEARSON", nullable = false)
-    private Double pricePerPearson;
+    private  Double pricePerPearson;
 
     @Column(name = "AVAILABLE_FROM", nullable = false)
     private Date availableFrom;

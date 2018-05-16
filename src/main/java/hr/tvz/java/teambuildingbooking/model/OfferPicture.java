@@ -17,4 +17,10 @@ public class OfferPicture {
     @Column(name = "PICTURE_PATH", nullable = false)
     private String picturePath;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "OFFER", referencedColumnName = "OFFER_ID")
+    private Offer offer;
+
+
+
 }

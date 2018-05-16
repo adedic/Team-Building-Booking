@@ -24,6 +24,14 @@ public class Feedback {
     @Column(name = "DATE")
     private Date date;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "`USER`", referencedColumnName = "ID")
+    private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "OFFER", referencedColumnName = "OFFER_ID")
+    private  Offer offer;
+
     //@Column(name = "TIMESTAMP", nullable = false)
     //private Timestamp tStamp;
 
