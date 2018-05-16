@@ -41,7 +41,7 @@
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active"><a class="nav-link" href="#">Ponude<span
+					<li class="nav-item active" sec:authorize="hasRole('ROLE_PROVIDER')" ><a class="nav-link" th:href="@{/offer/search}">Ponude<span
 							class="sr-only">(current)</span></a></li>
 					<li class="nav-item active"><a class="nav-link" href="#">O
 							nama</a></li>
@@ -50,27 +50,24 @@
 				</ul>
 				<ul class="navbar-nav my-2 my-lg-0" style="margin-right: 4%">
 					<li class="nav-item" sec:authorize="isAnonymous()"><a
-						class="nav-link" th:href="@{navLink}" th:text="${navLinkText}"></a>
+						class="nav-link" th:href="@{/register}">Registriraj se</a>
 					</li>
 					<li class="nav-item dropdown" sec:authorize="isAuthenticated()">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> Baba Slava </a>
+						aria-expanded="false"><strong sec:authentication="name"></strong></a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#">Moje rezervacije</a>
-							<!-- <a class="dropdown-item" href="#">Moje ponude</a>-->
-							<a class="dropdown-item" href="#">Moj profil</a>
+							<a class="dropdown-item" href="#" sec:authorize="hasRole('ROLE_ADMIN, ROLE_USER')">Moje rezervacije</a>
+							<a class="dropdown-item" href="#" sec:authorize="hasRole('ROLE_PROVIDER')">Moje ponude</a>
+							<a class="dropdown-item" href="#" sec:authorize="hasRole('ROLE_USER')">Moj profil</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="@{/logout}">Odjava</a>
+							<a class="dropdown-item" th:href="@{/logout}">Odjava</a>
 						</div>
 					</li>
 				</ul>
 			</div>
 		</nav>
 	</th:block>
-
-
-
 
 	<th:block th:fragment="footer">
 		<footer class="footer">

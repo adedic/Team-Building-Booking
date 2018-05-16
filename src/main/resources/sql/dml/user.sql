@@ -1,0 +1,3 @@
+INSERT INTO "user" (id, name, surname, username, email, password, enabled, date_of_registration) VALUES (1, 'Admin', 'Adminic', 'admin', 'admin@booking.com', '$2a$04$JPo9BxCKtbGcfNM5J53ScuDWY4JpwnMdKAtxmGQwCPugrFz7/ar1m', true, CURRENT_DATE);
+INSERT INTO "user" (id, name, surname, username, email, password, enabled, date_of_registration) VALUES (2, 'Providerko', 'Provideric', 'provider', 'provider@booking.com', '$2a$04$JPo9BxCKtbGcfNM5J53ScuDWY4JpwnMdKAtxmGQwCPugrFz7/ar1m', true, CURRENT_DATE);
+INSERT INTO "user" (id, name, surname, username, email, password, enabled, date_of_registration) VALUES (3, 'Userko', 'Userkovic', 'user', 'user@booking.com', '$2a$04$JPo9BxCKtbGcfNM5J53ScuDWY4JpwnMdKAtxmGQwCPugrFz7/ar1m', true, CURRENT_DATE);

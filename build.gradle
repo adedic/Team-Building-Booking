@@ -36,8 +36,9 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
 	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.liquibase:liquibase-core')
-	runtime('org.springframework.boot:spring-boot-devtools')
+	compile "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
+	compile 'org.mapstruct:mapstruct-processor:1.1.0.Final'
+    runtime('org.springframework.boot:spring-boot-devtools')
 	runtime('org.postgresql:postgresql')
 	compileOnly('org.projectlombok:lombok')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
