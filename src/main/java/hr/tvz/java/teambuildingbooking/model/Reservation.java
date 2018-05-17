@@ -3,7 +3,7 @@ package hr.tvz.java.teambuildingbooking.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @Entity
@@ -35,8 +35,7 @@ public class Reservation {
     @Column(name = "DATE_OF_CANCELLATION", nullable = false)
     private Date dateOfCancellation;
 
-    //@Column(name = "TIMESTAMP", nullable = false)
-    //private Timestamp tStamp;
-
+    @Column(name = "DATE_LAST_EDITED")
+    private Date dateLastEdited;
 
 }

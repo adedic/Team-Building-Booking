@@ -3,7 +3,7 @@ package hr.tvz.java.teambuildingbooking.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @Entity
@@ -18,11 +18,8 @@ public class Feedback {
     @Column(name = "COMMENT")
     private String comment;
 
-    @Column(name = "GRADE")
-    private Integer grade;
-
-    @Column(name = "DATE")
-    private Date date;
+    @Column(name = "NUMBER_OF_STARS")
+    private Integer numberOfStars;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
@@ -32,7 +29,10 @@ public class Feedback {
     @JoinColumn(name = "OFFER_ID", referencedColumnName = "ID")
     private Offer offer;
 
-    //@Column(name = "TIMESTAMP", nullable = false)
-    //private Timestamp tStamp;
+    @Column(name = "DATE_SUBMITTED", nullable = false)
+    private Date dateSubmitted;
+
+    @Column(name = "DATE_LAST_EDITED")
+    private Date dateLastEdited;
 
 }

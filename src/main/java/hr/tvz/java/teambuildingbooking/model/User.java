@@ -62,8 +62,8 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.REMOVE)
     private Set<Feedback> feedbacks;
 
-    //@Column(name = "TIMESTAMP", nullable = false)
-    //private Timestamp tStamp;
+    @Column(name = "DATE_LAST_EDITED")
+    private Date dateLastEdited;
 
     public User(User user) {
         this.name = user.getName();
@@ -194,5 +194,13 @@ public class User {
 
     public void setDateOfRegistration(Date dateOfRegistration) {
         this.dateOfRegistration = dateOfRegistration;
+    }
+
+    public Date getDateEdited() {
+        return dateLastEdited;
+    }
+
+    public void setDateEdited(Date dateEdited) {
+        this.dateLastEdited = dateEdited;
     }
 }

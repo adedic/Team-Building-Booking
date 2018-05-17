@@ -3,7 +3,7 @@ package hr.tvz.java.teambuildingbooking.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
 @Data
@@ -20,8 +20,8 @@ public class Offer {
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     private User user;
 
-    @Column(name = "STATE", nullable = false)
-    private String state;
+    @Column(name = "COUNTRY", nullable = false)
+    private String country;
 
     @Column(name = "CITY", nullable = false)
     private String city;
@@ -58,15 +58,18 @@ public class Offer {
     private String description;
 
     @Column(name = "ENABLED", nullable = false)
-    private Boolean enabled;
+    private boolean enabled;
 
-    //@Column(name = "DATE_OF_ADDING", nullable = false)
-    //private Date dateOfAdding;
+    @Column(name = "ACTIVE", nullable = false)
+    private boolean active;
 
-    //@Column(name = "DATE_OF_DELETING", nullable = false)
-    //private Date dateOfDeleting;
+    @Column(name = "DATE_ADDED", nullable = false)
+    private Date dateAdded;
 
-    //@Column(name = "TIMESTAMP", nullable = false)
-    //private Timestamp tStamp;
+    @Column(name = "DATE_DELETED", nullable = false)
+    private Date dateDeleted;
+
+    @Column(name = "DATE_LAST_EDITED")
+    private Date dateLastEdited;
 
 }

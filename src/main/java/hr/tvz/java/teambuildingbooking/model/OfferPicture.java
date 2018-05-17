@@ -14,12 +14,17 @@ public class OfferPicture {
     @Column(name = "ID", nullable = false)
     private Long id;
 
-    @Column(name = "PICTURE_PATH", nullable = false)
-    private String picturePath;
+    @Column(name = "BASE64_STRING", nullable = false)
+    private String base64String;
+
+    @Column(name = "NAME", nullable = false)
+    private String name;
+
+    @Column(name = "SIZE", nullable = false)
+    private String size;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "OFFER_ID", referencedColumnName = "ID")
     private Offer offer;
-
 
 }
