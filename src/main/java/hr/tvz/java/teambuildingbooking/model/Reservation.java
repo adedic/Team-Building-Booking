@@ -19,7 +19,7 @@ public class Reservation {
     @JoinColumn(name = "`USER`", referencedColumnName = "ID")
     private User user;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "OFFER", referencedColumnName = "OFFER_ID")
     private Offer offer;
 

@@ -32,6 +32,9 @@ public class Offer {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<Feedback> feedbacks;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private Set<Reservation> reservations;
+
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "OFFER_PICTURE", referencedColumnName = "OFFER_PICTURE_ID")
     private OfferPicture offerPicture;
@@ -42,8 +45,8 @@ public class Offer {
     @Column(name = "MAX_NUMBER_OF_USERS", nullable = false)
     private Integer maxNumberOfUsers;
 
-    @Column(name = "PRICE_PER_PEARSON", nullable = false)
-    private Double pricePerPearson;
+    @Column(name = "PRICE_PER_PERSON", nullable = false)
+    private Double pricePerPerson;
 
     @Column(name = "AVAILABLE_FROM", nullable = false)
     private Date availableFrom;
