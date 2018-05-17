@@ -16,11 +16,11 @@ public class Reservation {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "`USER`", referencedColumnName = "ID")
+    @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "OFFER", referencedColumnName = "OFFER_ID")
+    @JoinColumn(name = "OFFER_ID", referencedColumnName = "ID")
     private Offer offer;
 
     @Column(name = "DATE_OF", nullable = false)

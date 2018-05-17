@@ -11,14 +11,14 @@ public class OfferPicture {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "OFFER_PICTURE_ID", nullable = false)
+    @Column(name = "ID", nullable = false)
     private Long id;
 
     @Column(name = "PICTURE_PATH", nullable = false)
     private String picturePath;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "OFFER", referencedColumnName = "OFFER_ID")
+    @JoinColumn(name = "OFFER_ID", referencedColumnName = "ID")
     private Offer offer;
 
 

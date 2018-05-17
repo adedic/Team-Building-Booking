@@ -12,7 +12,7 @@ public class Feedback {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "FEEDBACK_ID", nullable = false)
+    @Column(name = "ID", nullable = false)
     private Long id;
 
     @Column(name = "COMMENT")
@@ -25,11 +25,11 @@ public class Feedback {
     private Date date;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "`USER`", referencedColumnName = "ID")
+    @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "OFFER", referencedColumnName = "OFFER_ID")
+    @JoinColumn(name = "OFFER_ID", referencedColumnName = "ID")
     private Offer offer;
 
     //@Column(name = "TIMESTAMP", nullable = false)

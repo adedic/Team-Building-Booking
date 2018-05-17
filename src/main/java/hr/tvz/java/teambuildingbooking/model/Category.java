@@ -11,7 +11,7 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CATEGORY_ID", nullable = false)
+    @Column(name = "ID", nullable = false)
     private Long id;
 
     @Column(name = "NAME", nullable = false)
@@ -19,5 +19,9 @@ public class Category {
 
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "OFFER_ID", referencedColumnName = "ID")
+    private Offer offer;
 
 }

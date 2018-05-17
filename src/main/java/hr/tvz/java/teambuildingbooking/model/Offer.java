@@ -13,11 +13,11 @@ public class Offer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "OFFER_ID", nullable = false)
+    @Column(name = "ID", nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "`USER`", referencedColumnName = "ID")
+    @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     private User user;
 
     @Column(name = "STATE", nullable = false)
@@ -26,17 +26,17 @@ public class Offer {
     @Column(name = "CITY", nullable = false)
     private String city;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "offer", cascade = CascadeType.REMOVE)
     private Set<Category> categories;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "offer", cascade = CascadeType.REMOVE)
     private Set<Feedback> feedbacks;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "offer", cascade = CascadeType.REMOVE)
     private Set<Reservation> reservations;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "OFFER_PICTURE", referencedColumnName = "OFFER_PICTURE_ID")
+    @JoinColumn(name = "OFFER_PICTURE_ID", referencedColumnName = "ID")
     private OfferPicture offerPicture;
 
     @Column(name = "MIN_NUMBER_OF_USERS", nullable = false)
