@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class IndexController {
 
-    private static final String INDEX_VIEW_NAME = "offer/search";
+    private static final String INDEX_VIEW_NAME = "offer/search-offer";
 
     @GetMapping({"/", "index"})
     public String index(Model model) {

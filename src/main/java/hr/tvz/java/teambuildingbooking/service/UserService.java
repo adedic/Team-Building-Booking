@@ -7,6 +7,8 @@ import java.text.ParseException;
 
 public interface UserService {
 
+    User findByUsername(String username);
+
     User createUser(RegistrationForm form) throws ParseException;
 
     boolean existsByUsernameIgnoreCase(String username);

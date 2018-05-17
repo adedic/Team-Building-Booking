@@ -57,11 +57,11 @@
 					<li class="nav-item dropdown" sec:authorize="isAuthenticated()">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"><strong sec:authentication="name"></strong></a>
+						aria-expanded="false"><i class="fa fa-user"> </i> <strong sec:authentication="name"></strong></a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="#" sec:authorize="hasRole('ROLE_ADMIN, ROLE_USER')">Moje rezervacije</a>
 							<a class="dropdown-item" href="#" sec:authorize="hasRole('ROLE_PROVIDER')">Moje ponude</a>
-							<a class="dropdown-item" href="#" sec:authorize="hasRole('ROLE_USER')">Moj profil</a>
+							<a class="dropdown-item" th:href="@{/profile/me}" sec:authorize="hasRole('ROLE_USER')">Moj profil</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" th:href="@{/logout}">Odjava</a>
 						</div>
