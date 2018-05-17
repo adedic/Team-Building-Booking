@@ -46,13 +46,13 @@ public class RegisterController {
     public String handleRegistrationForm(@Valid @ModelAttribute("registrationForm") RegistrationForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws ParseException {
 
         if (bindingResult.hasErrors()) {
-            return "register";
+            return REGISTER_VIEW_NAME;
         }
         try {
             userService.createUser(form);
         } catch (DataIntegrityViolationException e) {
             bindingResult.reject("email.exists", "Email already exists");
-            return "register";
+            return REGISTER_VIEW_NAME;
         }
 
         redirectAttributes.addFlashAttribute("registrationSuccess", "Registracija uspješna! Prijavite se sa podacima koje ste unijeli.");
