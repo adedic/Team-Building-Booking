@@ -1,13 +1,13 @@
 package hr.tvz.java.teambuildingbooking.model;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Data
 @Entity
 @Table(name = "FEEDBACK")
+@EqualsAndHashCode(exclude = "offer")
 public class Feedback {
 
     @Id
@@ -35,4 +35,65 @@ public class Feedback {
     @Column(name = "DATE_LAST_EDITED")
     private Date dateLastEdited;
 
+    public Feedback() {
+        // default constructor
+    }
+
+    // --- get / set methods --------------------------------------------------
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public Integer getNumberOfStars() {
+        return numberOfStars;
+    }
+
+    public void setNumberOfStars(Integer numberOfStars) {
+        this.numberOfStars = numberOfStars;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Offer getOffer() {
+        return offer;
+    }
+
+    public void setOffer(Offer offer) {
+        this.offer = offer;
+    }
+
+    public Date getDateSubmitted() {
+        return dateSubmitted;
+    }
+
+    public void setDateSubmitted(Date dateSubmitted) {
+        this.dateSubmitted = dateSubmitted;
+    }
+
+    public Date getDateLastEdited() {
+        return dateLastEdited;
+    }
+
+    public void setDateLastEdited(Date dateLastEdited) {
+        this.dateLastEdited = dateLastEdited;
+    }
 }

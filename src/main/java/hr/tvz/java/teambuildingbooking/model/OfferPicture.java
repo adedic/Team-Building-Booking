@@ -1,10 +1,7 @@
 package hr.tvz.java.teambuildingbooking.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
-@Data
 @Entity
 @Table(name = "OFFER_PICTURE")
 public class OfferPicture {
@@ -23,8 +20,53 @@ public class OfferPicture {
     @Column(name = "SIZE", nullable = false)
     private String size;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "OFFER_ID", referencedColumnName = "ID")
     private Offer offer;
 
+    public OfferPicture() {
+        // default constructor
+    }
+
+    // --- get / set methods --------------------------------------------------
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getBase64String() {
+        return base64String;
+    }
+
+    public void setBase64String(String base64String) {
+        this.base64String = base64String;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public Offer getOffer() {
+        return offer;
+    }
+
+    public void setOffer(Offer offer) {
+        this.offer = offer;
+    }
 }

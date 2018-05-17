@@ -1,11 +1,8 @@
 package hr.tvz.java.teambuildingbooking.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.util.Date;
 
-@Data
 @Entity
 @Table(name = "RESERVATION")
 public class Reservation {
@@ -38,4 +35,73 @@ public class Reservation {
     @Column(name = "DATE_LAST_EDITED")
     private Date dateLastEdited;
 
+    public Reservation() {
+        // default constructor
+    }
+
+    // --- get / set methods --------------------------------------------------
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Offer getOffer() {
+        return offer;
+    }
+
+    public void setOffer(Offer offer) {
+        this.offer = offer;
+    }
+
+    public Date getStartsAt() {
+        return startsAt;
+    }
+
+    public void setStartsAt(Date startsAt) {
+        this.startsAt = startsAt;
+    }
+
+    public Date getEndsAt() {
+        return endsAt;
+    }
+
+    public void setEndsAt(Date endsAt) {
+        this.endsAt = endsAt;
+    }
+
+    public Date getDateOfReservation() {
+        return dateOfReservation;
+    }
+
+    public void setDateOfReservation(Date dateOfReservation) {
+        this.dateOfReservation = dateOfReservation;
+    }
+
+    public Date getDateOfCancellation() {
+        return dateOfCancellation;
+    }
+
+    public void setDateOfCancellation(Date dateOfCancellation) {
+        this.dateOfCancellation = dateOfCancellation;
+    }
+
+    public Date getDateLastEdited() {
+        return dateLastEdited;
+    }
+
+    public void setDateLastEdited(Date dateLastEdited) {
+        this.dateLastEdited = dateLastEdited;
+    }
 }

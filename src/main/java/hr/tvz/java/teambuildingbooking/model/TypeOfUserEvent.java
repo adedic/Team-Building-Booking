@@ -1,13 +1,11 @@
 package hr.tvz.java.teambuildingbooking.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
-@Data
 @Entity
 @Table(name = "TYPE_OF_USER_EVENT")
-public class TypeOfUserEvent {
+public class
+TypeOfUserEvent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +24,33 @@ public class TypeOfUserEvent {
     //@Column(name = "DATA_TWO")
     //private String dataTwo;
 
+    public TypeOfUserEvent() {
+        // default constructor
+    }
+
+    // --- get / set methods --------------------------------------------------
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
