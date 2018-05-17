@@ -20,8 +20,4 @@ public class Category {
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "OFFER_ID", referencedColumnName = "ID")
-    private Offer offer;
-
 }

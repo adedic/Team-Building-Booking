@@ -38,14 +38,13 @@ public class RegistrationFormValidator implements Validator {
         validatePasswordString(registrationForm.getPassword(), errors);
         validateMatchingPasswordString(registrationForm.getConfirmPassword(), errors);
         validateEmailString(registrationForm.getEmail(), errors);
-        validatePhoneNumberString(registrationForm.getTelephone(), errors);
         validateFirstNameString(registrationForm.getName(), errors);
         validateLastNameString(registrationForm.getSurname(), errors);
 
     }
 
-    private void validateRole(String dateOfBirth, Errors errors) {
-        if (isBlank(dateOfBirth)) {
+    private void validateRole(String userRole, Errors errors) {
+        if (isBlank(userRole)) {
             errors.rejectValue("userRole", "error.user.userRole.empty", "Morate unijeti ulogu u sustavu.");
         }
     }
@@ -74,18 +73,6 @@ public class RegistrationFormValidator implements Validator {
         if (surname.length() > 30) {
             errors.rejectValue("surname", "error.user.surname.too-long", "Ime ne može biti duže od 30 znakova.");
         }
-    }
-
-    void validatePhoneNumberString(String telephone, Errors errors) {
-
-        if (isBlank(telephone)) {
-            errors.rejectValue("telephone", "error.user.telephone.empty", "Morate unijeti telefon!");
-        }
-
-        if (telephone.length() > 20) {
-            errors.rejectValue("telephone", "error.user.telephone.too-long", "Broj telefona ne može biti duži od 20 znakova!");
-        }
-
     }
 
     void validateEmailString(String email, Errors errors) {

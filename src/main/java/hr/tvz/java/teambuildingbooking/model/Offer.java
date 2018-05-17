@@ -1,9 +1,12 @@
 package hr.tvz.java.teambuildingbooking.model;
 
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -26,8 +29,13 @@ public class Offer {
     @Column(name = "CITY", nullable = false)
     private String city;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "offer", cascade = CascadeType.REMOVE)
-    private Set<Category> categories;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "OFFER_CATEGORY",
+            joinColumns = {@JoinColumn(name = "OFFER_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")}
+    )
+    @Fetch(FetchMode.JOIN)
+    private Set<Category> roles = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "offer", cascade = CascadeType.REMOVE)
     private Set<Feedback> feedbacks;
@@ -66,7 +74,7 @@ public class Offer {
     @Column(name = "DATE_ADDED", nullable = false)
     private Date dateAdded;
 
-    @Column(name = "DATE_DELETED", nullable = false)
+    @Column(name = "DATE_DELETED")
     private Date dateDeleted;
 
     @Column(name = "DATE_LAST_EDITED")
