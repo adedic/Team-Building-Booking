@@ -1,11 +1,8 @@
 package hr.tvz.java.teambuildingbooking.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.sql.Date;
 
-@Data
 @Entity
 @Table(name = "USER_EVENT")
 public class UserEvent {
@@ -26,4 +23,20 @@ public class UserEvent {
 
     //@Column(name = "TIMESTAMP", nullable = false)
     //private Timestamp tStamp;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getDateOfEvent() {
+        return dateOfEvent;
+    }
+
+    public void setDateOfEvent(Date dateOfEvent) {
+        this.dateOfEvent = dateOfEvent;
+    }
 }

@@ -41,10 +41,10 @@ public class User {
     @Column(name = "ENABLED", nullable = false)
     private Boolean enabled;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Offer> offers;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Reservation> reservations;
 
     @Column(name = "DATE_OF_BIRTH")
@@ -59,11 +59,11 @@ public class User {
     @Column(name = "DATE_OF_REGISTRATION", nullable = false)
     private Date dateOfRegistration;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Feedback> feedbacks;
 
-    //@Column(name = "TIMESTAMP", nullable = false)
-    //private Timestamp tStamp;
+    @Column(name = "DATE_LAST_EDITED")
+    private Date dateLastEdited;
 
     public User(User user) {
         this.name = user.getName();
@@ -156,14 +156,6 @@ public class User {
         this.reservations = reservations;
     }
 
-    public Set<Feedback> getFeedbacks() {
-        return feedbacks;
-    }
-
-    public void setFeedbacks(Set<Feedback> feedbacks) {
-        this.feedbacks = feedbacks;
-    }
-
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
@@ -194,5 +186,21 @@ public class User {
 
     public void setDateOfRegistration(Date dateOfRegistration) {
         this.dateOfRegistration = dateOfRegistration;
+    }
+
+    public Set<Feedback> getFeedbacks() {
+        return feedbacks;
+    }
+
+    public void setFeedbacks(Set<Feedback> feedbacks) {
+        this.feedbacks = feedbacks;
+    }
+
+    public Date getDateLastEdited() {
+        return dateLastEdited;
+    }
+
+    public void setDateLastEdited(Date dateLastEdited) {
+        this.dateLastEdited = dateLastEdited;
     }
 }

@@ -1,42 +1,48 @@
 package hr.tvz.java.teambuildingbooking.model;
 
-import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
-@Data
 @Entity
 @Table(name = "OFFER")
 public class Offer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "OFFER_ID", nullable = false)
+    @Column(name = "ID", nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "`USER`", referencedColumnName = "ID")
+    @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     private User user;
 
-    @Column(name = "STATE", nullable = false)
-    private String state;
+    @Column(name = "COUNTRY", nullable = false)
+    private String country;
 
     @Column(name = "CITY", nullable = false)
     private String city;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    private Set<Category> categories;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "OFFER_CATEGORY",
+            joinColumns = {@JoinColumn(name = "OFFER_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")}
+    )
+    @Fetch(FetchMode.JOIN)
+    private Set<Category> roles = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "offer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Feedback> feedbacks;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "offer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Reservation> reservations;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "OFFER_PICTURE", referencedColumnName = "OFFER_PICTURE_ID")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "OFFER_PICTURE_ID", referencedColumnName = "ID")
     private OfferPicture offerPicture;
 
     @Column(name = "MIN_NUMBER_OF_USERS", nullable = false)
@@ -58,15 +64,175 @@ public class Offer {
     private String description;
 
     @Column(name = "ENABLED", nullable = false)
-    private Boolean enabled;
+    private boolean enabled;
 
-    //@Column(name = "DATE_OF_ADDING", nullable = false)
-    //private Date dateOfAdding;
+    @Column(name = "ACTIVE", nullable = false)
+    private boolean active;
 
-    //@Column(name = "DATE_OF_DELETING", nullable = false)
-    //private Date dateOfDeleting;
+    @Column(name = "DATE_ADDED", nullable = false)
+    private Date dateAdded;
 
-    //@Column(name = "TIMESTAMP", nullable = false)
-    //private Timestamp tStamp;
+    @Column(name = "DATE_DELETED")
+    private Date dateDeleted;
 
+    @Column(name = "DATE_LAST_EDITED")
+    private Date dateLastEdited;
+
+    public Offer() {
+        // default constructor
+    }
+
+    // --- get / set methods --------------------------------------------------
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public Set<Category> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Category> roles) {
+        this.roles = roles;
+    }
+
+    public Set<Feedback> getFeedbacks() {
+        return feedbacks;
+    }
+
+    public void setFeedbacks(Set<Feedback> feedbacks) {
+        this.feedbacks = feedbacks;
+    }
+
+    public Set<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    public OfferPicture getOfferPicture() {
+        return offerPicture;
+    }
+
+    public void setOfferPicture(OfferPicture offerPicture) {
+        this.offerPicture = offerPicture;
+    }
+
+    public Integer getMinNumberOfUsers() {
+        return minNumberOfUsers;
+    }
+
+    public void setMinNumberOfUsers(Integer minNumberOfUsers) {
+        this.minNumberOfUsers = minNumberOfUsers;
+    }
+
+    public Integer getMaxNumberOfUsers() {
+        return maxNumberOfUsers;
+    }
+
+    public void setMaxNumberOfUsers(Integer maxNumberOfUsers) {
+        this.maxNumberOfUsers = maxNumberOfUsers;
+    }
+
+    public Double getPricePerPerson() {
+        return pricePerPerson;
+    }
+
+    public void setPricePerPerson(Double pricePerPerson) {
+        this.pricePerPerson = pricePerPerson;
+    }
+
+    public Date getAvailableFrom() {
+        return availableFrom;
+    }
+
+    public void setAvailableFrom(Date availableFrom) {
+        this.availableFrom = availableFrom;
+    }
+
+    public Date getAvailableTo() {
+        return availableTo;
+    }
+
+    public void setAvailableTo(Date availableTo) {
+        this.availableTo = availableTo;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Date getDateAdded() {
+        return dateAdded;
+    }
+
+    public void setDateAdded(Date dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+
+    public Date getDateDeleted() {
+        return dateDeleted;
+    }
+
+    public void setDateDeleted(Date dateDeleted) {
+        this.dateDeleted = dateDeleted;
+    }
+
+    public Date getDateLastEdited() {
+        return dateLastEdited;
+    }
+
+    public void setDateLastEdited(Date dateLastEdited) {
+        this.dateLastEdited = dateLastEdited;
+    }
 }

@@ -1,42 +1,107 @@
 package hr.tvz.java.teambuildingbooking.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
-@Data
 @Entity
 @Table(name = "RESERVATION")
 public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "RESERVATION_ID", nullable = false)
+    @Column(name = "ID", nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "`USER`", referencedColumnName = "ID")
+    @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "OFFER", referencedColumnName = "OFFER_ID")
+    @JoinColumn(name = "OFFER_ID", referencedColumnName = "ID")
     private Offer offer;
 
-    @Column(name = "DATE_OF", nullable = false)
-    private Date dateOf;
+    @Column(name = "STARTS_AT", nullable = false)
+    private Date startsAt;
 
-    @Column(name = "DATE_TO", nullable = false)
-    private Date dateTo;
+    @Column(name = "ENDS_AT", nullable = false)
+    private Date endsAt;
 
     @Column(name = "DATE_OF_RESERVATION", nullable = false)
     private Date dateOfReservation;
 
-    @Column(name = "DATE_OF_CANCELLATION", nullable = false)
+    @Column(name = "DATE_OF_CANCELLATION")
     private Date dateOfCancellation;
 
-    //@Column(name = "TIMESTAMP", nullable = false)
-    //private Timestamp tStamp;
+    @Column(name = "DATE_LAST_EDITED")
+    private Date dateLastEdited;
 
+    public Reservation() {
+        // default constructor
+    }
 
+    // --- get / set methods --------------------------------------------------
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Offer getOffer() {
+        return offer;
+    }
+
+    public void setOffer(Offer offer) {
+        this.offer = offer;
+    }
+
+    public Date getStartsAt() {
+        return startsAt;
+    }
+
+    public void setStartsAt(Date startsAt) {
+        this.startsAt = startsAt;
+    }
+
+    public Date getEndsAt() {
+        return endsAt;
+    }
+
+    public void setEndsAt(Date endsAt) {
+        this.endsAt = endsAt;
+    }
+
+    public Date getDateOfReservation() {
+        return dateOfReservation;
+    }
+
+    public void setDateOfReservation(Date dateOfReservation) {
+        this.dateOfReservation = dateOfReservation;
+    }
+
+    public Date getDateOfCancellation() {
+        return dateOfCancellation;
+    }
+
+    public void setDateOfCancellation(Date dateOfCancellation) {
+        this.dateOfCancellation = dateOfCancellation;
+    }
+
+    public Date getDateLastEdited() {
+        return dateLastEdited;
+    }
+
+    public void setDateLastEdited(Date dateLastEdited) {
+        this.dateLastEdited = dateLastEdited;
+    }
 }

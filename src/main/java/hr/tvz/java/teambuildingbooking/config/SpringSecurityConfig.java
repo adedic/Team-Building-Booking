@@ -45,7 +45,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/?loginSuccess=true")
+                .defaultSuccessUrl("/offer/search?loginSuccess=true", true)
                 .and()
                 .logout()
                 .logoutSuccessUrl("/login?logout")
