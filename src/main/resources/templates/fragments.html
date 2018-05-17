@@ -49,8 +49,11 @@
 					</li>
 				</ul>
 				<ul class="navbar-nav my-2 my-lg-0" style="margin-right: 4%">
-					<li class="nav-item" sec:authorize="isAnonymous()"><a
+					<li th:if="${navLinkText} == 'Registracija'"  class="nav-item" sec:authorize="isAnonymous()"><a
 						class="nav-link" th:href="@{/register}">Registriraj se</a>
+					</li>
+					<li th:if="${navLinkText} == 'Prijava'"  class="nav-item" sec:authorize="isAnonymous()"><a
+							class="nav-link" th:href="@{/login}">Prijavi se</a>
 					</li>
 					<li class="nav-item dropdown" sec:authorize="isAuthenticated()">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
