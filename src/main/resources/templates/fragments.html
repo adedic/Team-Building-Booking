@@ -41,9 +41,9 @@
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active" sec:authorize="hasRole('ROLE_PROVIDER')" ><a class="nav-link" th:href="@{/offer/search}">Ponude<span
+					<li class="nav-item active" sec:authorize="hasRole('ROLE_USER')" ><a class="nav-link" th:href="@{/offer/search}">Ponude<span
 							class="sr-only">(current)</span></a></li>
-					<li class="nav-item active" sec:authorize="hasRole('ROLE_PROVIDER')" ><a class="nav-link" th:href="@{/offer/new}">Nova ponuda<span
+					<li class="nav-item active" sec:authorize="hasAnyRole('ROLE_ADMIN, ROLE_PROVIDER')" ><a class="nav-link" th:href="@{/offer/new}">Nova ponuda<span
 							class="sr-only">(current)</span></a></li>
 					<li class="nav-item active"><a class="nav-link" href="#">O
 							nama</a></li>
@@ -60,13 +60,13 @@
 					<li class="nav-item dropdown" sec:authorize="isAuthenticated()">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"><i class="fa fa-user"> </i> <strong sec:authentication="name"></strong></a>
+						aria-expanded="false"><strong sec:authentication="name"></strong></a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#" sec:authorize="hasRole('ROLE_ADMIN, ROLE_USER')">Moje rezervacije</a>
-							<a class="dropdown-item" href="#" sec:authorize="hasRole('ROLE_PROVIDER')">Moje ponude</a>
-							<a class="dropdown-item" th:href="@{/profile/me}" sec:authorize="hasRole('ROLE_USER')">Moj profil</a>
+							<a class="dropdown-item" href="#" sec:authorize="!hasAnyRole('ROLE_PROVIDER')"><i class="fa fa-pencil-square"></i> Moje rezervacije</a>
+							<a class="dropdown-item" href="#" sec:authorize="hasAnyRole('ROLE_ADMIN, ROLE_PROVIDER')"><i class="fa fa-opencart"></i> Moje ponude</a>
+							<a class="dropdown-item" th:href="@{/profile/me}" sec:authorize="hasRole('ROLE_USER')"><i class="fa fa-user"></i> Moj profil</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" th:href="@{/logout}">Odjava</a>
+							<a class="dropdown-item" th:href="@{/logout}"><i class="fa fa-power-off"></i> Odjava</a>
 						</div>
 					</li>
 				</ul>
