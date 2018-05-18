@@ -1,11 +1,12 @@
 package hr.tvz.java.teambuildingbooking.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "TYPE_OF_USER_EVENT")
 public class
-TypeOfUserEvent {
+TypeOfUserEvent implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

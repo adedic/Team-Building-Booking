@@ -4,13 +4,14 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "OFFER")
-public class Offer {
+public class Offer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

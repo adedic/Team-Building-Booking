@@ -1,10 +1,11 @@
 package hr.tvz.java.teambuildingbooking.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "OFFER_PICTURE")
-public class OfferPicture {
+public class OfferPicture implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
