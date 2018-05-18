@@ -1,14 +1,11 @@
 package hr.tvz.java.teambuildingbooking.controller;
 
-import hr.tvz.java.teambuildingbooking.model.Offer;
 import hr.tvz.java.teambuildingbooking.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 
 @Controller
@@ -36,7 +33,7 @@ public class OfferController {
 
     @RequestMapping("/results")
     private String showResults(Model model) {
-        List<Offer> offers = offerService.findAll();
+        //List<Offer> offers = offerService.findAll();
         return SEARCH_RESULTS_VIEW_NAME; }
 
     @RequestMapping("/details")
