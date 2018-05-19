@@ -24,22 +24,17 @@
 
                     <div class="panel-body">
 
-                        <form role="form" method="POST" name="searchOffer" th:action="@{/searchOffer}" class="needs-validation" novalidate>
+                        <form role="form" method="POST" name="searchOffer" th:action="@{/search}" class="needs-validation" novalidate>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="category">Odaberite željenu kategoriju</label>
                                     <select class="custom-select mr-sm-2" id="category">
-                                        <option selected value="1">Sport</option>
-                                        <option value="2">Putovanja</option>
-                                        <option value="3">Rekreacija</option>
-                                        <option value="4">Avantura</option>
-                                        <option value="5">Zabavni program</option>
-                                        <option value="6">Ostalo</option>
+                                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"/>
                                     </select>
                                 </div>
                                 <div class="form-group  col-md-6">
                                     <label for="category">Unesite željeni broj osoba</label>
-                                    <input type="number" min="1" onkeypress="return event.charCode >= 48" name="numOfPeople" class="form-control" id="numOfPeople" placeholder="Broj osoba" required autofocus>
+                                    <input type="number" min="1" max="250" onkeypress="return event.charCode >= 48" name="numOfPeople" class="form-control" id="numOfPeople" placeholder="Broj osoba" required autofocus>
                                     <div class="invalid-feedback">Unesite broj osoba za team building!</div>
                                 </div>
                             </div>
@@ -60,12 +55,12 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="country">Datum od</label>
-                                    <input type="date" name="dateFrom" class="form-control" id="dateFrom" placeholder="Ponuda raspoloživa od" required autofocus>
+                                    <input type="date" name="dateFrom" class="form-control" id="dateFrom" placeholder="Datum od" required autofocus>
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="country">Datum do</label>
-                                    <input type="date" name="dateTo" class="form-control" id="dateTo" placeholder="Ponuda raspoloživa do" required autofocus>
+                                    <input type="date" name="dateTo" class="form-control" id="dateTo" placeholder="Datum do" required autofocus>
                                 </div>
                             </div>
 
