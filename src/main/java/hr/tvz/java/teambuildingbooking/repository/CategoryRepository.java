@@ -1,13 +1,9 @@
 package hr.tvz.java.teambuildingbooking.repository;
 
-import hr.tvz.java.teambuildingbooking.model.Offer;
+import hr.tvz.java.teambuildingbooking.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface OfferRepository extends JpaRepository<Offer, Long> {
-
-    List<Offer> findAll();
+public interface CategoryRepository extends JpaRepository<Category, Long> {
 }

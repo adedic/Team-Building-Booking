@@ -25,6 +25,12 @@ public class UserEvent implements Serializable {
     //@Column(name = "TIMESTAMP", nullable = false)
     //private Timestamp tStamp;
 
+    public UserEvent() {
+        // default constructor
+    }
+
+    // --- get / set methods --------------------------------------------------
+
     public Long getId() {
         return id;
     }

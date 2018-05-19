@@ -16,8 +16,8 @@ public class OfferServiceImpl implements OfferService {
     private OfferRepository offerRepository;
 
     @Autowired
-    public OfferServiceImpl(OfferRepository oR) {
-        this.offerRepository = oR;
+    public OfferServiceImpl(OfferRepository offerRepository) {
+        this.offerRepository = offerRepository;
     }
 
     @Override

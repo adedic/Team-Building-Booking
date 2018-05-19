@@ -5,8 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "TYPE_OF_USER_EVENT")
-public class
-TypeOfUserEvent implements Serializable {
+public class TypeOfUserEvent implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -5,5 +5,6 @@ import hr.tvz.java.teambuildingbooking.model.Offer;
 import java.util.List;
 
 public interface OfferService {
+
     List<Offer> findAll();
 }

@@ -33,9 +33,11 @@ public class OfferController {
 
     @RequestMapping("/results")
     private String showResults(Model model) {
-        //List<Offer> offers = offerService.findAll();
-        return SEARCH_RESULTS_VIEW_NAME; }
+        return SEARCH_RESULTS_VIEW_NAME;
+    }
 
     @RequestMapping("/details")
-    private String showDetails(Model model) { return DETAILS_VIEW_NAME; }
+    private String showDetails(Model model) {
+        return DETAILS_VIEW_NAME;
+    }
 }
