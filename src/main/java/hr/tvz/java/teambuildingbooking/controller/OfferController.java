@@ -1,8 +1,7 @@
 package hr.tvz.java.teambuildingbooking.controller;
 
-import hr.tvz.java.teambuildingbooking.service.OfferService;
-import org.springframework.beans.factory.annotation.Autowired;
 import hr.tvz.java.teambuildingbooking.service.CategoryService;
+import hr.tvz.java.teambuildingbooking.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -33,7 +32,9 @@ public class OfferController {
 
     @RequestMapping("/search")
     private String searchOffer(Model model) {
-        model.addAttribute("categories", categoryService.fetchCategories());
+        model.addAttribute("categories", categoryService.findAll());
+//        model.addAttribute("topOffers", offerService.findTopOffers());
+        model.addAttribute("topOffers", offerService.findAll());
         return SEARCH_OFFER_VIEW_NAME;
     }
 
