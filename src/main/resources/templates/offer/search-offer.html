@@ -29,29 +29,24 @@
                                 <div class="form-group col-md-6">
                                     <label for="category" class="text-white">Odaberite željenu kategoriju</label>
                                     <select class="custom-select mr-sm-2" id="category">
-                                        <option selected value="1">Sport</option>
-                                        <option value="2">Putovanja</option>
-                                        <option value="3">Rekreacija</option>
-                                        <option value="4">Avantura</option>
-                                        <option value="5">Zabavni program</option>
-                                        <option value="6">Ostalo</option>
+                                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="category" class="text-white">Unesite željeni broj osoba</label>
-                                    <input type="number" min="1" onkeypress="return event.charCode >= 48" name="numOfPeople" class="form-control" id="numOfPeople" placeholder="Broj osoba" required autofocus>
-                                    <div class="invalid-feedback">Unesite broj osoba za team building!</div>
+                                    <input type="number" min="1" max="250" onkeypress="return event.charCode >= 48" name="numOfPeople" class="form-control" id="numOfPeople" placeholder="Broj osoba" required autofocus>
+                                    <div class="invalid-feedback">Unesite broj osoba za team building manji od 250!</div>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="country" class="text-white">Unesite željenu državu</label>
+                                    <label for="country">Unesite željenu državu</label>
                                     <input type="text" name="country" class="form-control" id="country" placeholder="Država" required autofocus>
                                     <div class="invalid-feedback">Unesite valjan naziv države!</div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="country" class="text-white">Unesite željeni grad</label>
+                                    <label for="country">Unesite željeni grad</label>
                                     <input type="text" name="city" class="form-control" id="city" placeholder="Grad" required autofocus>
                                     <div class="invalid-feedback">Unesite valjan naziv grada!</div>
                                 </div>
@@ -59,17 +54,17 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="country" class="text-white">Datum od</label>
-                                    <input type="date" name="dateFrom" class="form-control" id="dateFrom" placeholder="Ponuda raspoloživa od" required autofocus>
+                                    <label for="country">Datum od</label>
+                                    <input type="date" name="dateFrom" class="form-control" id="dateFrom" placeholder="Datum od" required autofocus>
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="country" class="text-white">Datum do</label>
-                                    <input type="date" name="dateTo" class="form-control" id="dateTo" placeholder="Ponuda raspoloživa do" required autofocus>
+                                    <label for="country">Datum do</label>
+                                    <input type="date" name="dateTo" class="form-control" id="dateTo" placeholder="Datum do" required autofocus>
                                 </div>
                             </div>
 
-                            <input class="btn btn-lg btn-danger btn-block" type="submit" value="Pretraži ponude!" />
+                            <input class="btn btn-lg btn-outline-primary btn-block" type="submit" value="Pretraži ponude!" />
 
                         </form>
                     </div>
@@ -94,89 +89,18 @@
                     <br></br>
 
                     <div class="panel-body">
-                        <div class="card-deck">
-                            <div class="card">
-                                <img class="card-img-top" src="https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2017/whatcountsas.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Ponuda 1</h5>
-                                    <p class="card-text">Ovo je prva ponuda.</p>
-                                    <a href="#" class="btn btn-info">Detalji</a>
+                        <div class="card-columns">
+                            <tr th:each="offer : ${topOffers}">
+                                <div class="card">
+                                    <img class="card-img-top" src="https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2017/whatcountsas.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title" th:text="${offer.id}"></h5>
+                                        <p class="card-text" th:text="${#strings.substring(offer.description,0,79) + '...'}" th:if="${#strings.length(offer.description) > 80}"></p>
+                                        <p class="card-text" th:text="${offer.description}" th:if="${#strings.length(offer.description) < 81}"></p>
+                                        <a href="#" class="btn btn-info">Detalji</a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card">
-                                <img class="card-img-top" src="https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2017/whatcountsas.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Ponuda 2</h5>
-                                    <p class="card-text">Ovo je druga ponuda.</p>
-                                    <a href="#" class="btn btn-info">Detalji</a>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <img class="card-img-top" src="https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2017/whatcountsas.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Ponuda 3</h5>
-                                    <p class="card-text">Ovo je treća ponuda.</p>
-                                    <a href="#" class="btn btn-info">Detalji</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <br>
-
-                        <div class="card-deck">
-                            <div class="card">
-                                <img class="card-img-top" src="https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2017/whatcountsas.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Ponuda 4</h5>
-                                    <p class="card-text">Ovo je četvrta ponuda.</p>
-                                    <a href="#" class="btn btn-info">Detalji</a>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <img class="card-img-top" src="https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2017/whatcountsas.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Ponuda 5</h5>
-                                    <p class="card-text">Ovo je peta ponuda.</p>
-                                    <a href="#" class="btn btn-info">Detalji</a>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <img class="card-img-top" src="https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2017/whatcountsas.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Ponuda 6</h5>
-                                    <p class="card-text">Ovo je šesta ponuda.</p>
-                                    <a href="#" class="btn btn-info">Detalji</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <br>
-
-                        <div class="card-deck">
-                            <div class="card">
-                                <img class="card-img-top" src="https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2017/whatcountsas.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Ponuda 7</h5>
-                                    <p class="card-text">Ovo je sedma ponuda.</p>
-                                    <a href="#" class="btn btn-info">Detalji</a>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <img class="card-img-top" src="https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2017/whatcountsas.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Ponuda 8</h5>
-                                    <p class="card-text">Ovo je osma ponuda.</p>
-                                    <a href="#" class="btn btn-info">Detalji</a>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <img class="card-img-top" src="https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2017/whatcountsas.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Ponuda 9</h5>
-                                    <p class="card-text">Ovo je deveta ponuda.</p>
-                                    <a href="#" class="btn btn-info">Detalji</a>
-                                </div>
-                            </div>
+                            </tr>
                         </div>
                     </div>
 
