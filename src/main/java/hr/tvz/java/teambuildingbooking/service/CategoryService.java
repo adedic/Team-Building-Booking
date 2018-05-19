@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface CategoryService {
 
-    List<Category> fetchCategories();
-
+    List<Category> findAll();
 }

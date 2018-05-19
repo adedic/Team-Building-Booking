@@ -8,13 +8,13 @@
 <th:block th:replace="fragments :: css"></th:block>
 </head>
 <body>
-	<div class="container text-center" style="margin-top:10vh;">
+	<div class="container text-center" style="margin-top:10vh; margin-bottom:50vh;">
 		<div class="row">
 
 			<div class="col-md-12">
 				<div class="error-template">
 					<h1>Ups!</h1>
-					<!-- <a th:href="@{/}"><img th:src="@{/images/login_brand.png}" /></a> -->
+					<img th:src="@{/resources/static/img/logo.png}" />
 					<h3 th:if="${status} == '403'"
 						th:text=" '403: ' + 'Zabranjen pristup'"></h3>
 					<h3 th:if="${status} == '404'"
@@ -36,8 +36,8 @@
 
 					<hr />
 					<div class="error-actions">
-						<a th:href="@{/}" class="btn btn-primary btn-lg"><span
-							class="glyphicon glyphicon-home"></span> Povratak na naslovnu
+						<a th:href="@{/}" class="btn btn-outline-primary btn-lg"><span
+							class="fa fa-home"></span> Povratak na naslovnu
 							stranicu </a>
 					</div>
 
@@ -46,6 +46,6 @@
 		</div>
 	</div>
 	<div th:replace="fragments :: footer"></div>
-	<div th:replace="fragments :: scripts"></div>
+	<div th:replace="fragments :: additionalScripts"></div>
 </body>
 </html>

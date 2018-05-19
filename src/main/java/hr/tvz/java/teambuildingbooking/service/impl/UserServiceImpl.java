@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
         user.setRoles(roleSet);
         user.setEnabled(true);
 
-        log.info("---> Saving new User with username = " + user.getUsername() + " to database ...");
+        //log.info("---> Saving new User with username = " + user.getUsername() + " to database ...");
         return userRepository.save(user);
     }
 

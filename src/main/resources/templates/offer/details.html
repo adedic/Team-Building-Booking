@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Detalji ponude</title>
+
+    <th:block th:replace="fragments :: css"></th:block>
+</head>
+<body>
+<th:block th:include="fragments :: header"></th:block>
+
+<div layout:fragment="content">
+
+    <div style="background: url('https://baconmockup.com/300/250'); background-repeat: no-repeat; background-size: cover; height:80vh">
+        <div class="row justify-content-md-center" style="background: rgba(255,255,255,0.4); height:80vh">
+            <div style="padding-top: 20vh; padding-bottom: 20vh;">
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row justify-content-md-center">
+            <div class="col-md-10" style="padding-top: 10vh;">
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h1 class="panel-title">Rafting na Cetini</h1>
+                            <h5 class="text-secondary"><span class="fa fa-map-marker"></span> Hrvatska, <span class="text-black-50">Omiš</span></h5>
+                            <h4><span class="badge badge-success">Sport</span></h4>
+                        </div>
+                        <div class="col-md-3" style="padding-top:2vh">
+                            <h6><span class="fa fa-male text-danger"></span> 3-5 ljudi</h6>
+                            <h6><span class="fa fa-money text-success"></span> 500kn</h6>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="row justify-content-md-center">
+
+            <div class="col-md-10" style="padding-top: 5vh;">
+
+                <div class="col-md-10">
+                    <div class="row">
+
+                        <div class="col-md-9">
+                            <p class="text-black-50">Lorem Ipsum is simply dummy tetry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                        </div>
+                        <div class="col-md-3">
+                            <p>MAPA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row justify-content-md-center">
+
+            <div class="col-md-10" style="padding-top: 5vh;">
+
+                <div class="col-md-10">
+                        <div>Odaberi datum:</div>
+                        <br>
+                        <div>
+                            <button class="btn btn-lg btn-outline-primary btn-block col-md-4" >Rezerviraj ponudu</button>
+                        </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    </div>
+
+</div>
+
+<th:block th:include="fragments :: footer"></th:block>
+<th:block th:include="fragments :: additionalScripts"></th:block>
+</body>
+</html>

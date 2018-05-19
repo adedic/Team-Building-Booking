@@ -11,29 +11,34 @@
 <body>
 <th:block th:include="fragments :: header"></th:block>
 
-<div layout:fragment="content">
-    <div class="container" style="padding-top: 20vh;">
+<div layout:fragment="content" >
 
-        <div class="row justify-content-md-center">
-            <div class="col-md-10">
-                <div class="panel panel-default">
+    <div style="background: url('/resources/static/img/login.jpeg')">
+        <div class="row justify-content-md-center"  style="background: rgba(255,255,255,0.4)">
+            <div class="col-md-7" style="padding-top: 20vh; padding-bottom: 20vh;">
+                <div class="panel panel-default" style="background: rgba(33,37,41,0.9); padding: 5% 5%">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Pretraži team building ponude</h3>
+                        <h3 class="panel-title text-white">Pretraži team building ponude</h3>
                     </div>
                     <br>
 
                     <div class="panel-body">
 
-                        <form role="form" method="POST" name="searchOffer" th:action="@{/search}" class="needs-validation" novalidate>
+                        <form role="form" method="POST" name="searchOffer" th:action="@{/searchOffer}" class="needs-validation" novalidate>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="category">Odaberite željenu kategoriju</label>
+                                    <label for="category" class="text-white">Odaberite željenu kategoriju</label>
                                     <select class="custom-select mr-sm-2" id="category">
-                                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"/>
+                                        <option selected value="1">Sport</option>
+                                        <option value="2">Putovanja</option>
+                                        <option value="3">Rekreacija</option>
+                                        <option value="4">Avantura</option>
+                                        <option value="5">Zabavni program</option>
+                                        <option value="6">Ostalo</option>
                                     </select>
                                 </div>
-                                <div class="form-group  col-md-6">
-                                    <label for="category">Unesite željeni broj osoba</label>
+                                <div class="form-group col-md-6">
+                                    <label for="category" class="text-white">Unesite željeni broj osoba</label>
                                     <input type="number" min="1" max="250" onkeypress="return event.charCode >= 48" name="numOfPeople" class="form-control" id="numOfPeople" placeholder="Broj osoba" required autofocus>
                                     <div class="invalid-feedback">Unesite broj osoba za team building!</div>
                                 </div>
@@ -72,11 +77,16 @@
             </div>
         </div>
 
+    </div>
+
+
+    <div class="container">
+
         <br>
         <br>
 
         <div class="row justify-content-md-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title" id="ponude">Izdvojene team building ponude</h3>

@@ -1,14 +1,13 @@
 package hr.tvz.java.teambuildingbooking.model;
 
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "FEEDBACK")
-@EqualsAndHashCode(exclude = "offer")
-public class Feedback {
+public class Feedback implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

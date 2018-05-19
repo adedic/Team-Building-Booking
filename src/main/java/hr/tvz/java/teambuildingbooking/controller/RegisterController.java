@@ -36,7 +36,6 @@ public class RegisterController {
     @RequestMapping("/register")
     private String register(Model model) {
         model.addAttribute("navLinkText", "Prijava");
-        model.addAttribute("navLink", "/login");
 
         model.addAttribute("registrationForm", new RegistrationForm());
         return REGISTER_VIEW_NAME;
