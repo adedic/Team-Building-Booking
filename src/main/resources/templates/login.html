@@ -21,6 +21,9 @@
 				<div class="mx-auto text-center alert alert-success" th:if="${registrationSuccess}">
 					<span th:text="${registrationSuccess}"></span>
 				</div>
+				<div class="mx-auto text-center alert alert-success" th:if="${editSuccess}">
+					<span th:text="${editSuccess}"></span>
+				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">Prijava korisnika</h3>
@@ -32,6 +35,9 @@
 					<div th:if="${param.logout}" class="mx-auto text-center alert alert-success">
                     Uspješno ste odjavljeni iz aplikacije!
                		 </div>
+					<div th:if="${param.editSuccess}" class="mx-auto text-center alert alert-success">
+                        Uređivanje uspješno! Prijavite se ponovno kako bi vidjeli izmjene.
+                    </div>
 					<div class="panel-body">
 						<form role="form" method="POST" name="formLogin"
 							th:action='@{/login}' class="needs-validation" novalidate>

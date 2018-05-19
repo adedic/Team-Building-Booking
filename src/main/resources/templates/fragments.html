@@ -65,6 +65,7 @@
 							<a class="dropdown-item" href="#" sec:authorize="!hasAnyRole('ROLE_PROVIDER')"><i class="fa fa-pencil-square"></i> Moje rezervacije</a>
 							<a class="dropdown-item" href="#" sec:authorize="hasAnyRole('ROLE_ADMIN, ROLE_PROVIDER')"><i class="fa fa-opencart"></i> Moje ponude</a>
 							<a class="dropdown-item" th:href="@{/profile/me}" sec:authorize="hasRole('ROLE_USER')"><i class="fa fa-user"></i> Moj profil</a>
+							<a class="dropdown-item" th:href="@{/profile/edit}" sec:authorize="hasRole('ROLE_USER')"><i class="fa fa-pencil"></i> Uredi profil</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" th:href="@{/logout}"><i class="fa fa-power-off"></i> Odjava</a>
 						</div>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Uredi profil</title>
+
+    <th:block th:replace="fragments :: css"></th:block>
+</head>
+<body>
+<th:block th:include="fragments :: header"></th:block>
+
+<div layout:fragment="content">
+    <div class="container" style="padding-top: 20vh;">
+
+        <div class="row justify-content-md-center">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Uredi profil</h3>
+                    </div>
+
+                    <div class="card card-profile">
+
+                        <form th:action="@{/profile/edit}" th:object="${editUserForm}" method="POST">
+                            <span th:value="${#authentication.principal.id}"> </span>
+                            <input type="hidden" th:field="*{id}" th:value="${#authentication.principal.id}"/>
+                            <div class="form-group col-md-12">
+                                <b><label>Korisničko ime:</label></b>
+                                <input class="form-control" th:field="*{username}" autofocus/>
+                                <p class="text-danger" th:each="error: ${#fields.errors('username')}"
+                                   th:text="${error}">Validation error</p>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <b><label>Ime:</label></b>
+                                <input class="form-control" th:field="*{name}"/>
+                                <p class="text-danger" th:each="error: ${#fields.errors('name')}"
+                                   th:text="${error}">Validation error</p>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <b><label>Prezime:</label></b>
+                                <input class="form-control" th:field="*{surname}"/>
+                                <p class="text-danger" th:each="error: ${#fields.errors('surname')}"
+                                   th:text="${error}">Validation error</p>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <b><label>Datum rođenja:</label></b>
+                                <input type="date" class="form-control" th:field="*{dateOfBirth}"/>
+                                <p class="text-danger" th:each="error: ${#fields.errors('dateOfBirth')}"
+                                   th:text="${error}">Validation error</p>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <b><label>Email:</label></b>
+                                <input class="form-control" type="email" th:field="*{email}"/>
+                                <p class="text-danger" th:each="error : ${#fields.errors('email')}"
+                                   th:text="${error}">Validation error</p>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <b><label>Broj telefona:</label></b>
+                                <input class="form-control" type="text" th:field="*{telephone}"/>
+                                <p class="text-danger" th:each="error : ${#fields.errors('telephone')}"
+                                   th:text="${error}">Validation error</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="col-md-12 btn btn-primary" type="submit">Save Changes</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<th:block th:include="fragments :: footer"></th:block>
+
+<th:block th:include="fragments :: registerScript"></th:block>
+<th:block th:include="fragments :: additionalScripts"></th:block>
+</body>
+</html>
