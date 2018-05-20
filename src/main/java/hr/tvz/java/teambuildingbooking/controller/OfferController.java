@@ -1,12 +1,17 @@
 package hr.tvz.java.teambuildingbooking.controller;
 
+import hr.tvz.java.teambuildingbooking.model.Offer;
 import hr.tvz.java.teambuildingbooking.service.CategoryService;
 import hr.tvz.java.teambuildingbooking.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Optional;
 
 
 @Controller
@@ -38,13 +43,26 @@ public class OfferController {
         return SEARCH_OFFER_VIEW_NAME;
     }
 
-    @RequestMapping("/results")
-    private String showResults(Model model) {
+    @PostMapping("/searchOffer")
+    private String findSearchResults(Model model){
+        model.addAttribute("offers", offerService.findAll());
         return SEARCH_RESULTS_VIEW_NAME;
     }
 
-    @RequestMapping("/details")
-    private String showDetails(Model model) {
+    @RequestMapping("/results")
+    private String showResults(Model model) {
+
+        model.addAttribute("offers", offerService.findAll());
+        return SEARCH_RESULTS_VIEW_NAME;
+    }
+
+    @RequestMapping("/details/{id}")
+    private String showDetails(Model model, @PathVariable("id") Long id) {
+        Optional<Offer> offer = offerService.findOne(id);
+        if(offer.isPresent()){
+            model.addAttribute("offer", offer.get());
+        }
+
         return DETAILS_VIEW_NAME;
     }
 }

@@ -25,196 +25,26 @@
 						<div class="album py-5">
 
 							<div class="row">
-								<div class="col-md-4">
+								<div class="col-md-4" th:each="offer : ${offers}">
 									<div class="card mb-4 box-shadow">
 										<img class="card-img-top"
 											src="https://baconmockup.com/300/250" alt="Card image cap">
 										<div class="card-body">
-											<h3>Rafting na Cetini</h3>
-											<p class="card-text">Zadovoljstvo nam je pružiti vam
-												spektakularni užitak raftinga na rijeci Cetini, u
-												neposrednoj blizini starog gusarskog grada Omiša.</p>
+											<h3 th:text="${offer.name}"></h3>
+											<p class="card-text" th:text="${#strings.substring(offer.description,0,79) + '...'}" th:if="${#strings.length(offer.description) > 80}"></p>
+											<p class="card-text" th:text="${offer.description}" th:if="${#strings.length(offer.description) < 81}"></p>
 											<div
 												class="d-flex justify-content-between align-items-center">
 												<div class="btn-group">
-													<a th:href="@{/offer/details}">
-													<button type="button"
-														class="btn btn-sm btn-outline-primary">Detalji</button>
-													</a>
+													<a th:href="@{'/offer/details/' + ${offer.id}}"><button type="button"
+														class="btn btn-sm btn-outline-primary">Detalji</button></a>
 												</div>
-												<small class="text-muted">1000kn</small>
+												<small class="text-muted" th:text="${offer.pricePerPerson + ' kn'}"></small>
 											</div>
 										</div>
 									</div>
 								</div>
 
-								<div class="col-md-4">
-									<div class="card mb-4 box-shadow">
-										<img class="card-img-top"
-											src="https://baconmockup.com/300/250" alt="Card image cap">
-										<div class="card-body">
-											<h3>Slanina u tanjuru</h3>
-											<p class="card-text">Zadovoljstvo nam je pružiti vam
-												spektakularni užitak raftinga na rijeci Cetini, u
-												neposrednoj blizini starog gusarskog grada Omiša.</p>
-											<div
-												class="d-flex justify-content-between align-items-center">
-												<div class="btn-group">
-													<button type="button"
-														class="btn btn-sm btn-outline-primary">Detalji</button>
-												</div>
-												<small class="text-muted">1000kn</small>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-4">
-									<div class="card mb-4 box-shadow">
-										<img class="card-img-top"
-											src="https://baconmockup.com/300/250" alt="Card image cap">
-										<div class="card-body">
-											<h3>Rafting na Cetini</h3>
-											<p class="card-text">Zadovoljstvo nam je pružiti vam
-												spektakularni užitak raftinga na rijeci Cetini, u
-												neposrednoj blizini starog gusarskog grada Omiša.</p>
-											<div
-												class="d-flex justify-content-between align-items-center">
-												<div class="btn-group">
-													<button type="button"
-														class="btn btn-sm btn-outline-primary">Detalji</button>
-												</div>
-												<small class="text-muted">1000kn</small>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-4">
-									<div class="card mb-4 box-shadow">
-										<img class="card-img-top"
-											src="https://baconmockup.com/300/250" alt="Card image cap">
-										<div class="card-body">
-											<h3>Rafting na Cetini</h3>
-											<p class="card-text">Zadovoljstvo nam je pružiti vam
-												spektakularni užitak raftinga na rijeci Cetini, u
-												neposrednoj blizini starog gusarskog grada Omiša.</p>
-											<div
-												class="d-flex justify-content-between align-items-center">
-												<div class="btn-group">
-													<button type="button"
-														class="btn btn-sm btn-outline-primary">Detalji</button>
-												</div>
-												<small class="text-muted">1000kn</small>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-4">
-									<div class="card mb-4 box-shadow">
-										<img class="card-img-top"
-											src="https://baconmockup.com/300/250" alt="Card image cap">
-										<div class="card-body">
-											<h3>Rafting na Cetini</h3>
-											<p class="card-text">Zadovoljstvo nam je pružiti vam
-												spektakularni užitak raftinga na rijeci Cetini, u
-												neposrednoj blizini starog gusarskog grada Omiša.</p>
-											<div
-												class="d-flex justify-content-between align-items-center">
-												<div class="btn-group">
-													<button type="button"
-														class="btn btn-sm btn-outline-primary">Detalji</button>
-												</div>
-												<small class="text-muted">1000kn</small>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-4">
-									<div class="card mb-4 box-shadow">
-										<img class="card-img-top"
-											src="https://baconmockup.com/300/250" alt="Card image cap">
-										<div class="card-body">
-											<h3>Rafting na Cetini</h3>
-											<p class="card-text">Zadovoljstvo nam je pružiti vam
-												spektakularni užitak raftinga na rijeci Cetini, u
-												neposrednoj blizini starog gusarskog grada Omiša.</p>
-											<div
-												class="d-flex justify-content-between align-items-center">
-												<div class="btn-group">
-													<button type="button"
-														class="btn btn-sm btn-outline-primary">Detalji</button>
-												</div>
-												<small class="text-muted">1000kn</small>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-4">
-									<div class="card mb-4 box-shadow">
-										<img class="card-img-top"
-											src="https://baconmockup.com/300/250" alt="Card image cap">
-										<div class="card-body">
-											<h3>Rafting na Cetini</h3>
-											<p class="card-text">Zadovoljstvo nam je pružiti vam
-												spektakularni užitak raftinga na rijeci Cetini, u
-												neposrednoj blizini starog gusarskog grada Omiša.</p>
-											<div
-												class="d-flex justify-content-between align-items-center">
-												<div class="btn-group">
-													<button type="button"
-														class="btn btn-sm btn-outline-primary">Detalji</button>
-												</div>
-												<small class="text-muted">1000kn</small>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-4">
-									<div class="card mb-4 box-shadow">
-										<img class="card-img-top"
-											src="https://baconmockup.com/300/250" alt="Card image cap">
-										<div class="card-body">
-											<h3>Rafting na Cetini</h3>
-											<p class="card-text">Zadovoljstvo nam je pružiti vam
-												spektakularni užitak raftinga na rijeci Cetini, u
-												neposrednoj blizini starog gusarskog grada Omiša.</p>
-											<div
-												class="d-flex justify-content-between align-items-center">
-												<div class="btn-group">
-													<button type="button"
-														class="btn btn-sm btn-outline-primary">Detalji</button>
-												</div>
-												<small class="text-muted">1000kn</small>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-4">
-									<div class="card mb-4 box-shadow">
-										<img class="card-img-top"
-											src="https://baconmockup.com/300/250" alt="Card image cap">
-										<div class="card-body">
-											<h3>Rafting na Cetini</h3>
-											<p class="card-text">Zadovoljstvo nam je pružiti vam
-												spektakularni užitak raftinga na rijeci Cetini, u
-												neposrednoj blizini starog gusarskog grada Omiša.</p>
-											<div
-												class="d-flex justify-content-between align-items-center">
-												<div class="btn-group">
-													<button type="button"
-														class="btn btn-sm btn-outline-primary">Detalji</button>
-												</div>
-												<small class="text-muted">1000kn</small>
-											</div>
-										</div>
-									</div>
-								</div>
 								
 								
 							</div>
