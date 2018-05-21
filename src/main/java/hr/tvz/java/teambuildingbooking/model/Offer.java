@@ -25,6 +25,9 @@ public class Offer implements Serializable {
     @Column(name = "COUNTRY", nullable = false)
     private String country;
 
+    @Column(name = "NAME", nullable = false)
+    private String name;
+
     @Column(name = "CITY", nullable = false)
     private String city;
 
@@ -34,7 +37,7 @@ public class Offer implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")}
     )
     @Fetch(FetchMode.JOIN)
-    private Set<Category> roles = new HashSet<>();
+    private Set<Category> categories = new HashSet<>();
 
     @OneToMany(mappedBy = "offer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Feedback> feedbacks;
@@ -117,12 +120,16 @@ public class Offer implements Serializable {
         this.city = city;
     }
 
-    public Set<Category> getRoles() {
-        return roles;
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
+
+    public Set<Category> getCategories() {
+        return categories;
     }
 
-    public void setRoles(Set<Category> roles) {
-        this.roles = roles;
+    public void setRoles(Set<Category> categories) {
+        this.categories = categories;
     }
 
     public Set<Feedback> getFeedbacks() {

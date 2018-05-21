@@ -27,4 +27,5 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
             "order by avg(t1.number_of_stars) desc, t2.price_per_person\n" +
             "limit 9", nativeQuery = true)
     List<Offer> findTopOffers();
+
 }

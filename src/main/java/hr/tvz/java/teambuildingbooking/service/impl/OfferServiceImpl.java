@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -23,6 +24,11 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public List<Offer> findAll() {
         return offerRepository.findAll();
+    }
+
+    @Override
+    public Optional<Offer> findOne(Long id) {
+        return offerRepository.findById(id);
     }
 
     @Override
