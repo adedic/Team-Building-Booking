@@ -24,7 +24,7 @@
 
                     <div class="panel-body">
 
-                        <form role="form" method="POST" name="searchOffer" th:action="@{/searchOffer}" class="needs-validation" novalidate>
+                        <form role="form" method="POST" name="searchOffer" th:action="@{/offer/searchOffer}" class="needs-validation" novalidate>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="category" class="text-white">Odaberite željenu kategoriju</label>
@@ -41,12 +41,12 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="country">Unesite željenu državu</label>
+                                    <label for="country" class="text-white">Unesite željenu državu</label>
                                     <input type="text" name="country" class="form-control" id="country" placeholder="Država" required autofocus>
                                     <div class="invalid-feedback">Unesite valjan naziv države!</div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="country">Unesite željeni grad</label>
+                                    <label for="country" class="text-white">Unesite željeni grad</label>
                                     <input type="text" name="city" class="form-control" id="city" placeholder="Grad" required autofocus>
                                     <div class="invalid-feedback">Unesite valjan naziv grada!</div>
                                 </div>
@@ -54,12 +54,12 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="country">Datum od</label>
+                                    <label for="country" class="text-white">Datum od</label>
                                     <input type="date" name="dateFrom" class="form-control" id="dateFrom" placeholder="Datum od" required autofocus>
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="country">Datum do</label>
+                                    <label for="country" class="text-white">Datum do</label>
                                     <input type="date" name="dateTo" class="form-control" id="dateTo" placeholder="Datum do" required autofocus>
                                 </div>
                             </div>

@@ -21,17 +21,27 @@
     </div>
     <div class="container-fluid">
         <div class="row justify-content-md-center">
-            <div class="col-md-10" style="padding-top: 10vh;">
-                <div class="col-md-10">
+            <div class="col-md-9" style="padding-top: 10vh;">
+                <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-9">
-                            <h1 class="panel-title">Rafting na Cetini</h1>
-                            <h5 class="text-secondary"><span class="fa fa-map-marker"></span> Hrvatska, <span class="text-black-50">Omiš</span></h5>
-                            <h4><span class="badge badge-success">Sport</span></h4>
+                        <div class="col-md-8">
+                            <h1 class="panel-title" th:text="${offer.name}"></h1>
+                            <h5 class="text-secondary"><span class="fa fa-map-marker"></span> <span th:text="${offer.country + ', '}"></span>
+                                <span class="text-black-50" th:text="${offer.city}"></span>
+                            </h5>
+                            <span th:each="category : ${offer.categories}" class="h5">
+                                <span class="badge badge-danger" th:if="${category.name == 'Zabava'}" th:text="${category.name}"></span>
+                                <span class="badge badge-warning text-white" th:if="${category.name == 'Hrana i piće'}" th:text="${category.name}"></span>
+                                <span class="badge badge-primary" th:if="${category.name == 'Sport'}" th:text="${category.name}"></span>
+                                <span class="badge badge-sport" th:if="${category.name == 'Putovanja'}" th:text="${category.name}"></span>
+                                <span class="badge badge-info" th:if="${category.name == 'Seminar'}" th:text="${category.name}"></span>
+                                <span class="badge badge-dark" th:if="${category.name == 'Ostalo'}" th:text="${category.name}"></span>
+                            </span>
                         </div>
-                        <div class="col-md-3" style="padding-top:2vh">
-                            <h6><span class="fa fa-male text-danger"></span> 3-5 ljudi</h6>
-                            <h6><span class="fa fa-money text-success"></span> 500kn</h6>
+                        <div class="col-md-4" style="padding-top:2vh">
+                            <h6><span class="fa fa-male text-danger"></span> <span th:text="${offer.minNumberOfUsers} + '-'"></span>
+                                <span th:text="${offer.maxNumberOfUsers}"></span> ljudi</h6>
+                            <h6><span class="fa fa-money text-success"></span> <span th:text="${offer.pricePerPerson}"></span> kn</h6>
                         </div>
 
                     </div>
@@ -42,16 +52,16 @@
         </div>
         <div class="row justify-content-md-center">
 
-            <div class="col-md-10" style="padding-top: 5vh;">
+            <div class="col-md-9" style="padding-top: 5vh;">
 
                 <div class="col-md-10">
                     <div class="row">
 
                         <div class="col-md-9">
-                            <p class="text-black-50">Lorem Ipsum is simply dummy tetry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                            <p class="text-black-50" th:text="${offer.description}"></p>
                         </div>
                         <div class="col-md-3">
-                            <p>MAPA</p>
+
                         </div>
                     </div>
                 </div>
@@ -61,18 +71,79 @@
         </div>
         <div class="row justify-content-md-center">
 
-            <div class="col-md-10" style="padding-top: 5vh;">
+            <div class="col-md-9" style="padding-top: 5vh;">
 
-                <div class="col-md-10">
-                        <div>Odaberi datum:</div>
-                        <br>
-                        <div>
-                            <button class="btn btn-lg btn-outline-primary btn-block col-md-4" >Rezerviraj ponudu</button>
-                        </div>
+                <div class="col-md-12">
+                    <iframe th:src="'//www.google.com/maps/embed/v1/place?q=' + ${offer.city} + '/&zoom=17&key=AIzaSyBpTDfNDgB8BaIZiSj19PSJeqgvFnXL6Vg'" height="500" class="col-md-12"></iframe>
+
                 </div>
             </div>
 
         </div>
+
+        <div class="row justify-content-md-center">
+
+            <div class="col-md-9" style="padding-top: 5vh;">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body" th:each="feedback: ${offer.feedbacks}">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                                    <p class="text-secondary text-center" th:text="${#dates.format(feedback.dateSubmitted, 'dd.MM.yyyy.')}"></p>
+                                </div>
+                                <div class="col-md-10">
+                                    <p>
+                                        <strong th:text="${feedback.user.name} + ' ' + ${feedback.user.surname}">Mate Matić</strong>
+
+                                        <span class="float-right" ><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right" th:if="${feedback.numberOfStars == 2 or feedback.numberOfStars == 3 or feedback.numberOfStars == 4 or feedback.numberOfStars == 5}"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right" th:if="${feedback.numberOfStars == 3 or feedback.numberOfStars == 4 or feedback.numberOfStars == 5}"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right" th:if="${feedback.numberOfStars == 4 or feedback.numberOfStars == 5}"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right" th:if="${feedback.numberOfStars == 5}"><i class="text-warning fa fa-star"></i></span>
+
+
+
+                                    </p>
+                                    <div class="clearfix"></div>
+                                    <br>
+                                    <p th:text="${feedback.comment}"></p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-md-center">
+
+            <div class="col-md-9" style="padding-top: 5vh;">
+                <div class="col-md-12">
+                    <form>
+                        <div class="form-row">
+
+                            <div class="col-md-4">
+                                <input type="text" class="form-control-lg col-md-12" name="date" id="date" value="01/01/2018" />
+
+                                <small id="roleSelectHelp" class="form-text text-muted">Odaberite datum dolaska</small>
+                            </div>
+                            <div class="col-md-8">
+
+                                <button class="btn btn-lg btn-outline-primary btn-block " >Rezerviraj ponudu</button>
+                            </div>
+
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+
+
 
 
     </div>

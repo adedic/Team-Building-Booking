@@ -21,6 +21,9 @@
 		type="text/css" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 
+    <!--Date picker range ako bude trebalo-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 </th:block>
 </head>
 <body>
@@ -101,6 +104,12 @@
 
 		<script th:src="@{/resources/static/js/bootstrap.js}"
 			type="text/javascript"></script>
+
+        <!-- Date picker range-->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
 	</th:block>
 
 	<th:block th:fragment="registerScript">
