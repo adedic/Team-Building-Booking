@@ -94,10 +94,10 @@
                                 <div class="card">
                                     <img class="card-img-top" src="https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2017/whatcountsas.jpg" alt="Card image cap">
                                     <div class="card-body">
-                                        <h5 class="card-title" th:text="${offer.id}"></h5>
+                                        <h4 class="card-title" th:text="${offer.name}"></h4>
                                         <p class="card-text" th:text="${#strings.substring(offer.description,0,79) + '...'}" th:if="${#strings.length(offer.description) > 80}"></p>
                                         <p class="card-text" th:text="${offer.description}" th:if="${#strings.length(offer.description) < 81}"></p>
-                                        <a href="#" class="btn btn-info">Detalji</a>
+                                        <a href="#" class="btn btn-outline-info">Detalji</a>
                                     </div>
                                 </div>
                             </tr>
