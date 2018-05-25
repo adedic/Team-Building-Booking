@@ -55,12 +55,12 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="country" class="text-white">Datum od</label>
-                                    <input type="date" name="dateFrom" class="form-control" id="dateFrom" placeholder="Datum od" required autofocus>
+                                    <input type="text" name="dateFrom" class="form-control" id="dateFrom" placeholder="Datum od" required autofocus>
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="country" class="text-white">Datum do</label>
-                                    <input type="date" name="dateTo" class="form-control" id="dateTo" placeholder="Datum do" required autofocus>
+                                    <input type="text" name="dateTo" class="form-control" id="dateTo" placeholder="Datum do" required autofocus>
                                 </div>
                             </div>
 
@@ -111,7 +111,7 @@
 </div>
 <th:block th:include="fragments :: footer"></th:block>
 
-<th:block th:include="fragments :: registerScript"></th:block>
+<th:block th:include="fragments :: formValidationScript"></th:block>
 <th:block th:include="fragments :: additionalScripts"></th:block>
 </body>
 </html>
