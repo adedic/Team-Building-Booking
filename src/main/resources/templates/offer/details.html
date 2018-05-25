@@ -39,9 +39,9 @@
                             </span>
                         </div>
                         <div class="col-md-4" style="padding-top:2vh">
-                            <h6><span class="fa fa-male text-danger"></span> <span th:text="${offer.minNumberOfUsers} + '-'"></span>
+                            <h6><span class="fa fa-male text-danger"></span> <span th:text="${offer.minNumberOfUsers} + ' - '"></span>
                                 <span th:text="${offer.maxNumberOfUsers}"></span> ljudi</h6>
-                            <h6><span class="fa fa-money text-success"></span> <span th:text="${offer.pricePerPerson}"></span> kn</h6>
+                            <h6><span class="fa fa-money text-success"></span> <span th:text="${offer.pricePerPerson}"></span> kn po osobi</h6>
                         </div>
 
                     </div>
@@ -54,14 +54,15 @@
 
             <div class="col-md-9" style="padding-top: 5vh;">
 
-                <div class="col-md-10">
+                <div class="col-md-12">
                     <div class="row">
 
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                             <p class="text-black-50" th:text="${offer.description}"></p>
                         </div>
-                        <div class="col-md-3">
-
+                        <div class="col-md-4">
+                            <h6><span class="fa fa-phone text-info"></span> <span th:text="${offer.user.telephone}"></span> </h6>
+                            <h6><span class="fa fa-envelope text-info"></span> <span th:text="${offer.user.email}"></span> </h6>
                         </div>
                     </div>
                 </div>
@@ -85,24 +86,25 @@
 
             <div class="col-md-9" style="padding-top: 5vh;">
                 <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body" th:each="feedback: ${offer.feedbacks}">
-                            <div class="row">
+
+                    <h4 class="text-muted">Osvrti korisnika:</h4><br>
+                    <div class="card" th:each="feedback, i : ${offer.feedbacks}"  th:if="${i.index}<2">
+                        <div class="card-body" >
+                            <div class="row"  >
                                 <div class="col-md-2">
-                                    <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
-                                    <p class="text-secondary text-center" th:text="${#dates.format(feedback.dateSubmitted, 'dd.MM.yyyy.')}"></p>
+                                    <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" style="width:100px"/>
+                                    <p class="text-secondary" th:text="${#dates.format(feedback.dateSubmitted, 'dd.MM.yyyy.')}"></p>
                                 </div>
                                 <div class="col-md-10">
+                                    <br>
                                     <p>
-                                        <strong th:text="${feedback.user.name} + ' ' + ${feedback.user.surname}">Mate Matić</strong>
+                                        <strong th:text="${feedback.user.name} + ' ' + ${feedback.user.surname}"></strong>
 
                                         <span class="float-right" ><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right" th:if="${feedback.numberOfStars == 2 or feedback.numberOfStars == 3 or feedback.numberOfStars == 4 or feedback.numberOfStars == 5}"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right" th:if="${feedback.numberOfStars == 3 or feedback.numberOfStars == 4 or feedback.numberOfStars == 5}"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right" th:if="${feedback.numberOfStars == 4 or feedback.numberOfStars == 5}"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right" th:if="${feedback.numberOfStars == 5}"><i class="text-warning fa fa-star"></i></span>
-
-
 
                                     </p>
                                     <div class="clearfix"></div>
@@ -111,7 +113,11 @@
 
                                 </div>
                             </div>
+
                         </div>
+                    </div>
+                    <div class="col-sm text-right">
+                        <a th:href="@{/reviews}">Pogledaj sve osvrte</a>
                     </div>
                 </div>
             </div>
@@ -121,17 +127,33 @@
 
             <div class="col-md-9" style="padding-top: 5vh;">
                 <div class="col-md-12">
-                    <form>
+                    <form role="form" method="POST" name="formReservation"
+                          th:action="@{/offer/reserve}" class="needs-validation" novalidate>
                         <div class="form-row">
 
-                            <div class="col-md-4">
-                                <input type="text" class="form-control-lg col-md-12" name="date" id="date" value="01/01/2018" />
+                            <div class="form-group col-md-3">
+                                    <input type="text" class="form-control form-control-lg col-md-12" required="required"
+                                           th:value="${#dates.format(#dates.createNow(), 'dd.MM.yyyy.')}" name="datePicker" />
+                                    <div class="invalid-feedback">
+                                        Odaberi datum dolaska!
+                                    </div>
+                                    <small id="roleSelectHelp" class="form-text text-muted">Odaberite datum dolaska</small>
 
-                                <small id="roleSelectHelp" class="form-text text-muted">Odaberite datum dolaska</small>
                             </div>
-                            <div class="col-md-8">
-
-                                <button class="btn btn-lg btn-outline-primary btn-block " >Rezerviraj ponudu</button>
+                            <div class="form-group col-md-2">
+                                    <input type="number" th:attr="min=${offer.minNumberOfUsers}, max=${offer.maxNumberOfUsers}"
+                                           required="required"
+                                           th:placeholder="${offer.minNumberOfUsers}+ ' - ' + ${offer.maxNumberOfUsers}"
+                                           class="form-control form-control-lg col-md-12" name="numberOfUsers" id="numberOfUsers"  />
+                                    <div class="invalid-feedback">
+                                        Odaberi broj korisnika!
+                                    </div>
+                                    <small id="roleSelectHelp" class="form-text text-muted"
+                                           th:text="'Odaberite broj korisnika'"></small>
+                            </div>
+                            <div class="form-group col-md-7">
+                                <input class="btn btn-lg btn-outline-primary btn-block"
+                                       type="submit" value="Rezerviraj ponudu" />
                             </div>
 
 
@@ -142,10 +164,6 @@
 
         </div>
 
-
-
-
-
     </div>
     </div>
 
@@ -153,5 +171,6 @@
 
 <th:block th:include="fragments :: footer"></th:block>
 <th:block th:include="fragments :: additionalScripts"></th:block>
+<th:block th:include="fragments :: formValidationScript"></th:block>
 </body>
 </html>
