@@ -1,12 +1,14 @@
 package hr.tvz.java.teambuildingbooking.controller;
 
 import hr.tvz.java.teambuildingbooking.model.Offer;
+import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
 import hr.tvz.java.teambuildingbooking.service.CategoryService;
 import hr.tvz.java.teambuildingbooking.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,17 +39,16 @@ public class OfferController {
         return NEW_OFFER_VIEW_NAME;
     }
 
-    @RequestMapping("/search")
+    @GetMapping("/search")
     private String searchOffer(Model model) {
         model.addAttribute("categories", categoryService.findAll());
-//        model.addAttribute("topOffers", offerService.findTopOffers());
-        model.addAttribute("topOffers", offerService.findAll());
+        model.addAttribute("topOffers", offerService.findTopOffers());
         return SEARCH_OFFER_VIEW_NAME;
     }
 
-    @PostMapping("/searchOffer")
-    private String findSearchResults(Model model){
-        model.addAttribute("offers", offerService.findAll());
+    @PostMapping("/search")
+    private String findSearchResults(Model model, SearchOfferForm searchOffer) {
+        model.addAttribute("offers", offerService.findOffers(searchOffer));
         return SEARCH_RESULTS_VIEW_NAME;
     }
 
