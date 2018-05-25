@@ -85,9 +85,9 @@
         <div class="row justify-content-md-center">
 
             <div class="col-md-9" style="padding-top: 5vh;">
-                <div class="col-md-12">
+                <div class="col-md-12" >
 
-                    <h4 class="text-muted">Osvrti korisnika:</h4><br>
+                    <h4 class="text-muted" th:if="${offer.feedbacks == null}">Osvrti korisnika:</h4><br>
                     <div class="card" th:each="feedback, i : ${offer.feedbacks}"  th:if="${i.index}<2">
                         <div class="card-body" >
                             <div class="row"  >
@@ -116,8 +116,8 @@
 
                         </div>
                     </div>
-                    <div class="col-sm text-right">
-                        <a th:href="@{/offer/reviews}">Pogledaj sve osvrte</a>
+                    <div class="col-sm text-right" th:if="${offer.feedbacks == null}">
+                        <a th:href="@{'/offer/details/' + ${offer.id} + '/reviews'}">Pogledaj sve osvrte</a>
                     </div>
                 </div>
             </div>

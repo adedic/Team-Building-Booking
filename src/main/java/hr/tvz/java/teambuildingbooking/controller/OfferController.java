@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
@@ -22,6 +23,7 @@ public class OfferController {
     private static final String SEARCH_OFFER_VIEW_NAME = "offer/search-offer";
     private static final String SEARCH_RESULTS_VIEW_NAME = "offer/search-results";
     private static final String DETAILS_VIEW_NAME = "offer/details";
+    private static final String REVIEWS_VIEW_NAME = "offer/reviews";
 
     @Autowired
     private OfferService offerService;
@@ -65,4 +67,16 @@ public class OfferController {
 
         return DETAILS_VIEW_NAME;
     }
+
+    @RequestMapping("/details/{id}/reviews")
+    private ModelAndView showReviews(Model model, @PathVariable("id") Long id) {
+        Optional<Offer> offer = offerService.findOne(id);
+        if(offer.isPresent()){
+            model.addAttribute("feedbacks", offer.get().getFeedbacks());
+        }
+
+        return new ModelAndView(REVIEWS_VIEW_NAME);
+    }
+
+
 }
