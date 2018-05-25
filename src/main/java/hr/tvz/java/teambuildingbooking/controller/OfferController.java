@@ -1,17 +1,23 @@
 package hr.tvz.java.teambuildingbooking.controller;
 
 import hr.tvz.java.teambuildingbooking.model.Offer;
+import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
 import hr.tvz.java.teambuildingbooking.service.CategoryService;
 import hr.tvz.java.teambuildingbooking.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.Optional;
 
 
@@ -25,6 +31,7 @@ public class OfferController {
     private static final String DETAILS_VIEW_NAME = "offer/details";
     private static final String REVIEWS_VIEW_NAME = "offer/reviews";
 
+
     @Autowired
     private OfferService offerService;
 
@@ -36,6 +43,18 @@ public class OfferController {
     private String newOffer(Model model) {
         return NEW_OFFER_VIEW_NAME;
     }
+
+    @PostMapping("/new")
+    public String handleRegistrationForm(@Valid @ModelAttribute("newOfferForm") NewOfferForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws ParseException {
+        if (bindingResult.hasErrors()) {
+            return NEW_OFFER_VIEW_NAME;
+        }
+        offerService.createOffer(form);
+        redirectAttributes.addFlashAttribute("createSuccess", "Dodavanje nove ponude je uspjelo");
+
+        return "redirect:/search";
+    }
+
 
     @RequestMapping("/search")
     private String searchOffer(Model model) {
@@ -77,6 +96,4 @@ public class OfferController {
 
         return new ModelAndView(REVIEWS_VIEW_NAME);
     }
-
-
 }
