@@ -44,7 +44,7 @@
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active" sec:authorize="hasRole('ROLE_USER')" ><a class="nav-link" th:href="@{/offer/search}">Ponude<span
+					<li class="nav-item active"><a class="nav-link" th:href="@{/offer/search}">Ponude<span
 							class="sr-only">(current)</span></a></li>
 					<li class="nav-item active" sec:authorize="hasAnyRole('ROLE_ADMIN, ROLE_PROVIDER')" ><a class="nav-link" th:href="@{/offer/new}">Nova ponuda<span
 							class="sr-only">(current)</span></a></li>
@@ -54,10 +54,10 @@
 					</li>
 				</ul>
 				<ul class="navbar-nav my-2 my-lg-0" style="margin-right: 10%">
-					<li th:if="${navLinkText} == 'Registracija'"  class="nav-item" sec:authorize="isAnonymous()"><a
+					<li class="nav-item" sec:authorize="isAnonymous()"><a
 						class="nav-link" th:href="@{/register}">Registriraj se</a>
 					</li>
-					<li th:if="${navLinkText} == 'Prijava'"  class="nav-item" sec:authorize="isAnonymous()"><a
+					<li sec:authorize="isAnonymous()"><a
 							class="nav-link" th:href="@{/login}">Prijavi se</a>
 					</li>
 					<li class="nav-item dropdown" sec:authorize="isAuthenticated()">

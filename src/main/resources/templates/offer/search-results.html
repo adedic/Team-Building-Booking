@@ -19,6 +19,11 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title text-secondary">Rezultati pretrage:</h3>
+						<span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.category)}" th:text="${'Kategorija: ' + searchOfferForm.category}"></span>
+						<span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.numOfPeople)}" th:text="${'Broj ljudi: ' + searchOfferForm.numOfPeople}"></span>
+						<span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.country)}" th:text="${'Država: ' + searchOfferForm.country}"></span>
+						<span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.city)}" th:text="${'Grad: ' + searchOfferForm.city}"></span>
+						<span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.date)}" th:text="${'Datum: ' + searchOfferForm.date}"></span>
 					</div>
 
 					<div class="panel-body">

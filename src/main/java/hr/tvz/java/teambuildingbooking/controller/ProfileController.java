@@ -25,8 +25,8 @@ import java.text.SimpleDateFormat;
 @RequestMapping("/profile")
 public class ProfileController {
 
-    private static final String PROFILE_VIEW_NAME = "profile";
-    private static final String EDIT_PROFILE_VIEW_NAME = "edit-profile";
+    private static final String PROFILE_VIEW_NAME = "/profile/profile";
+    private static final String EDIT_PROFILE_VIEW_NAME = "/profile/edit-profile";
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
     private UserService userService;

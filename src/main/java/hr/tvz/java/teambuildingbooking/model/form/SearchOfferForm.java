@@ -12,8 +12,6 @@ public class SearchOfferForm {
 
     private String date;
 
-
-
     public Integer getCategory() {
         return category;
     }

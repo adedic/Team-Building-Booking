@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorator="layout">
 <head>
     <title>Podaci o profilu</title>
@@ -18,7 +19,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Podaci o profilu <a th:href="@{/profile/edit}" class="btn btn-warning"><i class="fa fa-pencil"></i> Uredi</a>
+                        <h3 class="panel-title">Podaci o profilu <a sec:authorize="isAuthenticated()" th:if="${user.username == #authentication.getPrincipal().getUsername()}" th:href="@{/profile/edit}" class="btn btn-warning"><i class="fa fa-pencil"></i> Uredi</a>
                         </h3>
                     </div>
 

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Nova ponuda</title>
+
+    <th:block th:replace="fragments :: css"></th:block>
+</head>
+<body>
+<th:block th:include="fragments :: header"></th:block>
+
+<div layout:fragment="content">
+    <div style="background-image: url('/resources/static/img/login.jpeg'); background-repeat: no-repeat;">
+        <div class="row justify-content-md-center"  style="background: rgba(255,255,255,0.4); ">
+            <div class="col-md-7" style="padding-top: 20vh; padding-bottom: 20vh;">
+                <div class="panel panel-default"  style="background: rgba(33,37,41,0.9); padding: 5% 5%">
+                    <div class="panel-heading">
+                        <h3 class="panel-title text-white">Nova team building ponuda</h3>
+                    </div>
+                    <br></br>
+
+                    <div class="panel-body">
+
+                        <form role="form" method="POST" name="formNewOffer" th:action="@{/templates/new-offer.html}" class="needs-validation" novalidate>
+                            <div class="form-group">
+                                <label for="category" class="text-white">Kategorija: </label>
+                                <select class="custom-select mr-sm-2" id="category">
+                                    <!--
+                                    Mock podatke kasnije zamijeniti s podatcima iz baze, tablica Kategorija
+                                    -->
+                                    <option selected value="1">Sport</option>
+                                    <option value="2">Putovanja</option>
+                                    <option value="3">Rekreacija</option>
+                                    <option value="4">Avantura</option>
+                                    <option value="5">Zabavni program</option>
+                                    <option value="6">Ostalo</option>
+                                </select>
+                            </div>
+
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="country" class="text-white">Država: </label>
+                                    <input type="text" name="country" class="form-control" id="country"
+                                           placeholder="Država" required autofocus>
+
+                                    <div class="invalid-feedback">
+                                        Unesite državu!
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="city" class="text-white">Mjesto održavanja: </label>
+                                    <input type="text" name="city" class="form-control" id="city"
+                                           placeholder="Grad" required autofocus>
+
+                                    <div class="invalid-feedback">
+                                        Unesite grad!
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="min" class="text-white">Najmanji broj osoba: </label>
+                                    <input type="number" min="1" onkeypress="return event.charCode >= 48" name="min" class="form-control" id="min"
+                                           placeholder="Minimalni broj osoba" required autofocus>
+
+                                    <div class="invalid-feedback">
+                                        Unesite najmanji broj osoba potreban za održavanje team buildinga!
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="max" class="text-white">Najveći mogući broj osoba: </label>
+                                    <input type="number" min="1" onkeypress="return event.charCode >= 48" name="max" class="form-control" id="max"
+                                           placeholder="Maksimalan broj osoba" required autofocus>
+
+                                    <div class="invalid-feedback">
+                                        Unesite najveći mogući broj osoba na team building ponudi!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="price" class="text-white">Cijena po osobi: </label>
+                                <input type="number" min="0" step = "any" onkeypress="return event.charCode >= 48" name="price" class="form-control" id="price"
+                                       placeholder="Cijena po osobi" required autofocus>
+
+                                <div class="invalid-feedback">
+                                    Unesite cijenu!
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="availableFrom" class="text-white">Ponuda raspoloživa od:</label>
+                                    <input type="date" name="availableFrom" class="form-control" id="availableFrom"
+                                           placeholder="Ponuda raspoloživa od" required autofocus>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="availableUntil" class="text-white">Ponuda raspoloživa do:</label>
+                                    <input type="date" name="availableUntil" class="form-control" id="availableUntil"
+                                           placeholder="Ponuda raspoloživa do" required autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="opis" class="text-white">Opis team building ponude:</label>
+                                <textarea class="form-control" rows="5" id="opis"></textarea>
+                            </div>
+
+
+
+                            <input class="btn btn-lg btn-primary btn-block" type="submit" value="Dodaj ponudu!" />
+
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+<th:block th:include="fragments :: footer"></th:block>
+
+<th:block th:include="fragments :: formValidationScript"></th:block>
+<th:block th:include="fragments :: additionalScripts"></th:block>
+</body>
+</html>
