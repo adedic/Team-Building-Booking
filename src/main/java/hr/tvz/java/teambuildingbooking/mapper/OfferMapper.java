@@ -17,6 +17,6 @@ public interface OfferMapper {
     @Mapping(target = "dateAdded", ignore = true)
     @Mapping(target = "availableFrom", ignore = true)
     @Mapping(target = "availableTo", ignore = true)
-    Offer newOfferFormToUser(NewOfferForm newOfferForm);
+    Offer newOfferFormToOffer(NewOfferForm newOfferForm);
 
 }

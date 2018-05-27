@@ -1,6 +1,27 @@
 package hr.tvz.java.teambuildingbooking.model.form;
 
 public class NewOfferForm {
+
+    private String category;
+
+    private String country;
+
+    private String city;
+
+    private int minNumberOfUsers;
+
+    private int maxNumberOfUsers;
+
+    private int pricePerPerson;
+
+    private String availableFrom;
+
+    private String availableUntil;
+
+    private String image;
+
+    private String description;
+
     public String getCategory() {
         return category;
     }
@@ -25,28 +46,28 @@ public class NewOfferForm {
         this.city = city;
     }
 
-    public int getMin() {
-        return min;
+    public int getMinNumberOfUsers() {
+        return minNumberOfUsers;
     }
 
-    public void setMin(int min) {
-        this.min = min;
+    public void setMinNumberOfUsers(int minNumberOfUsers) {
+        this.minNumberOfUsers = minNumberOfUsers;
     }
 
-    public int getMax() {
-        return max;
+    public int getMaxNumberOfUsers() {
+        return maxNumberOfUsers;
     }
 
-    public void setMax(int max) {
-        this.max = max;
+    public void setMaxNumberOfUsers(int maxNumberOfUsers) {
+        this.maxNumberOfUsers = maxNumberOfUsers;
     }
 
-    public int getPrice() {
-        return price;
+    public int getPricePerPerson() {
+        return pricePerPerson;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setPricePerPerson(int pricePerPerson) {
+        this.pricePerPerson = pricePerPerson;
     }
 
     public String getAvailableFrom() {
@@ -57,12 +78,12 @@ public class NewOfferForm {
         this.availableFrom = availableFrom;
     }
 
-    public String getAvailableUntill() {
-        return availableUntill;
+    public String getAvailableUntil() {
+        return availableUntil;
     }
 
-    public void setAvailableUntill(String availableUntill) {
-        this.availableUntill = availableUntill;
+    public void setAvailableUntil(String availableUntil) {
+        this.availableUntil = availableUntil;
     }
 
     public String getImage() {
@@ -80,24 +101,4 @@ public class NewOfferForm {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    private String category;
-
-    private String country;
-
-    private String city;
-
-    private int min;
-
-    private int max;
-
-    private int price;
-
-    private String availableFrom;
-
-    private String availableUntill;
-
-    private String image;
-
-    private String description;
 }

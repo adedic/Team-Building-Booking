@@ -22,6 +22,7 @@ import static org.hibernate.type.descriptor.java.JdbcDateTypeDescriptor.DATE_FOR
 public class OfferServiceImpl implements OfferService {
 
     private OfferRepository offerRepository;
+
     private CategoryRepository categoryRepository;
 
     @Autowired
@@ -46,7 +47,7 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public Offer createOffer(NewOfferForm newOfferForm) throws ParseException {
-        Offer offer = OfferMapper.INSTANCE.newOfferFormToUser(newOfferForm);
+        Offer offer = OfferMapper.INSTANCE.newOfferFormToOffer(newOfferForm);
 
         Category selectedCategory = categoryRepository.findByName(newOfferForm.getCategory());
         Set<Category> categorySet = new HashSet<>();
@@ -59,12 +60,12 @@ public class OfferServiceImpl implements OfferService {
         Date availableFrom = simpleDateFormat.parse(newOfferForm.getAvailableFrom());
         offer.setAvailableFrom(availableFrom);
 
-        Date availableTo = simpleDateFormat.parse(newOfferForm.getAvailableUntill());
+        Date availableTo = simpleDateFormat.parse(newOfferForm.getAvailableUntil());
         offer.setAvailableFrom(availableTo);
 
         offer.setDateAdded(new Date());
 
-        log.info("---> Adding new offer to database");
+        log.info("---> Adding offer with ID = " + offer.getId() + " to database ...");
         return offerRepository.save(offer);
     }
 }

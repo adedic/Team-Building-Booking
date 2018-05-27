@@ -13,7 +13,7 @@ public interface OfferService {
 
     List<Offer> findTopOffers();
 
-   Optional<Offer> findOne(Long id);
+    Optional<Offer> findOne(Long id);
 
-   Offer createOffer(NewOfferForm newOfferForm) throws ParseException;
+    Offer createOffer(NewOfferForm newOfferForm) throws ParseException;
 }
