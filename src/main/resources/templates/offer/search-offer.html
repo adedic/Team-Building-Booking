@@ -24,17 +24,17 @@
 
                     <div class="panel-body">
 
-                        <form role="form" method="POST" name="searchOffer" th:action="@{/offer/search}" class="needs-validation" novalidate>
+                        <form role="form" method="POST" name="searchOffer" th:object="${searchOfferForm}" th:action="@{/offer/search}" class="needs-validation" novalidate>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="category" class="text-white">Odaberite željenu kategoriju</label>
                                     <select class="custom-select mr-sm-2" id="category">
-                                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
+                                        <option th:field="*{category}" th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="category" class="text-white">Unesite željeni broj osoba</label>
-                                    <input type="number" min="1" max="250" onkeypress="return event.charCode >= 48" name="numOfPeople" class="form-control" id="numOfPeople" placeholder="Broj osoba" autofocus>
+                                    <input th:field="*{numOfPeople}" th:value="${10}" type="number" min="1" max="250" onkeypress="return event.charCode >= 48" name="numOfPeople" class="form-control" id="numOfPeople" placeholder="Broj osoba" autofocus>
                                     <div class="invalid-feedback">Unesite broj osoba za team building manji od 250!</div>
                                 </div>
                             </div>
@@ -42,12 +42,12 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="country" class="text-white">Unesite željenu državu</label>
-                                    <input type="text" name="country" class="form-control" id="country" placeholder="Država" autofocus>
+                                    <input th:field="*{country}" type="text" name="country" class="form-control" id="country" placeholder="Država" autofocus>
                                     <div class="invalid-feedback">Unesite valjan naziv države!</div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="country" class="text-white">Unesite željeni grad</label>
-                                    <input type="text" name="city" class="form-control" id="city" placeholder="Grad" autofocus>
+                                    <input th:field="*{city}" type="text" name="city" class="form-control" id="city" placeholder="Grad" autofocus>
                                     <div class="invalid-feedback">Unesite valjan naziv grada!</div>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6 align-content-md-center">
                                     <label for="country" class="text-white">Datum održavanja team buildinga</label>
-                                    <input type="text" name="date" class="form-control" id="date" placeholder="Datum">
+                                    <input th:field="*{date}" type="text" name="date" class="form-control" id="date" placeholder="Datum">
                                 </div>
                             </div>
 
