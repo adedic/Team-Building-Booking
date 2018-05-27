@@ -1,5 +1,5 @@
 INSERT INTO offer (id, active, available_from, available_to, city, country, date_added, date_last_edited, name, description, enabled, max_number_of_users, min_number_of_users, price_per_person, user_id)
-VALUES (1, true, CURRENT_DATE + 2, CURRENT_DATE + 1, 'Otok Pag', 'Hrvatska', CURRENT_DATE - 5, CURRENT_DATE - 5, 'Paška janjetina', 'Uživajte u najpoznatijoj, brendiranoj i izvornoj Paškoj janjetini', true, 10, 5, 300, 2);
+VALUES (1, true, CURRENT_DATE + 1, CURRENT_DATE + 4, 'Otok Pag', 'Hrvatska', CURRENT_DATE - 5, CURRENT_DATE - 5, 'Paška janjetina', 'Uživajte u najpoznatijoj, brendiranoj i izvornoj Paškoj janjetini', true, 10, 5, 300, 2);
 
 INSERT INTO offer (id, active, available_from, available_to, city, country, date_added, date_last_edited, name, description, enabled, max_number_of_users, min_number_of_users, price_per_person, user_id)
 VALUES (2, true, CURRENT_DATE + 1, CURRENT_DATE + 3, 'Nacionalni Park Krka', 'Hrvatska', CURRENT_DATE - 3, CURRENT_DATE - 3, 'Prirodna ljepota Zrmanje', 'Zrmanja će vas osvojiti svojom ljepotom, a njezine kristalno čiste vode vijugaju kroz dvjestotinjak metara duboki kanjon. Ne preporučamo da na ovu aktivnost dolazite pod utjecajem alkohola.', true, 15, 10, 100, 2);

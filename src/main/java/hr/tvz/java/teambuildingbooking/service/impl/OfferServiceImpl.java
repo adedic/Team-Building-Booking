@@ -48,10 +48,10 @@ public class OfferServiceImpl implements OfferService {
             if(searchOffer.getCategory() != null) {
 
             }
-            if(searchOffer.getCity() != null) {
+            if(searchOffer.getCity() != null && !searchOffer.getCity().equals("")) {
                 searchCriteria.add(new SearchCriteria("city", ":", searchOffer.getCity()));
             }
-            if(searchOffer.getCountry() != null) {
+            if(searchOffer.getCountry() != null && !searchOffer.getCountry().equals("")) {
                 searchCriteria.add(new SearchCriteria("country", ":", searchOffer.getCountry()));
             }
             if(searchOffer.getNumOfPeople() != null) {

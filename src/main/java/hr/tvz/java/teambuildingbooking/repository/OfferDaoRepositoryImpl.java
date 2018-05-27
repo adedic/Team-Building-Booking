@@ -10,6 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,15 +41,17 @@ public class OfferDaoRepositoryImpl implements OfferDaoRepository {
                     predicate = builder.and(predicate, builder.equal(r.get(criteria.getKey()), criteria.getValue()));
                 }
             } else if (criteria.getOperation().equalsIgnoreCase(":>")) {
-                predicate = builder.and(predicate, builder.greaterThanOrEqualTo(r.get(criteria.getKey()), (Date) criteria.getValue()));
-            } else if (criteria.getOperation().equalsIgnoreCase(":<")) {
                 predicate = builder.and(predicate, builder.lessThanOrEqualTo(r.get(criteria.getKey()), (Date) criteria.getValue()));
+            } else if (criteria.getOperation().equalsIgnoreCase(":<")) {
+                predicate = builder.and(predicate, builder.greaterThanOrEqualTo(r.get(criteria.getKey()), (Date) criteria.getValue()));
             }
 
-            predicate = builder.and(predicate, builder.isNull(r.get("dateDeleted")));
-            predicate = builder.and(predicate, builder.isTrue(r.get("active")));
-            predicate = builder.and(predicate, builder.isTrue(r.get("enabled")));
         }
+
+        predicate = builder.and(predicate, builder.isNull(r.get("dateDeleted")));
+        predicate = builder.and(predicate, builder.isTrue(r.get("active")));
+        predicate = builder.and(predicate, builder.isTrue(r.get("enabled")));
+
         query.where(predicate);
 
         List<Offer> result = new ArrayList<>();
@@ -59,4 +62,5 @@ public class OfferDaoRepositoryImpl implements OfferDaoRepository {
         }
         return result;
     }
+
 }
