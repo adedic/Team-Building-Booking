@@ -1,6 +1,7 @@
 package hr.tvz.java.teambuildingbooking.mapper;
 
 import hr.tvz.java.teambuildingbooking.model.Offer;
+import hr.tvz.java.teambuildingbooking.model.form.EditOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -19,4 +20,11 @@ public interface OfferMapper {
     @Mapping(target = "availableTo", ignore = true)
     Offer newOfferFormToOffer(NewOfferForm newOfferForm);
 
+    @Mapping(target = "availableFrom", ignore = true)
+    @Mapping(target = "availableTo", ignore = true)
+    Offer editOfferFormToOffer(EditOfferForm editOfferForm);
+
+    @Mapping(target = "availableFrom", ignore = true)
+    @Mapping(target = "availableTo", ignore = true)
+    EditOfferForm offerToEditOfferForm(Offer offer);
 }

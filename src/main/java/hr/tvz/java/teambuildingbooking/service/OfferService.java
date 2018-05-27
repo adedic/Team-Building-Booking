@@ -1,6 +1,7 @@
 package hr.tvz.java.teambuildingbooking.service;
 
 import hr.tvz.java.teambuildingbooking.model.Offer;
+import hr.tvz.java.teambuildingbooking.model.form.EditOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
 
 import java.text.ParseException;
@@ -16,4 +17,6 @@ public interface OfferService {
     Optional<Offer> findOne(Long id);
 
     Offer createOffer(NewOfferForm newOfferForm) throws ParseException;
+
+    Offer editOffer(EditOfferForm editOfferForm) throws ParseException;
 }
