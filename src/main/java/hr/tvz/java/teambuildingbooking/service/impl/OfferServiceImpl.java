@@ -3,12 +3,11 @@ package hr.tvz.java.teambuildingbooking.service.impl;
 import hr.tvz.java.teambuildingbooking.mapper.OfferMapper;
 import hr.tvz.java.teambuildingbooking.model.Category;
 import hr.tvz.java.teambuildingbooking.model.Offer;
-import hr.tvz.java.teambuildingbooking.model.criteria.SearchCriteria;
+import hr.tvz.java.teambuildingbooking.model.OfferCategory;
 import hr.tvz.java.teambuildingbooking.model.form.EditOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
-import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
 import hr.tvz.java.teambuildingbooking.repository.CategoryRepository;
-import hr.tvz.java.teambuildingbooking.repository.OfferDaoRepository;
+import hr.tvz.java.teambuildingbooking.repository.OfferCategoryRepository;
 import hr.tvz.java.teambuildingbooking.repository.OfferRepository;
 import hr.tvz.java.teambuildingbooking.service.OfferService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,12 +29,13 @@ public class OfferServiceImpl implements OfferService {
 
     private CategoryRepository categoryRepository;
 
-    private OfferDaoRepository offerDaoRepository;
+    private OfferCategoryRepository offerCategoryRepository;
 
     @Autowired
-    public OfferServiceImpl(OfferRepository offerRepository, OfferDaoRepository offerDaoRepository) {
+    public OfferServiceImpl(OfferRepository offerRepository, CategoryRepository categoryRepository, OfferCategoryRepository offerCategoryRepository) {
         this.offerRepository = offerRepository;
-        this.offerDaoRepository = offerDaoRepository;
+        this.categoryRepository = categoryRepository;
+        this.offerCategoryRepository = offerCategoryRepository;
     }
 
     @Override
@@ -46,37 +46,6 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public Optional<Offer> findOne(Long id) {
         return offerRepository.findById(id);
-    }
-
-    @Override
-    public List<Offer> findOffers(SearchOfferForm searchOffer) {
-        List<SearchCriteria> searchCriteria = new ArrayList<>();
-        if(searchOffer != null) {
-            if(searchOffer.getCategory() != null) {
-
-            }
-            if(searchOffer.getCity() != null) {
-                searchCriteria.add(new SearchCriteria("city", ":", searchOffer.getCity()));
-            }
-            if(searchOffer.getCountry() != null) {
-                searchCriteria.add(new SearchCriteria("country", ":", searchOffer.getCountry()));
-            }
-            if(searchOffer.getNumOfPeople() != null) {
-                searchCriteria.add(new SearchCriteria("minNumberOfUsers", ">", searchOffer.getNumOfPeople()));
-                searchCriteria.add(new SearchCriteria("maxNumberOfUsers", "<", searchOffer.getNumOfPeople()));
-            }
-            if(searchOffer.getDate() != null) {
-                Date date1 = null;
-                SimpleDateFormat tDateFormatter1 = new SimpleDateFormat("dd.MM.yyyy");
-                try {
-                    date1 = tDateFormatter1.parse(searchOffer.getDate());
-                } catch (ParseException pE) {
-                }
-                searchCriteria.add(new SearchCriteria("availableFrom", ":>", date1));
-                searchCriteria.add(new SearchCriteria("availableTo", ":<", date1));
-            }
-        }
-        return offerDaoRepository.findOffers(searchCriteria);
     }
 
     @Override
@@ -92,7 +61,7 @@ public class OfferServiceImpl implements OfferService {
         Set<Category> categorySet = new HashSet<>();
 
         categorySet.add(selectedCategory);
-        offer.setRoles(categorySet);
+        offer.setCategories(categorySet);
         offer.setActive(true);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
@@ -113,19 +82,42 @@ public class OfferServiceImpl implements OfferService {
     public Offer editOffer(EditOfferForm editOfferForm) throws ParseException {
         Offer offer = OfferMapper.INSTANCE.editOfferFormToOffer(editOfferForm);
 
-        offer.setDateLastEdited(new Date());
+        offer.setName(editOfferForm.getName());
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
         Date availableFrom = simpleDateFormat.parse(editOfferForm.getAvailableFrom());
         Date availableTo = simpleDateFormat.parse(editOfferForm.getAvailableTo());
-
         offer.setAvailableFrom(availableFrom);
         offer.setAvailableTo(availableTo);
+
+        if (!editOfferForm.getCategories().isEmpty()) {
+            offerCategoryRepository.deleteOfferCategories(offer.getId());
+            Set<Category> categories = updateCategories(editOfferForm.getCategories());
+            offer.setCategories(categories);
+
+            for (Category category : categories) {
+                OfferCategory offerCategory = new OfferCategory();
+                offerCategory.setCategoryId(category.getId());
+                offerCategory.setOfferId(offer.getId());
+                offerCategoryRepository.save(offerCategory);
+            }
+
+        }
 
         offerRepository.editOffer(offer.getAvailableFrom(), offer.getAvailableTo(), offer.getCity(), offer.getCountry(),
                 offer.getDateLastEdited(), offer.getDescription(), offer.getMinNumberOfUsers(), offer.getMaxNumberOfUsers(),
                 offer.getName(), offer.getId());
-
         return offer;
+    }
+
+    private Set<Category> updateCategories(List<String> categories) {
+
+        Set<Category> categoriesSet = new HashSet<>();
+        for (String c : categories) {
+            Category category = categoryRepository.findByName(c);
+            categoriesSet.add(category);
+        }
+
+        return categoriesSet;
     }
 }

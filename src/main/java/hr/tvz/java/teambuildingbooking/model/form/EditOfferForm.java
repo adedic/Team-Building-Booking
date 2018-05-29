@@ -1,12 +1,14 @@
 package hr.tvz.java.teambuildingbooking.model.form;
 
+import java.util.List;
+
 public class EditOfferForm {
 
     private Long id;
 
     private String name;
 
-    private String category;
+    private List<String> categories;
 
     private String country;
 
@@ -26,6 +28,8 @@ public class EditOfferForm {
 
     private String description;
 
+    private String dateAdded;
+
     // --- get / set methods --------------------------------------------------
 
     public Long getId() {
@@ -44,12 +48,12 @@ public class EditOfferForm {
         this.name = name;
     }
 
-    public String getCategory() {
-        return category;
+    public List<String> getCategories() {
+        return categories;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
     }
 
     public String getCountry() {
@@ -124,4 +128,11 @@ public class EditOfferForm {
         this.description = description;
     }
 
+    public void setDateAdded(String dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+
+    public String getDateAdded() {
+        return dateAdded;
+    }
 }

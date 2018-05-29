@@ -128,7 +128,7 @@ public class Offer implements Serializable {
         return categories;
     }
 
-    public void setRoles(Set<Category> categories) {
+    public void setCategories(Set<Category> categories) {
         this.categories = categories;
     }
 

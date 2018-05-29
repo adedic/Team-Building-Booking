@@ -13,16 +13,18 @@
 
 <div layout:fragment="content">
 
-    <div style="background: url('https://baconmockup.com/300/250'); background-repeat: no-repeat; background-size: cover; height:80vh">
+    <div th:style="'background-image: url(' + ${offer.offerPicture.base64String} + '); background-repeat: no-repeat; background-size: cover; height:80vh'">
         <div class="row justify-content-md-center" style="background: rgba(255,255,255,0.4); height:80vh">
             <div style="padding-top: 20vh; padding-bottom: 20vh;">
             </div>
         </div>
     </div>
+
     <div class="container-fluid">
         <div class="row justify-content-md-center">
             <div class="col-md-9" style="padding-top: 10vh;">
                 <div class="col-md-12">
+                    <a th:href="@{/offer/edit/{offerId}(offerId=${offer.id})}" class="btn btn-warning"><i class="fa fa-pencil"></i> Uredi</a>
                     <div class="row">
                         <div class="col-md-8">
                             <h1 class="panel-title" th:text="${offer.name}"></h1>
@@ -75,7 +77,7 @@
             <div class="col-md-9" style="padding-top: 5vh;">
 
                 <div class="col-md-12">
-                    <iframe th:src="'//www.google.com/maps/embed/v1/place?q=' + ${offer.city} + '/&zoom=17&key=AIzaSyBpTDfNDgB8BaIZiSj19PSJeqgvFnXL6Vg'" height="500" class="col-md-12"></iframe>
+                    <iframe th:src="'//www.google.com/maps/embed/v1/place?q=' + ${offer.city} + '/&zoom=10&key=AIzaSyBpTDfNDgB8BaIZiSj19PSJeqgvFnXL6Vg'" height="500" class="col-md-12"></iframe>
 
                 </div>
             </div>
@@ -112,6 +114,7 @@
                                     <p th:text="${feedback.comment}"></p>
 
                                 </div>
+
                             </div>
 
                         </div>

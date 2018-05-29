@@ -29,15 +29,23 @@
 
                             <div class="form-group">
                                 <label for="name" class="text-white">Naziv: </label>
-                                <input type="text" th:field="*{name}" id="name"/>
+                                <input class="form-control" type="text" th:field="*{name}" id="name"/>
                             </div>
 
-                            <div class="form-group">
+                            <label for="category" class="text-white">Kategorije: </label>
+                            <div class="form-group" th:each="category, stat : ${categories}">
+                                <input type="checkbox" class="text-white" id="category" name="category"
+                                       th:field="*{categories}"
+                                       th:value="${category.name}" />
+                                <span class="text-white" th:text="${category.name}"/>
+                            </div>
+
+                          <!--  <div class="form-group">
                                 <label for="category" class="text-white">Kategorija: </label>
                                 <select class="custom-select mr-sm-2" id="category">
                                     <option th:field="*{category}" th:each="category : ${categories}" th:text="${category.name}" th:value="${category.name}"></option>
                                 </select>
-                            </div>
+                            </div>-->
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">

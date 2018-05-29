@@ -1,5 +1,7 @@
 package hr.tvz.java.teambuildingbooking.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -12,6 +14,8 @@ public class OfferPicture implements Serializable {
     @Column(name = "ID", nullable = false)
     private Long id;
 
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
     @Column(name = "BASE64_STRING", nullable = false)
     private String base64String;
 

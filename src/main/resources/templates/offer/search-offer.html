@@ -16,25 +16,29 @@
     <div style="background: url('/resources/static/img/login.jpeg')">
         <div class="row justify-content-md-center"  style="background: rgba(255,255,255,0.4)">
             <div class="col-md-7" style="padding-top: 20vh; padding-bottom: 20vh;">
+                <div class="mx-auto text-center alert alert-danger" th:if="${offerNotFound}">
+                    <span th:text="${offerNotFound}"></span>
+                </div>
+                <div class="mx-auto text-center alert alert-danger" th:if="${invalidOwner}">
+                    <span th:text="${invalidOwner}"></span>
+                </div>
                 <div class="panel panel-default" style="background: rgba(33,37,41,0.9); padding: 5% 5%">
                     <div class="panel-heading">
                         <h3 class="panel-title text-white">Pretraži team building ponude</h3>
                     </div>
                     <br>
-
                     <div class="panel-body">
-
-                        <form role="form" method="POST" name="searchOffer" th:object="${searchOfferForm}" th:action="@{/offer/search}" class="needs-validation" novalidate>
+                        <form role="form" method="POST" name="searchOffer" th:action="@{/offer/searchOffer}" class="needs-validation" novalidate>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="category" class="text-white">Odaberite željenu kategoriju</label>
                                     <select class="custom-select mr-sm-2" id="category">
-                                        <option th:field="*{category}" th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
+                                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="category" class="text-white">Unesite željeni broj osoba</label>
-                                    <input th:field="*{numOfPeople}" th:value="${10}" type="number" min="1" max="250" onkeypress="return event.charCode >= 48" name="numOfPeople" class="form-control" id="numOfPeople" placeholder="Broj osoba" autofocus>
+                                    <input type="number" min="1" max="250" onkeypress="return event.charCode >= 48" name="numOfPeople" class="form-control" id="numOfPeople" placeholder="Broj osoba" required autofocus>
                                     <div class="invalid-feedback">Unesite broj osoba za team building manji od 250!</div>
                                 </div>
                             </div>
@@ -42,20 +46,25 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="country" class="text-white">Unesite željenu državu</label>
-                                    <input th:field="*{country}" type="text" name="country" class="form-control" id="country" placeholder="Država" autofocus>
+                                    <input type="text" name="country" class="form-control" id="country" placeholder="Država" required autofocus>
                                     <div class="invalid-feedback">Unesite valjan naziv države!</div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="country" class="text-white">Unesite željeni grad</label>
-                                    <input th:field="*{city}" type="text" name="city" class="form-control" id="city" placeholder="Grad" autofocus>
+                                    <input type="text" name="city" class="form-control" id="city" placeholder="Grad" required autofocus>
                                     <div class="invalid-feedback">Unesite valjan naziv grada!</div>
                                 </div>
                             </div>
 
                             <div class="form-row">
-                                <div class="form-group col-md-6 align-content-md-center">
-                                    <label for="country" class="text-white">Datum održavanja team buildinga</label>
-                                    <input th:field="*{date}" type="text" name="date" class="form-control" id="date" placeholder="Datum">
+                                <div class="form-group col-md-6">
+                                    <label for="country" class="text-white">Datum od</label>
+                                    <input type="text" name="dateFrom" class="form-control" id="dateFrom" placeholder="Datum od" required autofocus>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="country" class="text-white">Datum do</label>
+                                    <input type="text" name="dateTo" class="form-control" id="dateTo" placeholder="Datum do" required autofocus>
                                 </div>
                             </div>
 
@@ -89,10 +98,10 @@
                                 <div class="card">
                                     <img class="card-img-top" src="https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2017/whatcountsas.jpg" alt="Card image cap">
                                     <div class="card-body">
-                                        <h4 class="card-title" th:text="${offer.name}"></h4>
+                                        <h5 class="card-title" th:text="${offer.id}"></h5>
                                         <p class="card-text" th:text="${#strings.substring(offer.description,0,79) + '...'}" th:if="${#strings.length(offer.description) > 80}"></p>
                                         <p class="card-text" th:text="${offer.description}" th:if="${#strings.length(offer.description) < 81}"></p>
-                                        <a th:href="@{'/offer/details/' + ${offer.id}}"><button type="button" class="btn btn-outline-info">Detalji</button></a>
+                                        <a href="#" class="btn btn-info">Detalji</a>
                                     </div>
                                 </div>
                             </tr>

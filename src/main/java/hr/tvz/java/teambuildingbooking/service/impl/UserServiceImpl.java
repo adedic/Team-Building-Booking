@@ -93,4 +93,22 @@ public class UserServiceImpl implements UserService {
     public User getById(Long id) {
         return userRepository.getOne(id);
     }
+
+    @Override
+    public Set<Role> findRolesByUsername(String username) {
+        return userRepository.findRolesByUsername(username);
+    }
+
+    @Override
+    public boolean hasRole(String username, String role) {
+        Set<Role> roles = userRepository.findRolesByUsername(username);
+
+        for (Role r : roles) {
+            if (r.getName().equals(role)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
