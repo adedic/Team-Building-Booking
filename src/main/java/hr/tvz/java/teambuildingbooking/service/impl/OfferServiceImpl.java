@@ -46,7 +46,7 @@ public class OfferServiceImpl implements OfferService {
         List<SearchCriteria> searchCriteria = new ArrayList<>();
         if(searchOffer != null) {
             if(searchOffer.getCategory() != null) {
-                searchCriteria.add(new SearchCriteria("categories", ":", searchOffer.getCategory()));
+                searchCriteria.add(new SearchCriteria("categoryId", "//", searchOffer.getCategory()));
             }
             if(searchOffer.getCity() != null && !searchOffer.getCity().equals("")) {
                 searchCriteria.add(new SearchCriteria("city", ":", searchOffer.getCity()));
