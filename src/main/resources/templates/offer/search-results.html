@@ -26,11 +26,13 @@
 						<span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.date)}" th:text="${'Datum: ' + searchOfferForm.date}"></span>
 					</div>
 
-					<div class="panel-body">
-						<div class="album py-5">
+					<br></br>
 
-							<div class="row">
-								<div class="col-md-4" th:each="offer : ${offers}">
+					<div class="panel-body">
+						<!--<div class="album py-5">-->
+						<div class="card-columns">
+
+								<div th:each="offer : ${offers}">
 									<div class="card mb-4 box-shadow">
 										<img class="card-img-top"
 											src="https://baconmockup.com/300/250" alt="Card image cap">
@@ -46,10 +48,6 @@
 										</div>
 									</div>
 								</div>
-
-								
-								
-							</div>
 						</div>
 					</div>
 				</div>
