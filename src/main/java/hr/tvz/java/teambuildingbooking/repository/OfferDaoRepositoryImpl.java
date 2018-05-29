@@ -42,7 +42,7 @@ public class OfferDaoRepositoryImpl implements OfferDaoRepository {
             } else if (criteria.getOperation().equalsIgnoreCase(":<")) {
                 predicate = builder.and(predicate, builder.greaterThanOrEqualTo(rootOffer.get(criteria.getKey()), (Date) criteria.getValue()));
             } else if (criteria.getOperation().equalsIgnoreCase("//")) {
-                predicate = builder.and(predicate, builder.equal(rootOffer.join("categories").get("id"), criteria.getValue()));
+                predicate = builder.and(predicate, builder.equal(rootOffer.join("categories").get("name"), criteria.getValue()));
             }
 
         }

@@ -29,7 +29,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="category" class="text-white">Odaberite željenu kategoriju</label>
                                     <select class="custom-select mr-sm-2" id="category" th:field="*{category}">
-                                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
+                                        <option th:each="category : ${categories}" th:value="${category.name}" th:text="${category.name}">
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
