@@ -23,7 +23,7 @@ public class OfferPicture implements Serializable {
     private String name;
 
     @Column(name = "SIZE", nullable = false)
-    private String size;
+    private Integer size;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "OFFER_ID", referencedColumnName = "ID")
@@ -31,6 +31,12 @@ public class OfferPicture implements Serializable {
 
     public OfferPicture() {
         // default constructor
+    }
+
+    public OfferPicture(String base64String, String name, Integer size) {
+        this.base64String = base64String;
+        this.name = name;
+        this.size = size;
     }
 
     // --- get / set methods --------------------------------------------------
@@ -59,11 +65,11 @@ public class OfferPicture implements Serializable {
         this.name = name;
     }
 
-    public String getSize() {
+    public Integer getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(Integer size) {
         this.size = size;
     }
 

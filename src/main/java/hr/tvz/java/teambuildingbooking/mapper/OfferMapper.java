@@ -22,9 +22,11 @@ public interface OfferMapper {
 
     @Mapping(target = "availableFrom", ignore = true)
     @Mapping(target = "availableTo", ignore = true)
+    @Mapping(target = "categories", ignore = true)
     Offer editOfferFormToOffer(EditOfferForm editOfferForm);
 
     @Mapping(target = "availableFrom", ignore = true)
     @Mapping(target = "availableTo", ignore = true)
+    @Mapping(target = "categories", ignore = true)
     EditOfferForm offerToEditOfferForm(Offer offer);
 }

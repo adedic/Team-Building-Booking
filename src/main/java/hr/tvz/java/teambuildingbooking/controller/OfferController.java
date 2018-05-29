@@ -5,6 +5,7 @@ import hr.tvz.java.teambuildingbooking.model.Category;
 import hr.tvz.java.teambuildingbooking.model.Offer;
 import hr.tvz.java.teambuildingbooking.model.form.EditOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
+import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
 import hr.tvz.java.teambuildingbooking.service.CategoryService;
 import hr.tvz.java.teambuildingbooking.service.OfferService;
 import hr.tvz.java.teambuildingbooking.service.UserService;
@@ -13,10 +14,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -61,14 +59,14 @@ public class OfferController {
 
     @Secured("PROVIDER")
     @PostMapping("/new")
-    public String handleNewOfferForm(@ModelAttribute("newOfferForm") NewOfferForm form, RedirectAttributes redirectAttributes, BindingResult bindingResult) throws ParseException {
+    public String handleNewOfferForm(@ModelAttribute("newOfferForm") NewOfferForm form, RedirectAttributes redirectAttributes, BindingResult bindingResult, Principal principal) throws ParseException {
         if (bindingResult.hasErrors()) {
             return NEW_OFFER_VIEW_NAME;
         }
-        Offer offer = offerService.createOffer(form);
+        Offer offer = offerService.createOffer(form, principal);
         redirectAttributes.addFlashAttribute("createSuccess", "Dodavanje nove ponude je uspjelo!");
 
-        return "redirect:/details/" + offer.getId();
+        return "redirect:/offer/details/" + offer.getId();
     }
 
     @Secured("PROVIDER")
@@ -112,17 +110,17 @@ public class OfferController {
         return "redirect:/offer/details/" + offer.getId();
     }
 
-    @RequestMapping("/search")
+    @GetMapping("/search")
     private String searchOffer(Model model) {
         model.addAttribute("categories", categoryService.findAll());
-//        model.addAttribute("topOffers", offerService.findTopOffers());
-        model.addAttribute("topOffers", offerService.findAll());
+        model.addAttribute("topOffers", offerService.findTopOffers());
+        model.addAttribute("searchOfferForm", new SearchOfferForm());
         return SEARCH_OFFER_VIEW_NAME;
     }
 
-    @PostMapping("/searchOffer")
-    private String findSearchResults(Model model) {
-        model.addAttribute("offers", offerService.findAll());
+    @PostMapping("/search")
+    private String findSearchResults(@Valid @ModelAttribute("searchOfferForm") SearchOfferForm searchOfferForm, Model model) {
+        model.addAttribute("offers", offerService.findOffers(searchOfferForm));
         return SEARCH_RESULTS_VIEW_NAME;
     }
 

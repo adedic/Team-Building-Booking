@@ -10,11 +10,7 @@ public class SearchOfferForm {
 
     private String city;
 
-    private String dateFrom;
-
-    private String dateTo;
-
-
+    private String date;
 
     public Integer getCategory() {
         return category;
@@ -48,20 +44,11 @@ public class SearchOfferForm {
         this.city = city;
     }
 
-    public String getDateFrom() {
-        return dateFrom;
+    public String getDate() {
+        return date;
     }
 
-    public void setDateFrom(String dateFrom) {
-        this.dateFrom = dateFrom;
+    public void setDate(String date) {
+        this.date = date;
     }
-
-    public String getDateTo() {
-        return dateTo;
-    }
-
-    public void setDateTo(String dateTo) {
-        this.dateTo = dateTo;
-    }
-
 }

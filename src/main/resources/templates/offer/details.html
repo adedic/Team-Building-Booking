@@ -13,7 +13,7 @@
 
 <div layout:fragment="content">
 
-    <div th:style="'background-image: url(' + ${offer.offerPicture.base64String} + '); background-repeat: no-repeat; background-size: cover; height:80vh'">
+    <div th:style="'background-image: url(' + ${(offer.offerPicture != null ? (offer.offerPicture.base64String) : (''))} + '); background-repeat: no-repeat; background-size: cover; height:80vh'">
         <div class="row justify-content-md-center" style="background: rgba(255,255,255,0.4); height:80vh">
             <div style="padding-top: 20vh; padding-bottom: 20vh;">
             </div>

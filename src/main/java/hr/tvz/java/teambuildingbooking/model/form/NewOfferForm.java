@@ -1,8 +1,12 @@
 package hr.tvz.java.teambuildingbooking.model.form;
 
+import java.util.List;
+
 public class NewOfferForm {
 
-    private String category;
+    private List<String> categories;
+
+    private String name;
 
     private String country;
 
@@ -22,12 +26,20 @@ public class NewOfferForm {
 
     private String description;
 
-    public String getCategory() {
-        return category;
+    public List<String> getCategories() {
+        return categories;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCountry() {
