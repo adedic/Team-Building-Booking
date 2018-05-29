@@ -41,8 +41,9 @@ public class OfferServiceImpl implements OfferService {
     private UserService userService;
 
     @Autowired
-    public OfferServiceImpl(OfferRepository offerRepository, CategoryRepository categoryRepository, OfferCategoryRepository offerCategoryRepository, UserService userService) {
+    public OfferServiceImpl(OfferRepository offerRepository, OfferDaoRepository offerDaoRepository, CategoryRepository categoryRepository, OfferCategoryRepository offerCategoryRepository, UserService userService) {
         this.offerRepository = offerRepository;
+        this.offerDaoRepository = offerDaoRepository;
         this.categoryRepository = categoryRepository;
         this.offerCategoryRepository = offerCategoryRepository;
         this.userService = userService;
