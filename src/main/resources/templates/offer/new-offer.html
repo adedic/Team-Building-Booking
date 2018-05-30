@@ -23,27 +23,24 @@
 
                         <div class="panel-body">
 
-                            <form role="form" method="POST" name="formNewOffer" th:action="@{/templates/new-offer.html}" class="needs-validation" novalidate>
+                            <form role="form" method="POST" name="formNewOffer" th:action="@{/offer/new}" th:object="${newOfferForm}" class="needs-validation" novalidate>
                                 <div class="form-group">
-                                    <label for="category" class="text-white">Kategorija: </label>
-                                    <select class="custom-select mr-sm-2" id="category">
-                                        <!--
-                                        Mock podatke kasnije zamijeniti s podatcima iz baze, tablica Kategorija
-                                        -->
-                                        <option selected value="1">Sport</option>
-                                        <option value="2">Putovanja</option>
-                                        <option value="3">Rekreacija</option>
-                                        <option value="4">Avantura</option>
-                                        <option value="5">Zabavni program</option>
-                                        <option value="6">Ostalo</option>
-                                    </select>
+                                    <label for="name" class="text-white">Naziv: </label>
+                                    <input type="text" class="form-control" id="name" name="name" th:field="*{name}"/>
                                 </div>
 
+                                <label for="category" class="text-white">Kategorije: </label>
+                                <div class="form-group" th:each="category, stat : ${categories}">
+                                    <input type="checkbox" class="text-white" id="category" name="category"
+                                           th:field="*{categories}"
+                                           th:value="${category.name}" />
+                                    <span class="text-white" th:text="${category.name}"/>
+                                </div>
 
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="country" class="text-white">Država: </label>
-                                        <input type="text" name="country" class="form-control" id="country"
+                                        <input th:field="*{country}" type="text" name="country" class="form-control" id="country"
                                                placeholder="Država" required autofocus>
 
                                         <div class="invalid-feedback">
@@ -53,7 +50,7 @@
 
                                     <div class="form-group col-md-6">
                                         <label for="city" class="text-white">Mjesto održavanja: </label>
-                                        <input type="text" name="city" class="form-control" id="city"
+                                        <input th:field="*{city}" type="text" name="city" class="form-control" id="city"
                                                placeholder="Grad" required autofocus>
 
                                         <div class="invalid-feedback">
@@ -65,7 +62,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="min" class="text-white">Najmanji broj osoba: </label>
-                                        <input type="number" min="1" onkeypress="return event.charCode >= 48" name="min" class="form-control" id="min"
+                                        <input th:field="*{minNumberOfUsers}" type="number" min="1" onkeypress="return event.charCode >= 48" name="min" class="form-control" id="min"
                                                placeholder="Minimalni broj osoba" required autofocus>
 
                                         <div class="invalid-feedback">
@@ -75,7 +72,7 @@
 
                                     <div class="form-group col-md-6">
                                         <label for="max" class="text-white">Najveći mogući broj osoba: </label>
-                                        <input type="number" min="1" onkeypress="return event.charCode >= 48" name="max" class="form-control" id="max"
+                                        <input th:field="*{maxNumberOfUsers}" type="number" min="1" onkeypress="return event.charCode >= 48" name="max" class="form-control" id="max"
                                                placeholder="Maksimalan broj osoba" required autofocus>
 
                                         <div class="invalid-feedback">
@@ -85,7 +82,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="price" class="text-white">Cijena po osobi: </label>
-                                    <input type="number" min="0" step = "any" onkeypress="return event.charCode >= 48" name="price" class="form-control" id="price"
+                                    <input th:field="*{pricePerPerson}" type="number" min="0" step = "any" onkeypress="return event.charCode >= 48" name="price" class="form-control" id="price"
                                            placeholder="Cijena po osobi" required autofocus>
 
                                     <div class="invalid-feedback">
@@ -96,29 +93,31 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="availableFrom" class="text-white">Ponuda raspoloživa od:</label>
-                                        <input type="date" name="availableFrom" class="form-control" id="availableFrom"
+                                        <input th:field="*{availableFrom}" type="date" name="availableFrom" class="form-control" id="availableFrom"
                                                placeholder="Ponuda raspoloživa od" required autofocus>
                                     </div>
 
                                     <div class="form-group col-md-6">
                                         <label for="availableUntil" class="text-white">Ponuda raspoloživa do:</label>
-                                        <input type="date" name="availableUntil" class="form-control" id="availableUntil"
+                                        <input th:field="*{availableUntil}" type="date" name="availableUntil" class="form-control" id="availableUntil"
                                                placeholder="Ponuda raspoloživa do" required autofocus>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="opis" class="text-white">Opis team building ponude:</label>
-                                    <textarea class="form-control" rows="5" id="opis"></textarea>
+                                    <label for="img" class="text-white">Upload slike:</label>
+                                    <input th:field="*{image}" type="file" id="img" accept="image">
                                 </div>
 
-
+                                <div class="form-group">
+                                    <label for="opis" class="text-white">Opis team building ponude:</label>
+                                    <textarea th:field="*{description}" class="form-control" rows="5" id="opis"></textarea>
+                                </div>
 
                                 <input class="btn btn-lg btn-primary btn-block" type="submit" value="Dodaj ponudu!" />
 
                             </form>
                         </div>
-
 
                     </div>
                 </div>

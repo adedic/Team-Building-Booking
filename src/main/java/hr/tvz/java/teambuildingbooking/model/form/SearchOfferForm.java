@@ -2,7 +2,7 @@ package hr.tvz.java.teambuildingbooking.model.form;
 
 public class SearchOfferForm {
 
-    private Integer category;
+    private String category;
 
     private Integer numOfPeople;
 
@@ -10,17 +10,13 @@ public class SearchOfferForm {
 
     private String city;
 
-    private String dateFrom;
+    private String date;
 
-    private String dateTo;
-
-
-
-    public Integer getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Integer category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
@@ -48,20 +44,11 @@ public class SearchOfferForm {
         this.city = city;
     }
 
-    public String getDateFrom() {
-        return dateFrom;
+    public String getDate() {
+        return date;
     }
 
-    public void setDateFrom(String dateFrom) {
-        this.dateFrom = dateFrom;
+    public void setDate(String date) {
+        this.date = date;
     }
-
-    public String getDateTo() {
-        return dateTo;
-    }
-
-    public void setDateTo(String dateTo) {
-        this.dateTo = dateTo;
-    }
-
 }

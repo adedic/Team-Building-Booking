@@ -11,10 +11,11 @@ import java.util.Set;
 
 @Entity
 @Table(name = "OFFER")
+@SequenceGenerator(name = "seq", initialValue = 6, allocationSize = 100)
 public class Offer implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     @Column(name = "ID", nullable = false)
     private Long id;
 
@@ -139,7 +140,7 @@ public class Offer implements Serializable {
         return categories;
     }
 
-    public void setRoles(Set<Category> categories) {
+    public void setCategories(Set<Category> categories) {
         this.categories = categories;
     }
 
