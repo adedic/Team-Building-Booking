@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Potvrda rezervacije</title>
+
+    <th:block th:replace="fragments :: css"></th:block>
+</head>
+<body>
+<th:block th:include="fragments :: header"></th:block>
+
+<div layout:fragment="content">
+    <div class="container" style="padding-top: 20vh;">
+
+        <div class="row justify-content-md-start">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title text-secondary">Potvrda rezervacije</h3>
+                    <p class="text-danger">Molimo Vas da provjerite Vase podatke prije potvrde rezervacije.</p>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr>
+                                        <td><b>Naziv: </b></td>
+                                        <!-- Put link to offer here on name -->
+                                        <td th:text="${offer.name}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Mjesto: </b></td>
+                                        <td th:text="${offer.country + ' ' + offer.city}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Adresa: </b></td>
+                                        <td th:text="${offer.adress}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Datum: </b></td>
+                                        <td th:text="${#dates.format(reservationForm.date, 'dd.MM.yyyy')}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Broj ljudi: </b></td>
+                                        <td th:text="${reservationForm.numberOfUsers}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Cijena po osobi: </b></td>
+                                        <td th:text="${offer.pricePerPerson}"></td>
+                                    </tr>
+                                    <tr class="text-info">
+                                        <td><b>Cijena ukupno: </b></td>
+                                        <td th:text="${offer.pricePerPerson * reservationForm.numberOfUsers}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d364274.50752879365!2d14.715803878378361!3d44.4968266482942!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4762312ac48a1c53%3A0xd0d304bc0cb83143!2sPag!5e0!3m2!1shr!2shr!4v1527341298587" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--<button type="button" class="btn btn-info">Potvrdi rezervaciju</button>-->
+                        <form role="form" method="POST" name="saveReservationForm" th:action="@{/reservation/saveReservation}" th:object="${reservationForm}">
+                            <input type="hidden" th:field="*{offerId}"/>
+                            <input type="hidden" th:field="*{dateString}"/>
+                            <input type="hidden" th:field="*{numberOfUsers}"/>
+                            <input class="btn btn-lg btn-outline-primary btn-block"
+                                   type="submit" value="Potvrdi rezervaciju" />
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<th:block th:include="fragments :: footer"></th:block>
+<th:block th:include="fragments :: additionalScripts"></th:block>
+</body>
+</html>

@@ -21,12 +21,6 @@ public class Reservation implements Serializable {
     @JoinColumn(name = "OFFER_ID", referencedColumnName = "ID")
     private Offer offer;
 
-    @Column(name = "STARTS_AT", nullable = false)
-    private Date startsAt;
-
-    @Column(name = "ENDS_AT", nullable = false)
-    private Date endsAt;
-
     @Column(name = "DATE_OF_RESERVATION", nullable = false)
     private Date dateOfReservation;
 
@@ -64,22 +58,6 @@ public class Reservation implements Serializable {
 
     public void setOffer(Offer offer) {
         this.offer = offer;
-    }
-
-    public Date getStartsAt() {
-        return startsAt;
-    }
-
-    public void setStartsAt(Date startsAt) {
-        this.startsAt = startsAt;
-    }
-
-    public Date getEndsAt() {
-        return endsAt;
-    }
-
-    public void setEndsAt(Date endsAt) {
-        this.endsAt = endsAt;
     }
 
     public Date getDateOfReservation() {

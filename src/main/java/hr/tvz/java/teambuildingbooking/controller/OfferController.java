@@ -1,6 +1,7 @@
 package hr.tvz.java.teambuildingbooking.controller;
 
 import hr.tvz.java.teambuildingbooking.model.Offer;
+import hr.tvz.java.teambuildingbooking.model.form.ReservationForm;
 import hr.tvz.java.teambuildingbooking.service.CategoryService;
 import hr.tvz.java.teambuildingbooking.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,9 @@ public class OfferController {
     private String showDetails(Model model, @PathVariable("id") Long id) {
         Optional<Offer> offer = offerService.findOne(id);
         if(offer.isPresent()){
+            ReservationForm reservationForm = new ReservationForm(offer.get().getId(), null, null);
             model.addAttribute("offer", offer.get());
+            model.addAttribute("reservationForm", reservationForm);
         }
 
         return DETAILS_VIEW_NAME;
