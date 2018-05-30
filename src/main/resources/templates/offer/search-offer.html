@@ -34,8 +34,8 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="category" class="text-white">Odaberite željenu kategoriju</label>
-                                    <select class="custom-select mr-sm-2" id="category">
-                                        <option th:field="*{category}" th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
+                                    <select class="custom-select mr-sm-2" id="category" th:field="*{category}">
+                                        <option th:each="category : ${categories}" th:value="${category.name}" th:text="${category.name}">
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -91,19 +91,23 @@
 
                     <div class="panel-body">
                         <div class="card-columns">
-                                <tr th:each="offer : ${topOffers}">
-                                    <a style="color: black; text-decoration: none;" th:href="@{'/offer/details/' + ${offer.id}}">
+                            <tr th:each="offer : ${topOffers}">
+                                <a style="color: black; text-decoration: none;" th:href="@{'/offer/details/' + ${offer.id}}">
                                     <div class="card">
                                         <img class="card-img-top" th:src="${offer.offerPicture.base64String}" alt="Card image cap">
                                         <div class="card-body">
                                             <h4 class="card-title" th:text="${offer.name}"></h4>
                                             <p class="card-text" th:text="${#strings.substring(offer.description,0,79) + '...'}" th:if="${#strings.length(offer.description) > 80}"></p>
                                             <p class="card-text" th:text="${offer.description}" th:if="${#strings.length(offer.description) < 81}"></p>
-                                            <a th:href="@{'/offer/details/' + ${offer.id}}"><button type="button" class="btn btn-outline-info">Detalji</button></a>
+                                            <div class="d-flex justify-content-between align-items-center align-content-md-center">
+                                                <a th:href="@{'/offer/details/' + ${offer.id}}"><button type="button"
+                                                                                                        class="btn btn-outline-info">Detalji</button></a>
+                                                <p class="text-muted" th:text="${offer.pricePerPerson + ' kn'}"></p>
+                                            </div>
                                         </div>
                                     </div>
-                                    </a>
-                                </tr>
+                                </a>
+                            </tr>
                         </div>
                     </div>
 

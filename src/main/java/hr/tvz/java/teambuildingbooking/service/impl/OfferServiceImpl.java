@@ -62,21 +62,21 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public List<Offer> findOffers(SearchOfferForm searchOffer) {
         List<SearchCriteria> searchCriteria = new ArrayList<>();
-        if (searchOffer != null) {
-            if (searchOffer.getCategory() != null) {
-
+        if(searchOffer != null) {
+            if(searchOffer.getCategory() != null) {
+                searchCriteria.add(new SearchCriteria("categoryId", "//", searchOffer.getCategory()));
             }
-            if (searchOffer.getCity() != null) {
+            if(searchOffer.getCity() != null && !searchOffer.getCity().equals("")) {
                 searchCriteria.add(new SearchCriteria("city", ":", searchOffer.getCity()));
             }
-            if (searchOffer.getCountry() != null) {
+            if(searchOffer.getCountry() != null && !searchOffer.getCountry().equals("")) {
                 searchCriteria.add(new SearchCriteria("country", ":", searchOffer.getCountry()));
             }
-            if (searchOffer.getNumOfPeople() != null) {
-                searchCriteria.add(new SearchCriteria("minNumberOfUsers", ">", searchOffer.getNumOfPeople()));
-                searchCriteria.add(new SearchCriteria("maxNumberOfUsers", "<", searchOffer.getNumOfPeople()));
+            if(searchOffer.getNumOfPeople() != null) {
+                searchCriteria.add(new SearchCriteria("minNumberOfUsers", "<", searchOffer.getNumOfPeople()));
+                searchCriteria.add(new SearchCriteria("maxNumberOfUsers", ">", searchOffer.getNumOfPeople()));
             }
-            if (searchOffer.getDate() != null) {
+            if(searchOffer.getDate() != null) {
                 Date date1 = null;
                 SimpleDateFormat tDateFormatter1 = new SimpleDateFormat("dd.MM.yyyy");
                 try {
