@@ -33,18 +33,18 @@ import java.security.Principal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Slf4j
 @Controller
 @RequestMapping("/offer")
-@SessionAttributes({"offers"})
+@SessionAttributes({"offers", "searchOfferForm", "categories", "topOffers"})
 public class OfferController {
 
     private static final String NEW_OFFER_VIEW_NAME = "offer/new-offer";
     private static final String SEARCH_OFFER_VIEW_NAME = "offer/search-offer";
-    private static final String SEARCH_RESULTS_VIEW_NAME = "offer/search-results";
     private static final String DETAILS_VIEW_NAME = "offer/details";
     private static final String REVIEWS_VIEW_NAME = "offer/reviews";
     private static final String EDIT_OFFER_VIEW_NAME = "offer/edit-offer";
@@ -182,6 +182,7 @@ public class OfferController {
     private String searchOffer(Model model) {
         model.addAttribute("categories", categoryService.findAll());
         model.addAttribute("topOffers", offerService.findAll());
+        model.addAttribute("offers", new ArrayList<Offer>());
         model.addAttribute("searchOfferForm", new SearchOfferForm());
         return SEARCH_OFFER_VIEW_NAME;
     }
@@ -189,8 +190,14 @@ public class OfferController {
     @PostMapping("/search")
     private String findSearchResults(@Valid @ModelAttribute("searchOfferForm") SearchOfferForm
                                              searchOfferForm, Model model) {
-        model.addAttribute("offers", offerService.findOffers(searchOfferForm));
-        return SEARCH_RESULTS_VIEW_NAME;
+        List<Offer> offerResults = offerService.findOffers(searchOfferForm);
+        model.addAttribute("offers", offerResults);
+        if(offerResults.isEmpty()){
+            model.addAttribute("noResults",true);
+        }
+        model.addAttribute("titleResults", "Rezultati pretrage:");
+        //model.addAttribute("searchOfferForm", searchOfferForm);
+        return SEARCH_OFFER_VIEW_NAME;
     }
 
     @RequestMapping("/details/{id}")
