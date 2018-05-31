@@ -200,6 +200,7 @@ public class OfferController {
         }
         List<Offer> offerResults = offerService.findOffers(searchOfferForm);
         model.addAttribute("offers", offerResults);
+        model.addAttribute("noResults",false);
         if(offerResults.isEmpty()){
             model.addAttribute("noResults",true);
         }

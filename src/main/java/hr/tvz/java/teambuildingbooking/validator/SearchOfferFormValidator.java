@@ -40,7 +40,7 @@ public class SearchOfferFormValidator implements Validator {
     }
 
     private void validateCategory(String category, Errors errors) {
-        if(category != null) {
+        if(category != null && !category.equals("")) {
             if(!categoryService.existsByNameIgnoreCase(category)) {
                 errors.rejectValue("category", "error.searchOffer.category", "Izaberite jednu od postojećih kategorija");
             }

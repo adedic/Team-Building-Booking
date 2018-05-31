@@ -38,6 +38,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="category" class="text-white">Odaberite željenu kategoriju</label>
                                     <select class="custom-select mr-sm-2" id="category" th:field="*{category}">
+                                        <option value="" selected>Odaberite kategoriju</option>
                                         <option th:each="category : ${categories}" th:value="${category.name}" th:text="${category.name}">
                                     </select>
                                 </div>
@@ -78,11 +79,9 @@
 
     </div>
 
-
     <div class="container">
 
-        <br>
-        <br>
+        <th:block th:include="fragments :: results"></th:block>
 
         <div class="row justify-content-md-center">
             <div class="col-md-12">
@@ -94,7 +93,7 @@
 
                     <div class="panel-body">
                         <div class="card-columns">
-                            <div th:each="offer : ${topOffers}">
+                            <tr th:each="offer : ${topOffers}">
                                 <a style="color: black; text-decoration: none;" th:href="@{'/offer/details/' + ${offer.id}}">
                                     <div class="card md-4">
                                         <img class="card-img-top" th:src="${offer.offerPicture.base64String}" alt="Card image cap" style="height: 18rem;">
@@ -110,8 +109,7 @@
                                         </div>
                                     </div>
                                 </a>
-                            </div>
-
+                            </tr>
                         </div>
                     </div>
 
