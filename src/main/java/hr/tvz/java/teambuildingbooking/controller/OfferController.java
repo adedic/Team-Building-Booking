@@ -193,14 +193,6 @@ public class OfferController {
         return SEARCH_RESULTS_VIEW_NAME;
     }
 
-    @RequestMapping("/results")
-    private String showResults(Model model, HttpSession session) {
-
-        model.addAttribute("offers", session.getAttribute("offers"));
-
-        return SEARCH_RESULTS_VIEW_NAME;
-    }
-
     @RequestMapping("/details/{id}")
     private String showDetails(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         Optional<Offer> offer = offerService.findOne(id);

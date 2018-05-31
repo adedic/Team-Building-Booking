@@ -24,13 +24,18 @@
 						<span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.country)}" th:text="${'Država: ' + searchOfferForm.country}"></span>
 						<span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.city)}" th:text="${'Grad: ' + searchOfferForm.city}"></span>
 						<span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.date)}" th:text="${'Datum: ' + searchOfferForm.date}"></span>
-					</div>
+                        <br>
+                        <a th:href="@{/offer/search}">Natrag na pretragu</a>
+                    </div>
 
-					<br></br>
+
+					<br>
 
 					<div class="panel-body">
 						<!--<div class="album py-5">-->
 						<div class="card-columns">
+                            <p th:if="${offers.isEmpty()}">Nema rezultata za tražene parametre.
+                            </p>
 
 								<div th:each="offer : ${offers}">
 									<a style="color: black; text-decoration: none;" th:href="@{'/offer/details/' + ${offer.id}}">
