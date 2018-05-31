@@ -11,4 +11,4 @@ INSERT INTO offer (id, active, available_from, available_to, city, country, date
 VALUES (4, true, CURRENT_DATE - 1, CURRENT_DATE + 5, 'Omiš', 'Hrvatska', CURRENT_DATE - 6, CURRENT_DATE - 6, 'Jedrenje po Jadranu', 'Odjedrite iz zatvorenog i tmurnog ureda na otvoreno more, udahnit morski zrak i slušajte umirujući zvuk valova.', true, 20, 4, 800, 2, 4);
 
 INSERT INTO offer (id, active, available_from, available_to, city, country, date_added, date_last_edited, name, description, enabled, max_number_of_users, min_number_of_users, price_per_person, user_id, offer_picture_id)
-VALUES (5, true, CURRENT_DATE, CURRENT_DATE + 5, 'Zagreb', 'Hrvatska', CURRENT_DATE - 6, CURRENT_DATE - 6, 'Boksački ring', 'Gyms4You ima odličnu ponudu - udarajte po vreći za boks na kojoj je zalijepljena slika Vašeg poslodavca.', true, 15, 2, 100, 2, 5);
+VALUES (5, false, CURRENT_DATE, CURRENT_DATE + 5, 'Zagreb', 'Hrvatska', CURRENT_DATE - 6, CURRENT_DATE - 6, 'Boksački ring', 'Gyms4You ima odličnu ponudu - udarajte po vreći za boks na kojoj je zalijepljena slika Vašeg poslodavca.', true, 15, 2, 100, 2, 5);

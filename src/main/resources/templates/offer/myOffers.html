@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Moje ponude</title>
+
+    <th:block th:replace="fragments :: css"></th:block>
+</head>
+<body>
+<th:block th:include="fragments :: header"></th:block>
+
+<div layout:fragment="content">
+    <div class="container" style="padding-top: 20vh;">
+
+
+        <div class="row justify-content-md-center">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title text-secondary">Moje ponude:</h3>
+                    <div class="custom-control custom-checkbox" style="padding-top: 16px; padding-bottom: 16px">
+                        <input type="checkbox" onclick="showActive()" class="custom-control-input" id="showActive" >
+                        <label class="custom-control-label" for="showActive" >Prikaži samo aktivne</label>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="album py-5">
+
+                        <div class="row">
+                            <div class="col-md-6 myOffer" th:each="offer : ${myOffers}">
+                                <div class="card mb-4 box-shadow">
+                                    <div class="list-group">
+                                        <div class="card-body">
+
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                                    <h4 th:text="${offer.name}"></h4>
+                                                    <span class="badge badge-success activeState" th:if="${offer.active}">Aktivna</span>
+                                                    <span class="badge badge-dark" activeState th:if="${!offer.active}">Neaktivna</span>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <span class="text-muted">Dodano:</span>
+                                                    <small th:text="${#dates.format(offer.dateAdded, 'dd.MM.yyyy. HH:mm')}"></small>
+                                                    <span class="text-muted">Izmijenjeno:</span>
+                                                    <small th:text="${#dates.format(offer.dateLastEdited, 'dd.MM.yyyy. HH:mm')}"></small>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <img class="card-img-top"
+                                                 th:src="${offer.offerPicture.base64String}" alt="Card image cap">
+                                            <br> <br>
+
+
+
+                                            <p><b>Kategorije: </b>
+                                            <span th:each="category : ${offer.categories}" class="h5">
+                                                <span class="badge badge-danger" th:if="${category.name == 'Zabava'}" th:text="${category.name}"></span>
+                                                <span class="badge badge-warning text-white" th:if="${category.name == 'Hrana i piće'}" th:text="${category.name}"></span>
+                                                <span class="badge badge-primary" th:if="${category.name == 'Sport'}" th:text="${category.name}"></span>
+                                                <span class="badge badge-sport" th:if="${category.name == 'Putovanja'}" th:text="${category.name}"></span>
+                                                <span class="badge badge-info" th:if="${category.name == 'Seminar'}" th:text="${category.name}"></span>
+                                                <span class="badge badge-dark" th:if="${category.name == 'Ostalo'}" th:text="${category.name}"></span>
+                                            </span>
+                                            </p>
+                                            <p class="card-text"><b>Opis: </b> <span th:text="${offer.description}"></span></p>
+                                            <p class="card-text"><b>Država: </b> <span th:text="${offer.country}"></span></p>
+                                            <p class="card-text"><b>Mjesto: </b> <span th:text="${offer.city}"></span></p>
+                                            <p class="card-text"><b>Adresa: </b> <span >Adresa</span></p><!-- TODO zamijeniti nakon merga s podatkom iz baze-->
+                                            <p class="card-text"><b>Minimalan broj korisnika: </b> <span th:text="${offer.minNumberOfUsers}"></span></p>
+                                            <p class="card-text"><b>Maksimalan broj korisnika: </b> <span th:text="${offer.maxNumberOfUsers}"></span></p>
+                                            <p class="card-text"><b>Dostupno od: </b> <span th:text="${#dates.format(offer.availableFrom, 'dd.MM.yyyy.')}"></span></p>
+                                            <p class="card-text"><b>Dostupno do: </b> <span th:text="${#dates.format(offer.availableTo, 'dd.MM.yyyy.')}"></span></p>
+
+                                            <p class="card-text"><b>Cijena po osobi: </b> <span th:text="${#numbers.formatDecimal(offer.pricePerPerson,2,2) + ' kn'}">Adresa</span></p>
+
+                                            <br>
+
+
+
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <a th:href="@{'/offer/edit/' + ${offer.id}}"><button type="button"
+                                                                                                        class="btn btn-outline-warning"><i class="fa fa-pencil"></i> Uredi</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:include="fragments :: footer"></th:block>
+<th:block th:include="fragments :: additionalScripts"></th:block>
+<th:block th:include="fragments :: formValidationScript"></th:block>
+<script>
+
+
+    function showActive(){
+        var checkbox = document.getElementById('showActive');
+
+        if (checkbox.checked){
+            $('.myOffer').each(function() {
+                 if ($($(this).find('.activeState')).text() !== 'Aktivna') {
+                    $(this).hide();
+                }
+            });
+        }
+        if (!checkbox.checked){
+            $('.myOffer').each(function(i, obj) {
+                    $(this).show();
+            });
+        }
+    }
+</script>
+</body>
+</html>

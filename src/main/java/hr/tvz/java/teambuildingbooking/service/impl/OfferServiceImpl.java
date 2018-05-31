@@ -4,6 +4,7 @@ import hr.tvz.java.teambuildingbooking.mapper.OfferMapper;
 import hr.tvz.java.teambuildingbooking.model.Category;
 import hr.tvz.java.teambuildingbooking.model.Offer;
 import hr.tvz.java.teambuildingbooking.model.OfferPicture;
+import hr.tvz.java.teambuildingbooking.model.User;
 import hr.tvz.java.teambuildingbooking.model.criteria.SearchCriteria;
 import hr.tvz.java.teambuildingbooking.model.form.EditOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
@@ -32,10 +33,9 @@ public class OfferServiceImpl implements OfferService {
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
     private OfferRepository offerRepository;
+    private CategoryRepository categoryRepository;
 
     private OfferDaoRepository offerDaoRepository;
-
-    private CategoryRepository categoryRepository;
 
     private UserService userService;
 
@@ -85,8 +85,8 @@ public class OfferServiceImpl implements OfferService {
                     date1 = tDateFormatter1.parse(searchOffer.getDate());
                 } catch (ParseException pE) {
                 }
-                searchCriteria.add(new SearchCriteria("availableFrom", ":>", date1));
-                searchCriteria.add(new SearchCriteria("availableTo", ":<", date1));
+                searchCriteria.add(new SearchCriteria("availableFrom", ":<", date1));
+                searchCriteria.add(new SearchCriteria("availableTo", ":>", date1));
             }
         }
         return offerDaoRepository.findOffers(searchCriteria);
@@ -95,6 +95,12 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public List<Offer> findTopOffers() {
         return offerRepository.findTopOffers();
+    }
+
+    @Override
+    public List<Offer> findOffersByUserOrderByDateAdded(User user) {
+        log.info("---> Fetching offers for user " + user.getUsername());
+        return offerRepository.findAllByUserOrderByDateAddedDesc(user);
     }
 
     @Override

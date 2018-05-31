@@ -44,7 +44,7 @@
                         <div class="col-md-4" style="padding-top:2vh">
                             <h6><span class="fa fa-male text-danger"></span> <span th:text="${offer.minNumberOfUsers} + ' - '"></span>
                                 <span th:text="${offer.maxNumberOfUsers}"></span> ljudi</h6>
-                            <h6><span class="fa fa-money text-success"></span> <span th:text="${offer.pricePerPerson}"></span> kn po osobi</h6>
+                            <h6><span class="fa fa-money text-success"></span> <span th:text="${#numbers.formatDecimal(offer.pricePerPerson,2,2)}"></span> kn po osobi</h6>
                         </div>
 
                     </div>
@@ -89,40 +89,43 @@
 
             <div class="col-md-9" style="padding-top: 5vh;">
                 <div class="col-md-12" >
+                    <div th:each="feedback, i : ${offer.feedbacks}">
 
-                    <h4 class="text-muted" th:if="${offer.feedbacks == null}">Osvrti korisnika:</h4><br>
-                    <div class="card" th:each="feedback, i : ${offer.feedbacks}"  th:if="${i.index}<2">
-                        <div class="card-body" >
-                            <div class="row"  >
-                                <div class="col-md-2">
-                                    <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" style="width:100px"/>
-                                    <p class="text-secondary" th:text="${#dates.format(feedback.dateSubmitted, 'dd.MM.yyyy.')}"></p>
-                                </div>
-                                <div class="col-md-10">
-                                    <br>
-                                    <p>
-                                        <strong th:text="${feedback.user.name} + ' ' + ${feedback.user.surname}"></strong>
+                        <h4 class="text-muted" th:if="${i.index}==0">Osvrti korisnika:</h4><br>
+                        <div class="card" th:if="${i.index}<2">
+                            <div class="card-body" >
+                                <div class="row"  >
+                                    <div class="col-md-2">
+                                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" style="width:100px"/>
+                                        <p class="text-secondary" th:text="${#dates.format(feedback.dateSubmitted, 'dd.MM.yyyy.')}"></p>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <br>
+                                        <p>
+                                            <strong th:text="${feedback.user.name} + ' ' + ${feedback.user.surname}"></strong>
 
-                                        <span class="float-right" ><i class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right" th:if="${feedback.numberOfStars == 2 or feedback.numberOfStars == 3 or feedback.numberOfStars == 4 or feedback.numberOfStars == 5}"><i class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right" th:if="${feedback.numberOfStars == 3 or feedback.numberOfStars == 4 or feedback.numberOfStars == 5}"><i class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right" th:if="${feedback.numberOfStars == 4 or feedback.numberOfStars == 5}"><i class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right" th:if="${feedback.numberOfStars == 5}"><i class="text-warning fa fa-star"></i></span>
+                                            <span class="float-right" ><i class="text-warning fa fa-star"></i></span>
+                                            <span class="float-right" th:if="${feedback.numberOfStars == 2 or feedback.numberOfStars == 3 or feedback.numberOfStars == 4 or feedback.numberOfStars == 5}"><i class="text-warning fa fa-star"></i></span>
+                                            <span class="float-right" th:if="${feedback.numberOfStars == 3 or feedback.numberOfStars == 4 or feedback.numberOfStars == 5}"><i class="text-warning fa fa-star"></i></span>
+                                            <span class="float-right" th:if="${feedback.numberOfStars == 4 or feedback.numberOfStars == 5}"><i class="text-warning fa fa-star"></i></span>
+                                            <span class="float-right" th:if="${feedback.numberOfStars == 5}"><i class="text-warning fa fa-star"></i></span>
 
-                                    </p>
-                                    <div class="clearfix"></div>
-                                    <br>
-                                    <p th:text="${feedback.comment}"></p>
+                                        </p>
+                                        <div class="clearfix"></div>
+                                        <br>
+                                        <p th:text="${feedback.comment}"></p>
 
+                                    </div>
                                 </div>
 
                             </div>
 
                         </div>
+                        <div class="col-sm text-right" th:remove="${!i.last} ? all" th:if="${i.index > 1}">
+                            <a th:href="@{'/offer/details/' + ${offer.id} + '/reviews'}">Pogledaj sve osvrte</a>
+                        </div>
                     </div>
-                    <div class="col-sm text-right" th:if="${offer.feedbacks == null}">
-                        <a th:href="@{'/offer/details/' + ${offer.id} + '/reviews'}">Pogledaj sve osvrte</a>
-                    </div>
+
                 </div>
             </div>
         </div>

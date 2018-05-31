@@ -54,19 +54,20 @@
 				</li>
 			</ul>
 			<ul class="navbar-nav my-2 my-lg-0" style="margin-right: 10%">
-				<li class="nav-item" sec:authorize="isAnonymous()"><a
+
+				<li th:if="${registerView == null}" class="nav-item" sec:authorize="isAnonymous()"><a
 						class="nav-link" th:href="@{/register}">Registriraj se</a>
 				</li>
-				<li sec:authorize="isAnonymous()"><a
+				<li th:if="${loginView == null}" class="nav-item" sec:authorize="isAnonymous()"><a
 						class="nav-link" th:href="@{/login}">Prijavi se</a>
 				</li>
 				<li class="nav-item dropdown" sec:authorize="isAuthenticated()">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-					   role="button" data-toggle="dropdown" aria-haspopup="true"
-					   aria-expanded="false"><strong sec:authentication="name"></strong></a>
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"><strong sec:authentication="name"></strong></a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="#" sec:authorize="!hasAnyRole('ROLE_PROVIDER')"><i class="fa fa-pencil-square"></i> Moje rezervacije</a>
-						<a class="dropdown-item" href="#" sec:authorize="hasAnyRole('ROLE_ADMIN, ROLE_PROVIDER')"><i class="fa fa-opencart"></i> Moje ponude</a>
+						<a class="dropdown-item" th:href="@{/offer/myOffers}" sec:authorize="hasAnyRole('ROLE_ADMIN, ROLE_PROVIDER')"><i class="fa fa-opencart"></i> Moje ponude</a>
 						<a class="dropdown-item" th:href="@{/profile/me}" sec:authorize="hasRole('ROLE_USER')"><i class="fa fa-user"></i> Moj profil</a>
 						<a class="dropdown-item" th:href="@{/profile/edit}" sec:authorize="hasRole('ROLE_USER')"><i class="fa fa-pencil"></i> Uredi profil</a>
 						<div class="dropdown-divider"></div>

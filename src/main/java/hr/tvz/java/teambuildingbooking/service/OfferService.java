@@ -1,6 +1,7 @@
 package hr.tvz.java.teambuildingbooking.service;
 
 import hr.tvz.java.teambuildingbooking.model.Offer;
+import hr.tvz.java.teambuildingbooking.model.User;
 import hr.tvz.java.teambuildingbooking.model.form.EditOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
@@ -26,4 +27,7 @@ public interface OfferService {
     Offer editOffer(EditOfferForm editOfferForm, MultipartFile file, String username) throws ParseException, IOException;
 
     Long getOfferPictureIdByOfferId(Long id);
+
+    List<Offer> findOffersByUserOrderByDateAdded(User user);
+
 }

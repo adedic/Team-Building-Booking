@@ -1,6 +1,7 @@
 package hr.tvz.java.teambuildingbooking.repository;
 
 import hr.tvz.java.teambuildingbooking.model.Offer;
+import hr.tvz.java.teambuildingbooking.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -40,4 +41,6 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
 
     @Query("select o.offerPicture.id from Offer o where o.id = ?1")
     Long getOfferPictureIdByOfferId(Long id);
+    List<Offer> findAllByUserOrderByDateAddedDesc(User user);
+
 }

@@ -3,6 +3,7 @@ package hr.tvz.java.teambuildingbooking.controller;
 import hr.tvz.java.teambuildingbooking.facade.OfferFacade;
 import hr.tvz.java.teambuildingbooking.model.Category;
 import hr.tvz.java.teambuildingbooking.model.Offer;
+import hr.tvz.java.teambuildingbooking.model.User;
 import hr.tvz.java.teambuildingbooking.model.form.EditOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
@@ -34,6 +36,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/offer")
+@SessionAttributes({"offers"})
 public class OfferController {
 
     private static final String NEW_OFFER_VIEW_NAME = "offer/new-offer";
@@ -42,6 +45,7 @@ public class OfferController {
     private static final String DETAILS_VIEW_NAME = "offer/details";
     private static final String REVIEWS_VIEW_NAME = "offer/reviews";
     private static final String EDIT_OFFER_VIEW_NAME = "offer/edit-offer";
+    private static final String MY_OFFERS_VIEW_NAME = "offer/myOffers";
 
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
@@ -137,7 +141,7 @@ public class OfferController {
     @GetMapping("/search")
     private String searchOffer(Model model) {
         model.addAttribute("categories", categoryService.findAll());
-        model.addAttribute("topOffers", offerService.findTopOffers());
+        model.addAttribute("topOffers", offerService.findAll());
         model.addAttribute("searchOfferForm", new SearchOfferForm());
         return SEARCH_OFFER_VIEW_NAME;
     }
@@ -149,20 +153,21 @@ public class OfferController {
     }
 
     @RequestMapping("/results")
-    private String showResults(Model model) {
+    private String showResults(Model model, HttpSession session) {
 
-        model.addAttribute("offers", offerService.findAll());
+        model.addAttribute("offers", session.getAttribute("offers"));
+
         return SEARCH_RESULTS_VIEW_NAME;
     }
 
     @RequestMapping("/details/{id}")
-    private String showDetails(Model model, @PathVariable("id") Long id) {
+    private ModelAndView showDetails(Model model, @PathVariable("id") Long id) {
         Optional<Offer> offer = offerService.findOne(id);
         if (offer.isPresent()) {
             model.addAttribute("offer", offer.get());
         }
 
-        return DETAILS_VIEW_NAME;
+        return new ModelAndView(DETAILS_VIEW_NAME);
     }
 
     @RequestMapping("/details/{id}/reviews")
@@ -173,6 +178,16 @@ public class OfferController {
         }
 
         return new ModelAndView(REVIEWS_VIEW_NAME);
+    }
+
+
+    @Secured("PROVIDER")
+    @RequestMapping("/myOffers")
+    private ModelAndView showMyOffers(Model model, Principal principal) {
+        User currentUser = userService.findByUsername(principal.getName());
+        List<Offer> offers = offerService.findOffersByUserOrderByDateAdded(currentUser);
+        model.addAttribute("myOffers", offers);
+        return new ModelAndView(MY_OFFERS_VIEW_NAME);
     }
 
     // form validators
