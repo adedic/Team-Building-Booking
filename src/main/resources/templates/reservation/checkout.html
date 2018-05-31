@@ -18,7 +18,14 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title text-secondary">Potvrda rezervacije</h3>
-                    <p class="text-danger">Molimo Vas da provjerite Vase podatke prije potvrde rezervacije.</p>
+                    <div class="row">
+                        <div class="col-md-6" th:if="${errorMessage == null}">
+                            <p class="text-danger">Molimo Vas da provjerite Vase podatke prije potvrde rezervacije.</p>
+                        </div>
+                        <div class="col-md-6" th:if="${errorMessage}">
+                            <h4 class="text-danger" th:text="${errorMessage}"></h4>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="panel-body">
@@ -44,7 +51,7 @@
                                         <td th:text="${#dates.format(reservationForm.date, 'dd.MM.yyyy')}"></td>
                                     </tr>
                                     <tr>
-                                        <td><b>Broj ljudi: </b></td>
+                                        <td><b>Broj osoba: </b></td>
                                         <td th:text="${reservationForm.numberOfUsers}"></td>
                                     </tr>
                                     <tr>
@@ -69,6 +76,7 @@
                             <input type="hidden" th:field="*{dateString}"/>
                             <input type="hidden" th:field="*{numberOfUsers}"/>
                             <input class="btn btn-lg btn-outline-primary btn-block"
+                                   th:disabled="${errorMessage != null}"
                                    type="submit" value="Potvrdi rezervaciju" />
                         </form>
                     </div>

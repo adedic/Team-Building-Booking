@@ -11,7 +11,9 @@ import hr.tvz.java.teambuildingbooking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,6 +29,7 @@ public class ReservationServiceImpl implements ReservationService {
     UserService userService;
 
     @Override
+    @Transactional
     public Reservation insertNewReservation(ReservationForm reservationForm, User user) {
         Optional<Offer> optional = offerService.findOne(reservationForm.getOfferId());
         Offer offer = optional.get();
@@ -35,9 +38,16 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setOffer(offer);
         reservation.setUser(user);
         reservation.setDateOfReservation(reservationForm.getDate());
+        reservation.setNumberOfUsers(reservationForm.getNumberOfUsers());
         reservation.setDateLastEdited(reservationForm.getDate());
 
         return reservationRepository.saveAndFlush(reservation);
     }
 
+    @Override
+    public List<Reservation> getAllReservationsByOffer(ReservationForm reservationForm) {
+        List<Reservation> reservations = reservationRepository.getReservationsByOffer(reservationForm.getDate(), reservationForm.getOfferId());
+
+        return reservations;
+    }
 }

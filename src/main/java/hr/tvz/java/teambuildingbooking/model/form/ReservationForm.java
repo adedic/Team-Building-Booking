@@ -1,8 +1,5 @@
 package hr.tvz.java.teambuildingbooking.model.form;
 
-import org.springframework.stereotype.Service;
-
-import java.beans.PropertyEditorSupport;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,12 +12,12 @@ public class ReservationForm {
 
     private String dateString;
 
-    private Long numberOfUsers;
+    private Integer numberOfUsers;
 
 
     public ReservationForm () {}
 
-    public ReservationForm (Long offerId, Date date, Long numberOfUsers) {
+    public ReservationForm (Long offerId, Date date, Integer numberOfUsers) {
         this.offerId = offerId;
         this.date = date;
         this.numberOfUsers = numberOfUsers;
@@ -61,11 +58,11 @@ public class ReservationForm {
         this.dateString = dateString;
     }
 
-    public Long getNumberOfUsers() {
+    public Integer getNumberOfUsers() {
         return numberOfUsers;
     }
 
-    public void setNumberOfUsers(Long numberOfUsers) {
+    public void setNumberOfUsers(Integer numberOfUsers) {
         this.numberOfUsers = numberOfUsers;
     }
 }

@@ -24,6 +24,9 @@ public class Reservation implements Serializable {
     @Column(name = "DATE_OF_RESERVATION", nullable = false)
     private Date dateOfReservation;
 
+    @Column(name = "NUMBER_OF_USERS", nullable = false)
+    private Integer numberOfUsers;
+
     @Column(name = "DATE_OF_CANCELLATION")
     private Date dateOfCancellation;
 
@@ -66,6 +69,14 @@ public class Reservation implements Serializable {
 
     public void setDateOfReservation(Date dateOfReservation) {
         this.dateOfReservation = dateOfReservation;
+    }
+
+    public Integer getNumberOfUsers() {
+        return numberOfUsers;
+    }
+
+    public void setNumberOfUsers(Integer numberOfUsers) {
+        this.numberOfUsers = numberOfUsers;
     }
 
     public Date getDateOfCancellation() {
