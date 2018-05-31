@@ -22,6 +22,9 @@
                 <div class="mx-auto text-center alert alert-danger" th:if="${invalidOwner}">
                     <span th:text="${invalidOwner}"></span>
                 </div>
+                <div class="mx-auto text-center alert alert-danger" th:if="${offerDeleted}">
+                    <span th:text="${offerDeleted}"></span>
+                </div>
                 <div class="panel panel-default" style="background: rgba(33,37,41,0.9); padding: 5% 5%">
                     <div class="panel-heading">
                         <h3 class="panel-title text-white">Pretraži team building ponude</h3>

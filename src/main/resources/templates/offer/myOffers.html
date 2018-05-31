@@ -15,7 +15,12 @@
     <div class="container" style="padding-top: 20vh;">
 
 
-        <div class="row justify-content-md-center">
+        <div class="alert alert-info text-center" th:if="${myOffers.isEmpty()}">
+            Još niste dodali nijednu ponudu!
+            <a th:href="@{/offer/new}" class="btn btn-primary text-center mx-auto"><i class="fa fa-plus"></i> Dodaj novu ponudu</a>
+        </div>
+
+        <div th:if="${!myOffers.isEmpty()}" class="row justify-content-md-center">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title text-secondary">Moje ponude:</h3>
@@ -24,7 +29,6 @@
                         <label class="custom-control-label" for="showActive" >Prikaži samo aktivne</label>
                     </div>
                 </div>
-
                 <div class="panel-body">
                     <div class="album py-5">
 
@@ -48,7 +52,7 @@
                                                 </div>
                                             </div>
                                             <br>
-                                            <img class="card-img-top"
+                                            <img th:if="${offer.offerPicture != null}" class="card-img-top"
                                                  th:src="${offer.offerPicture.base64String}" alt="Card image cap">
                                             <br> <br>
 
@@ -82,6 +86,10 @@
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <a th:href="@{'/offer/edit/' + ${offer.id}}"><button type="button"
                                                                                                         class="btn btn-outline-warning"><i class="fa fa-pencil"></i> Uredi</button></a>
+                                                <a th:href="@{'/offer/delete/' + ${offer.id}}"><button type="button"
+                                                                                                        class="btn btn-outline-danger"><i class="fa fa-trash"></i> Izbriši</button></a>
+                                                <a th:href="@{'/offer/details/' + ${offer.id}}"><button type="button"
+                                                                                                        class="btn btn-outline-info"><i class="fa fa-info"></i> Detalji</button></a>
                                             </div>
                                         </div>
                                     </div>

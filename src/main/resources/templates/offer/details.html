@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorator="layout">
 <head>
     <title>Detalji ponude</title>
@@ -10,7 +11,7 @@
 </head>
 <body>
 <th:block th:include="fragments :: header"></th:block>
-    
+
 <div layout:fragment="content">
 
     <div th:if="${offer.offerPicture != null}" th:style="'background-image: url(' + ${(offer.offerPicture != null ? (offer.offerPicture.base64String) : (''))} + '); background-repeat: no-repeat; background-size: cover; height:80vh'">
@@ -24,8 +25,10 @@
         <div class="row justify-content-md-center">
             <div class="col-md-9" style="padding-top: 10vh;">
                 <div class="col-md-12">
-                    <a th:href="@{/offer/edit/{offerId}(offerId=${offer.id})}" class="btn btn-warning"><i class="fa fa-pencil"></i> Uredi</a>
-                    <a th:href="@{/offer/delete/{offerId}(offerId=${offer.id})}" class="btn btn-warning"><i class="fa fa-pencil"></i> Izbrisi</a>
+                    <a th:href="@{'/offer/edit/' + ${offer.id}}"><button type="button"
+                                                                         class="btn btn-outline-warning"><i class="fa fa-pencil"></i> Uredi</button></a>
+                    <a th:href="@{'/offer/delete/' + ${offer.id}}"><button type="button"
+                                                                           class="btn btn-outline-danger"><i class="fa fa-trash"></i> Izbriši</button></a>
                     <div class="row">
                         <div class="col-md-8">
                             <h1 class="panel-title" th:text="${offer.name}"></h1>

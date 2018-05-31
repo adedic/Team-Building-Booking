@@ -17,6 +17,7 @@ import hr.tvz.java.teambuildingbooking.service.OfferService;
 import hr.tvz.java.teambuildingbooking.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -142,6 +143,8 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Transactional
+    @Modifying
+    @Override
     public Offer editOffer(EditOfferForm editOfferForm, MultipartFile file, String username) throws ParseException, IOException {
         Offer offer = OfferMapper.INSTANCE.editOfferFormToOffer(editOfferForm);
 
@@ -189,6 +192,13 @@ public class OfferServiceImpl implements OfferService {
         }
 
         return categoriesSet;
+    }
+
+    @Modifying
+    @Transactional
+    @Override
+    public void deleteOfferById(Long id) {
+        offerRepository.deleteOfferById(id);
     }
 
     // --- private / util methods ---------------------------------------------

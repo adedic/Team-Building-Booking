@@ -7,4 +7,6 @@ public interface OfferPictureService {
     OfferPicture save(OfferPicture offerPicture);
 
     OfferPicture findById(Long id);
+
+    void deleteById(Long id);
 }

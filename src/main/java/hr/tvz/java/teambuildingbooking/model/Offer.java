@@ -2,6 +2,8 @@ package hr.tvz.java.teambuildingbooking.model;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -40,12 +42,15 @@ public class Offer implements Serializable {
     @Fetch(FetchMode.JOIN)
     private Set<Category> categories = new HashSet<>();
 
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "offer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Feedback> feedbacks;
 
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "offer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Reservation> reservations;
 
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "OFFER_PICTURE_ID", referencedColumnName = "ID")
     private OfferPicture offerPicture;

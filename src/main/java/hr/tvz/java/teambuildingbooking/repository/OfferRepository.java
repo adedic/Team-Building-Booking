@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -33,14 +33,14 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
             "limit 9", nativeQuery = true)
     List<Offer> findTopOffers();
 
-    @Modifying
-    @Query("update Offer offer set offer.availableFrom = ?1, offer.availableTo = ?2, offer.city = ?3 , offer.country = ?4," +
-            " offer.dateLastEdited = ?5, offer.description = ?6, offer.minNumberOfUsers = ?7, offer.maxNumberOfUsers = ?8," +
-            " offer.name = ?9 where offer.id = ?10")
-    void editOffer(Date availableFrom, Date availableTo, String city, String country, Date dateLastEdited, String description, Integer minNumberOfUsers, Integer maxNumberOfUsers, String name, Long offerId);
-
     @Query("select o.offerPicture.id from Offer o where o.id = ?1")
     Long getOfferPictureIdByOfferId(Long id);
+
+    @Transactional
+    @Modifying
+    @Query("delete from Offer o where o.id = ?1 ")
+    void deleteOfferById(Long id);
+
     List<Offer> findAllByUserOrderByDateAddedDesc(User user);
 
 }
