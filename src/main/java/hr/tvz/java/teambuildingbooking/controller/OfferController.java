@@ -4,14 +4,18 @@ import hr.tvz.java.teambuildingbooking.model.Offer;
 import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
 import hr.tvz.java.teambuildingbooking.service.CategoryService;
 import hr.tvz.java.teambuildingbooking.service.OfferService;
+import hr.tvz.java.teambuildingbooking.validator.SearchOfferFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.Optional;
 
 
@@ -26,11 +30,18 @@ public class OfferController {
     private static final String DETAILS_VIEW_NAME = "offer/details";
     private static final String REVIEWS_VIEW_NAME = "offer/reviews";
 
-    @Autowired
     private OfferService offerService;
 
-    @Autowired
     private CategoryService categoryService;
+
+    private SearchOfferFormValidator searchOfferFormValidator;
+
+    @Autowired
+    public OfferController(OfferService offerService, CategoryService categoryService, SearchOfferFormValidator searchOfferFormValidator) {
+        this.offerService = offerService;
+        this.categoryService = categoryService;
+        this.searchOfferFormValidator = searchOfferFormValidator;
+    }
 
     @Secured("PROVIDER")
     @RequestMapping("/new")
@@ -47,7 +58,12 @@ public class OfferController {
     }
 
     @PostMapping("/search")
-    private String findSearchResults(@Valid @ModelAttribute("searchOfferForm") SearchOfferForm searchOfferForm, Model model) {
+    private String findSearchResults(@Valid @ModelAttribute("searchOfferForm") SearchOfferForm searchOfferForm, Model model, BindingResult bindingResult) throws ParseException {
+
+        if(bindingResult.hasErrors()) {
+            return SEARCH_OFFER_VIEW_NAME;
+        }
+
         model.addAttribute("offers", offerService.findOffers(searchOfferForm));
         return SEARCH_RESULTS_VIEW_NAME;
     }
@@ -77,6 +93,11 @@ public class OfferController {
         }
 
         return new ModelAndView(REVIEWS_VIEW_NAME);
+    }
+
+    @InitBinder("searchOfferForm")
+    public void searchOfferFormValidator(WebDataBinder dataBinder) {
+        dataBinder.addValidators(searchOfferFormValidator);
     }
 
 
