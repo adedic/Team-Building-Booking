@@ -2,6 +2,8 @@ package hr.tvz.java.teambuildingbooking.model;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,10 +13,11 @@ import java.util.Set;
 
 @Entity
 @Table(name = "OFFER")
+@SequenceGenerator(name = "seq", initialValue = 6, allocationSize = 100)
 public class Offer implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     @Column(name = "ID", nullable = false)
     private Long id;
 
@@ -31,7 +34,7 @@ public class Offer implements Serializable {
     @Column(name = "CITY", nullable = false)
     private String city;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "OFFER_CATEGORY",
             joinColumns = {@JoinColumn(name = "OFFER_ID", referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")}
@@ -39,13 +42,16 @@ public class Offer implements Serializable {
     @Fetch(FetchMode.JOIN)
     private Set<Category> categories = new HashSet<>();
 
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "offer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Feedback> feedbacks;
 
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "offer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Reservation> reservations;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "OFFER_PICTURE_ID", referencedColumnName = "ID")
     private OfferPicture offerPicture;
 
@@ -120,15 +126,19 @@ public class Offer implements Serializable {
         this.city = city;
     }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Set<Category> getCategories() {
         return categories;
     }
 
-    public void setRoles(Set<Category> categories) {
+    public void setCategories(Set<Category> categories) {
         this.categories = categories;
     }
 

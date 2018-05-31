@@ -16,7 +16,7 @@ public class LoginController {
 
     @RequestMapping("/login")
     private String login(Model model) {
-        model.addAttribute("navLinkText", "Registracija");
+        model.addAttribute("loginView", true);
         return LOGIN_VIEW_NAME;
     }
 

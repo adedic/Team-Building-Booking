@@ -1,131 +1,131 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
 <head>
-<title>Registracija</title>
+    <title>Registracija</title>
 
-<th:block th:replace="fragments :: css"></th:block>
+    <th:block th:replace="fragments :: css"></th:block>
 </head>
 
 <body>
-	
+
 <th:block th:include="fragments :: header"></th:block>
 
 
 <div layout:fragment="content">
-<div class="container" style="padding-top: 20vh;">
+    <div class="container" style="padding-top: 20vh;">
 
-    <div class="row justify-content-md-center">
-        <div class="col-md-5">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Registracija korisnika</h3>
-                    <br>
-                </div>
-                <div class="panel-body">
-				
-                    <form role="form" method="POST" name="formRegister" th:action="@{/register}" th:object="${registrationForm}" class="needs-validation" novalidate>
-						
-                        <div class="form-group">
-							<select class="custom-select mr-sm-2" id="roleSelect" th:field="*{userRole}">
-								<option selected th:value="ROLE_USER">Korisnik</option>
-								<option th:value="ROLE_PROVIDER">Ponuditelj</option>
-							 </select>
+        <div class="row justify-content-md-center">
+            <div class="col-md-5">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Registracija korisnika</h3>
+                        <br>
+                    </div>
+                    <div class="panel-body">
 
-                            <div class="text-danger" th:if="${#fields.hasErrors('userRole')}" th:errors="*{userRole}">Name Error</div>
-                            <small id="roleSelectHelp" class="form-text text-muted">Odaberi ulogu u Team Building Booking sustavu</small>
-						</div>
-                        <div class="form-group">
-                            <input type="text" name="name" class="form-control" id="name"
-                                   placeholder="Ime" required autofocus th:field="*{name}">
+                        <form role="form" method="POST" name="formRegister" th:action="@{/register}" th:object="${registrationForm}" class="needs-validation" novalidate>
 
-                            <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
-                            <div class="invalid-feedback">
-							  Unesi ime!
-							</div>
-                        </div>
-                        <div class="form-group">
+                            <div class="form-group">
+                                <select class="custom-select mr-sm-2" id="roleSelect" th:field="*{userRole}">
+                                    <option selected th:value="ROLE_USER">Korisnik</option>
+                                    <option th:value="ROLE_PROVIDER">Ponuditelj</option>
+                                </select>
+
+                                <div class="text-danger" th:if="${#fields.hasErrors('userRole')}" th:errors="*{userRole}">Name Error</div>
+                                <small id="roleSelectHelp" class="form-text text-muted">Odaberi ulogu u Team Building Booking sustavu</small>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="name" class="form-control" id="name"
+                                       placeholder="Ime" required autofocus th:field="*{name}">
+
+                                <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+                                <div class="invalid-feedback">
+                                    Unesi ime!
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <input type="text" name="lastName" class="form-control" id="lastName"
                                        placeholder="Prezime" th:field="*{surname}" required autofocus>
 
-                            <div class="text-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Name Error</div>
+                                <div class="text-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Name Error</div>
 
-                            <div class="invalid-feedback">
-								  Unesi prezime!
-								</div>
-								  
-                        </div>
-                        <div class="form-group">
-                            <input type="date" name="dateOfBirth" class="form-control" id="dateOfBirth"
-                                   placeholder="Datum rođenja"  th:field="*{dateOfBirth}" required autofocus>
-							
-							<small id="roleSelectHelp" class="form-text text-muted">Unesi svoj datum rođenja</small>
-                        </div>
-						
-                        <div class="form-group">
-                            <input type="email" name="email" class="form-control" id="email"
-                                   placeholder="E-mail" th:field="*{email}" required autofocus>
+                                <div class="invalid-feedback">
+                                    Unesi prezime!
+                                </div>
 
-                            <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</div>
+                            </div>
+                            <div class="form-group">
+                                <input type="date" name="dateOfBirth" class="form-control" id="dateOfBirth"
+                                       placeholder="Datum rođenja"  th:field="*{dateOfBirth}" required autofocus>
 
-                            <div class="invalid-feedback">
-							  Unesi ispravan e-mail!
-							</div>
-                        </div>
+                                <small id="roleSelectHelp" class="form-text text-muted">Unesi svoj datum rođenja</small>
+                            </div>
 
-						<div class="form-group">
-                            <input type="tel" name="telephone" class="form-control" id="telephone"
-                                   placeholder="Broj telefona" th:field="*{telephone}" autofocus maxlength="20">
+                            <div class="form-group">
+                                <input type="email" name="email" class="form-control" id="email"
+                                       placeholder="E-mail" th:field="*{email}" required autofocus>
 
-                            <div class="text-danger" th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}">Name Error</div>
+                                <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</div>
 
-                            <div class="invalid-feedback">
-							  Unesi ispravan broj telefona!
-							</div>
-                        </div>
+                                <div class="invalid-feedback">
+                                    Unesi ispravan e-mail!
+                                </div>
+                            </div>
 
-                        <div class="form-group">
-                            <input type="tel" name="username" class="form-control" id="username"
-                                   placeholder="Korisničko ime" th:field="*{username}" autofocus maxlength="20">
+                            <div class="form-group">
+                                <input type="tel" name="telephone" class="form-control" id="telephone"
+                                       placeholder="Broj telefona" th:field="*{telephone}" autofocus maxlength="20">
 
-                            <div class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</div>
+                                <div class="text-danger" th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}">Name Error</div>
 
-                            <small id="roleSelectHelp" class="form-text text-muted">Unesi korisničko ime s kojim ćeš se prijavljivati.</small>
+                                <div class="invalid-feedback">
+                                    Unesi ispravan broj telefona!
+                                </div>
+                            </div>
 
-                            <div class="invalid-feedback">
-							  Unesi ispravno korisničko ime!
-							</div>
-                        </div>
+                            <div class="form-group">
+                                <input type="tel" name="username" class="form-control" id="username"
+                                       placeholder="Korisničko ime" th:field="*{username}" autofocus maxlength="20">
 
-                        <div class="form-group">
-                            <input type="password" name="password" class="form-control" id="password" 
-                                   placeholder="Lozinka" th:field="*{password}"required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</div>
 
-                            <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</div>
+                                <small id="roleSelectHelp" class="form-text text-muted">Unesi korisničko ime s kojim ćeš se prijavljivati.</small>
 
-                        </div>
-                        <div class="form-group">
-                            <input type="password" name="passwordConfirm" class="form-control" id="passwordConfirm"
-                                   placeholder="Ponovi lozinku" th:field="*{confirmPassword}" required>
+                                <div class="invalid-feedback">
+                                    Unesi ispravno korisničko ime!
+                                </div>
+                            </div>
 
-                            <div class="text-danger" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Name Error</div>
+                            <div class="form-group">
+                                <input type="password" name="password" class="form-control" id="password"
+                                       placeholder="Lozinka" th:field="*{password}"required>
 
-                            <div class="invalid-feedback">
-							  Unesi (jednake) lozinke!
-							</div>
-                        </div>
-						
-                        <input class="btn btn-lg btn-outline-primary btn-block" type="submit" value="Registriraj se" />
+                                <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</div>
+
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="passwordConfirm" class="form-control" id="passwordConfirm"
+                                       placeholder="Ponovi lozinku" th:field="*{confirmPassword}" required>
+
+                                <div class="text-danger" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Name Error</div>
+
+                                <div class="invalid-feedback">
+                                    Unesi (jednake) lozinke!
+                                </div>
+                            </div>
+
+                            <input class="btn btn-lg btn-outline-primary btn-block" type="submit" value="Registriraj se" />
                         </form>
+                    </div>
                 </div>
             </div>
         </div>
+
+
     </div>
-   
- 
-</div>
 </div>
 
 <th:block th:include="fragments :: footer"></th:block>

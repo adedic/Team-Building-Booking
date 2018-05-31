@@ -1,7 +1,8 @@
-package hr.tvz.java.teambuildingbooking.repository;
+package hr.tvz.java.teambuildingbooking.repository.impl;
 
 import hr.tvz.java.teambuildingbooking.model.Offer;
 import hr.tvz.java.teambuildingbooking.model.criteria.SearchCriteria;
+import hr.tvz.java.teambuildingbooking.repository.OfferDaoRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

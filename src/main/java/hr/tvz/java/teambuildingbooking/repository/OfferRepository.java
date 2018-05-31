@@ -1,10 +1,13 @@
 package hr.tvz.java.teambuildingbooking.repository;
 
 import hr.tvz.java.teambuildingbooking.model.Offer;
+import hr.tvz.java.teambuildingbooking.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -12,7 +15,9 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
 
     List<Offer> findAll();
 
-    @Query(value = "select t2.id, t2.name, t2.active, t2.available_from, t2.available_to, t2.city, t2.country, t2.date_added, t2.date_deleted, t2.date_last_edited, t2.description, t2.enabled, t2.max_number_of_users, t2.min_number_of_users, t2.price_per_person, t2.offer_picture_id, t2.user_id\n" +
+    @Query(value = "select t2.id, t2.name, t2.active, t2.available_from, t2.available_to, t2.city, t2.country, t2.date_added," +
+            " t2.date_deleted, t2.date_last_edited, t2.description, t2.enabled, t2.max_number_of_users, t2.min_number_of_users, " +
+            "t2.price_per_person, t2.offer_picture_id, t2.user_id\n" +
             "from feedback t1\n" +
             "join offer t2\n" +
             "on t1.offer_id = t2.id\n" +
@@ -27,5 +32,15 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
             "order by avg(t1.number_of_stars) desc, t2.price_per_person\n" +
             "limit 9", nativeQuery = true)
     List<Offer> findTopOffers();
+
+    @Query("select o.offerPicture.id from Offer o where o.id = ?1")
+    Long getOfferPictureIdByOfferId(Long id);
+
+    @Transactional
+    @Modifying
+    @Query("delete from Offer o where o.id = ?1 ")
+    void deleteOfferById(Long id);
+
+    List<Offer> findAllByUserOrderByDateAddedDesc(User user);
 
 }
