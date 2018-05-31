@@ -4,7 +4,6 @@ import hr.tvz.java.teambuildingbooking.facade.OfferFacade;
 import hr.tvz.java.teambuildingbooking.model.Category;
 import hr.tvz.java.teambuildingbooking.model.Offer;
 import hr.tvz.java.teambuildingbooking.model.User;
-import hr.tvz.java.teambuildingbooking.model.User;
 import hr.tvz.java.teambuildingbooking.model.form.EditOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
@@ -14,6 +13,7 @@ import hr.tvz.java.teambuildingbooking.service.OfferService;
 import hr.tvz.java.teambuildingbooking.service.UserService;
 import hr.tvz.java.teambuildingbooking.validator.EditOfferFormValidator;
 import hr.tvz.java.teambuildingbooking.validator.NewOfferFormValidator;
+import hr.tvz.java.teambuildingbooking.validator.SearchOfferFormValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -45,6 +45,7 @@ public class OfferController {
 
     private static final String NEW_OFFER_VIEW_NAME = "offer/new-offer";
     private static final String SEARCH_OFFER_VIEW_NAME = "offer/search-offer";
+    private static final String SEARCH_RESULTS_VIEW_NAME = "offer/search-results";
     private static final String DETAILS_VIEW_NAME = "offer/details";
     private static final String REVIEWS_VIEW_NAME = "offer/reviews";
     private static final String EDIT_OFFER_VIEW_NAME = "offer/edit-offer";
@@ -66,8 +67,10 @@ public class OfferController {
 
     private final OfferPictureService offerPictureService;
 
+    private SearchOfferFormValidator searchOfferFormValidator;
+
     @Autowired
-    public OfferController(OfferService offerService, CategoryService categoryService, UserService userService, OfferFacade offerFacade, NewOfferFormValidator newOfferFormValidator, EditOfferFormValidator editOfferFormValidator, OfferPictureService offerPictureService) {
+    public OfferController(OfferService offerService, CategoryService categoryService, UserService userService, OfferFacade offerFacade, NewOfferFormValidator newOfferFormValidator, EditOfferFormValidator editOfferFormValidator, OfferPictureService offerPictureService, SearchOfferFormValidator searchOfferFormValidator) {
         this.offerService = offerService;
         this.categoryService = categoryService;
         this.userService = userService;
@@ -75,6 +78,7 @@ public class OfferController {
         this.newOfferFormValidator = newOfferFormValidator;
         this.editOfferFormValidator = editOfferFormValidator;
         this.offerPictureService = offerPictureService;
+        this.searchOfferFormValidator = searchOfferFormValidator;
     }
 
     @Secured({"PROVIDER, ADMIN"})
@@ -189,7 +193,11 @@ public class OfferController {
 
     @PostMapping("/search")
     private String findSearchResults(@Valid @ModelAttribute("searchOfferForm") SearchOfferForm
-                                             searchOfferForm, Model model) {
+                                             searchOfferForm, Model model, BindingResult bindingResult) throws ParseException {
+
+        if(bindingResult.hasErrors()) {
+            return SEARCH_OFFER_VIEW_NAME;
+        }
         List<Offer> offerResults = offerService.findOffers(searchOfferForm);
         model.addAttribute("offers", offerResults);
         if(offerResults.isEmpty()){
@@ -242,6 +250,11 @@ public class OfferController {
     @InitBinder("newOfferForm")
     public void addNewOfferFormValidator(WebDataBinder dataBinder) {
         dataBinder.addValidators(newOfferFormValidator);
+    }
+
+    @InitBinder("searchOfferForm")
+    public void searchOfferFormValidator(WebDataBinder dataBinder) {
+        dataBinder.addValidators(searchOfferFormValidator);
     }
 
     @InitBinder("editOfferForm")

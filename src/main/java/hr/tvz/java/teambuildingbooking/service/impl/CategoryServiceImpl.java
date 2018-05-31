@@ -23,4 +23,9 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> findAll() {
         return categoryRepository.findAll();
     }
+
+    @Override
+    public boolean existsByNameIgnoreCase(String name) {
+        return categoryRepository.existsByNameIgnoreCase(name);
+    }
 }
