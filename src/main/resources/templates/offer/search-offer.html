@@ -99,8 +99,8 @@
                                         <img class="card-img-top" th:src="${offer.offerPicture.base64String}" alt="Card image cap" style="height: 18rem;">
                                         <div class="card-body" style="height: 10rem;">
                                             <h4 class="card-title" th:text="${offer.name}"></h4>
-                                            <p class="card-text text-justify" th:text="${#strings.substring(offer.description,0,79) + '...'}" th:if="${#strings.length(offer.description) > 80}"></p>
-                                            <p class="card-text text-justify" th:text="${offer.description}" th:if="${#strings.length(offer.description) < 81}"></p>
+                                            <p class="card-text text-left" th:text="${#strings.substring(offer.description,0,79) + '...'}" th:if="${#strings.length(offer.description) > 80}"></p>
+                                            <p class="card-text text-left" th:text="${offer.description}" th:if="${#strings.length(offer.description) < 81}"></p>
                                         </div>
                                         <div class="card-footer">
                                             <a th:href="@{'/offer/details/' + ${offer.id}}" class="d-inline">
@@ -110,7 +110,6 @@
                                     </div>
                                 </a>
                             </div>
-
                         </div>
                     </div>
 
