@@ -1,17 +1,39 @@
 package hr.tvz.java.teambuildingbooking.controller;
 
+import hr.tvz.java.teambuildingbooking.facade.OfferFacade;
+import hr.tvz.java.teambuildingbooking.model.Category;
 import hr.tvz.java.teambuildingbooking.model.Offer;
+import hr.tvz.java.teambuildingbooking.model.User;
+import hr.tvz.java.teambuildingbooking.model.form.EditOfferForm;
+import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
 import hr.tvz.java.teambuildingbooking.service.CategoryService;
+import hr.tvz.java.teambuildingbooking.service.OfferPictureService;
 import hr.tvz.java.teambuildingbooking.service.OfferService;
+import hr.tvz.java.teambuildingbooking.service.UserService;
+import hr.tvz.java.teambuildingbooking.validator.EditOfferFormValidator;
+import hr.tvz.java.teambuildingbooking.validator.NewOfferFormValidator;
+import hr.tvz.java.teambuildingbooking.validator.SearchOfferFormValidator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.security.Principal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -34,7 +56,6 @@ public class OfferController {
 
     private final CategoryService categoryService;
 
-    private OfferService offerService;
     private final UserService userService;
 
     private final OfferFacade offerFacade;
@@ -45,9 +66,10 @@ public class OfferController {
 
     private final OfferPictureService offerPictureService;
 
-    private CategoryService categoryService;
+    private SearchOfferFormValidator searchOfferFormValidator;
+
     @Autowired
-    public OfferController(OfferService offerService, CategoryService categoryService, UserService userService, OfferFacade offerFacade, NewOfferFormValidator newOfferFormValidator, EditOfferFormValidator editOfferFormValidator, OfferPictureService offerPictureService) {
+    public OfferController(OfferService offerService, CategoryService categoryService, UserService userService, OfferFacade offerFacade, NewOfferFormValidator newOfferFormValidator, EditOfferFormValidator editOfferFormValidator, OfferPictureService offerPictureService, SearchOfferFormValidator searchOfferFormValidator) {
         this.offerService = offerService;
         this.categoryService = categoryService;
         this.userService = userService;
@@ -55,14 +77,6 @@ public class OfferController {
         this.newOfferFormValidator = newOfferFormValidator;
         this.editOfferFormValidator = editOfferFormValidator;
         this.offerPictureService = offerPictureService;
-    }
-
-    private SearchOfferFormValidator searchOfferFormValidator;
-
-    @Autowired
-    public OfferController(OfferService offerService, CategoryService categoryService, SearchOfferFormValidator searchOfferFormValidator) {
-        this.offerService = offerService;
-        this.categoryService = categoryService;
         this.searchOfferFormValidator = searchOfferFormValidator;
     }
 
