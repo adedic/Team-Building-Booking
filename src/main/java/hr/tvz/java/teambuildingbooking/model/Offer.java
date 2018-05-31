@@ -253,4 +253,30 @@ public class Offer implements Serializable {
     public void setDateLastEdited(Date dateLastEdited) {
         this.dateLastEdited = dateLastEdited;
     }
+
+    @Override
+    public String toString() {
+        return "Offer{" +
+                "id=" + id +
+                ", user=" + user +
+                ", country='" + country + '\'' +
+                ", name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                ", categories=" + categories +
+                ", feedbacks=" + feedbacks +
+                ", reservations=" + reservations +
+                ", offerPicture=" + offerPicture +
+                ", minNumberOfUsers=" + minNumberOfUsers +
+                ", maxNumberOfUsers=" + maxNumberOfUsers +
+                ", pricePerPerson=" + pricePerPerson +
+                ", availableFrom=" + availableFrom +
+                ", availableTo=" + availableTo +
+                ", description='" + description + '\'' +
+                ", enabled=" + enabled +
+                ", active=" + active +
+                ", dateAdded=" + dateAdded +
+                ", dateDeleted=" + dateDeleted +
+                ", dateLastEdited=" + dateLastEdited +
+                '}';
+    }
 }
