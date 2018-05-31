@@ -93,6 +93,52 @@
 	</footer>
 </th:block>
 
+<th:block th:fragment="results">
+	<div class="row justify-content-md-center" th:if="${offers != null}">
+		<div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" th:text="${titleResults}"></h3>
+                    <span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.category)}" th:text="${'Kategorija: ' + searchOfferForm.category}"></span>
+                    <span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.numOfPeople)}" th:text="${'Broj ljudi: ' + searchOfferForm.numOfPeople}"></span>
+                    <span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.country)}" th:text="${'Država: ' + searchOfferForm.country}"></span>
+                    <span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.city)}" th:text="${'Grad: ' + searchOfferForm.city}"></span>
+                    <span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.date)}" th:text="${'Datum: ' + searchOfferForm.date}"></span>
+                    <br>
+                </div>
+                <br>
+
+                <div class="panel-body">
+                    <div class="card-columns">
+                        <p th:if="${noResults}">
+                            Nema rezultata za tražene parametre.
+                        </p>
+                        <div th:each="offer : ${offers}">
+                            <a style="color: black; text-decoration: none;" th:href="@{'/offer/details/' + ${offer.id}}">
+                                <div class="card md-4">
+                                    <img class="card-img-top" th:src="${offer.offerPicture.base64String}" alt="Card image cap" style="height: 18rem;">
+                                    <div class="card-body" style="height: 10rem;">
+                                        <h4 class="card-title" th:text="${offer.name}"></h4>
+                                        <p class="card-text text-left" th:text="${#strings.substring(offer.description,0,79) + '...'}" th:if="${#strings.length(offer.description) > 80}"></p>
+                                        <p class="card-text text-left" th:text="${offer.description}" th:if="${#strings.length(offer.description) < 81}"></p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a th:href="@{'/offer/details/' + ${offer.id}}" class="d-inline">
+                                            <button type="button" class="btn btn-outline-info">Detalji</button></a>
+                                        <p class="d-inline pull-right" th:text="${#numbers.formatDecimal(offer.pricePerPerson,2,0)} + ' kn'"></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>
+    <br>
+    <br>
+</th:block>
+
 <th:block th:fragment="additionalScripts">
 
 	<!-- <script th:src="@{/webjars/spin-js/2.1.0/spin.js}"></script> -->

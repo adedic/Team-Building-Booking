@@ -25,9 +25,9 @@
         <div class="row justify-content-md-center">
             <div class="col-md-9" style="padding-top: 10vh;">
                 <div class="col-md-12">
-                    <a th:href="@{'/offer/edit/' + ${offer.id}}"><button type="button"
+                    <a th:if="${offer.user.username == #authentication.getName()}" th:href="@{'/offer/edit/' + ${offer.id}}"><button type="button"
                                                                          class="btn btn-outline-warning"><i class="fa fa-pencil"></i> Uredi</button></a>
-                    <a th:href="@{'/offer/delete/' + ${offer.id}}"><button type="button"
+                    <a th:if="${offer.user.username == #authentication.getName()}" th:href="@{'/offer/delete/' + ${offer.id}}"><button type="button"
                                                                            class="btn btn-outline-danger"><i class="fa fa-trash"></i> Izbriši</button></a>
                     <div class="row">
                         <div class="col-md-8">
@@ -39,7 +39,7 @@
                                 <span class="badge badge-danger" th:if="${category.name == 'Zabava'}" th:text="${category.name}"></span>
                                 <span class="badge badge-warning text-white" th:if="${category.name == 'Hrana i piće'}" th:text="${category.name}"></span>
                                 <span class="badge badge-primary" th:if="${category.name == 'Sport'}" th:text="${category.name}"></span>
-                                <span class="badge badge-sport" th:if="${category.name == 'Putovanja'}" th:text="${category.name}"></span>
+                                <span class="badge badge-success" th:if="${category.name == 'Putovanja'}" th:text="${category.name}"></span>
                                 <span class="badge badge-info" th:if="${category.name == 'Seminar'}" th:text="${category.name}"></span>
                                 <span class="badge badge-dark" th:if="${category.name == 'Ostalo'}" th:text="${category.name}"></span>
                             </span>
@@ -47,7 +47,7 @@
                         <div class="col-md-4" style="padding-top:2vh">
                             <h6><span class="fa fa-male text-danger"></span> <span th:text="${offer.minNumberOfUsers} + ' - '"></span>
                                 <span th:text="${offer.maxNumberOfUsers}"></span> ljudi</h6>
-                            <h6><span class="fa fa-money text-success"></span> <span th:text="${#numbers.formatDecimal(offer.pricePerPerson,2,2)}"></span> kn po osobi</h6>
+                            <h6><span class="fa fa-money text-success"></span> <span th:text="${#numbers.formatDecimal(offer.pricePerPerson,2,0)}"></span> kn po osobi</h6>
                         </div>
 
                     </div>

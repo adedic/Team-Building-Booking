@@ -105,7 +105,7 @@
                                         </div>
                                         <div class="card-footer">
                                             <a th:href="@{'/offer/details/' + ${offer.id}}" class="d-inline">
-                                                <button type="button" class="btn btn-outline-info">Detalji</button></a>
+                                                <button type="button" class="btn btn-outline-info"><i class="fa fa-info"></i> Detalji</button></a>
                                             <p class="d-inline pull-right" th:text="${offer.pricePerPerson + ' kn'}"></p>
                                         </div>
                                     </div>
@@ -122,7 +122,7 @@
 </div>
 <th:block th:include="fragments :: footer"></th:block>
 
-<th:block th:include="fragments :: formValidationScrblt"></th:block>
+<th:block th:include="fragments :: formValidationScript"></th:block>
 <th:block th:include="fragments :: additionalScripts"></th:block>
 </body>
 </html>

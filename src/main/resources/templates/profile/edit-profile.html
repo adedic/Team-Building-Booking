@@ -22,8 +22,7 @@
                     </div>
 
                     <div class="card card-profile">
-
-                        <form th:action="@{/profile/edit}" th:object="${editUserForm}" method="POST">
+                        <form style="padding: 20px;" role="form" class="" th:action="@{/profile/edit}" th:object="${editUserForm}" method="POST">
                             <span th:value="${#authentication.principal.id}"> </span>
                             <input type="hidden" th:field="*{id}" th:value="${#authentication.principal.id}"/>
                             <div class="form-group col-md-12">

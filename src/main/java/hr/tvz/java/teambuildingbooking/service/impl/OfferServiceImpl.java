@@ -86,8 +86,8 @@ public class OfferServiceImpl implements OfferService {
                     date1 = tDateFormatter1.parse(searchOffer.getDate());
                 } catch (ParseException pE) {
                 }
-                searchCriteria.add(new SearchCriteria("availableFrom", ":<", date1));
-                searchCriteria.add(new SearchCriteria("availableTo", ":>", date1));
+                searchCriteria.add(new SearchCriteria("availableFrom", ":>", date1));
+                searchCriteria.add(new SearchCriteria("availableTo", ":<", date1));
             }
         }
         return offerDaoRepository.findOffers(searchCriteria);

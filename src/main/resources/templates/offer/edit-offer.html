@@ -33,14 +33,15 @@
                                 <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
                             </div>
 
-                            <label for="category" class="text-white">Kategorije: </label>
-                            <div class="form-group" th:each="category, stat : ${categories}">
-                                <input type="checkbox" class="text-white" id="category" name="category"
-                                       th:field="*{categories}"
-                                       th:value="${category.name}" />
-                                <span class="text-white" th:text="${category.name}"/>
-                            </div>
+                            <label class="text-white">Kategorije: </label>
+                            <br/>
+                            <span class="form-group" th:each="category, stat : ${categories}">
+                                    <label th:for="${'category' + category.id}" class="btn btn-secondary text-white" th:text="${category.name}"/>
 
+                                    <input type="checkbox" class="text-white" th:id="${'category' + category.id}" name="category"
+                                           th:field="*{categories}"
+                                           th:value="${category.name}" />
+                                </span>
                             <div class="text-danger" th:if="${#fields.hasErrors('categories')}" th:errors="*{categories}">Name Error</div>
 
                             <div class="form-row">
