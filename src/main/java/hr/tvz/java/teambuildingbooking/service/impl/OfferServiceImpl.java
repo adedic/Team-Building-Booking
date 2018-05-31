@@ -124,11 +124,11 @@ public class OfferServiceImpl implements OfferService {
         offer.setUser(userService.findByUsername(username));
         offer.setName(newOfferForm.getName());
 
-        OfferPicture offerPicture = new OfferPicture(convertByteArrayToBase64String(file.getBytes(), file.getContentType()), file.getName(), (int) file.getSize());
-
-        offerPictureService.save(offerPicture);
-
-        offer.setOfferPicture(offerPicture);
+        if (!file.isEmpty()) {
+            OfferPicture offerPicture = new OfferPicture(convertByteArrayToBase64String(file.getBytes(), file.getContentType()), file.getName(), (int) file.getSize());
+            offerPictureService.save(offerPicture);
+            offer.setOfferPicture(offerPicture);
+        }
 
         Offer savedOffer = offerRepository.save(offer);
         log.info("---> Adding offer with ID = " + offer.getId() + " to database ...");
