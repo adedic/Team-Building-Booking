@@ -94,23 +94,24 @@
 
                     <div class="panel-body">
                         <div class="card-columns">
-                            <tr th:each="offer : ${topOffers}">
+                            <div th:each="offer : ${topOffers}">
                                 <a style="color: black; text-decoration: none;" th:href="@{'/offer/details/' + ${offer.id}}">
-                                    <div class="card">
-                                        <img class="card-img-top" th:src="${offer.offerPicture.base64String}" alt="Card image cap">
-                                        <div class="card-body">
+                                    <div class="card md-4">
+                                        <img class="card-img-top" th:src="${offer.offerPicture.base64String}" alt="Card image cap" style="height: 18rem;">
+                                        <div class="card-body" style="height: 10rem;">
                                             <h4 class="card-title" th:text="${offer.name}"></h4>
-                                            <p class="card-text" th:text="${#strings.substring(offer.description,0,79) + '...'}" th:if="${#strings.length(offer.description) > 80}"></p>
-                                            <p class="card-text" th:text="${offer.description}" th:if="${#strings.length(offer.description) < 81}"></p>
-                                            <div class="d-flex justify-content-between align-items-center align-content-md-center">
-                                                <a th:href="@{'/offer/details/' + ${offer.id}}"><button type="button"
-                                                                                                        class="btn btn-outline-info">Detalji</button></a>
-                                                <p class="text-muted" th:text="${offer.pricePerPerson + ' kn'}"></p>
-                                            </div>
+                                            <p class="card-text text-justify" th:text="${#strings.substring(offer.description,0,79) + '...'}" th:if="${#strings.length(offer.description) > 80}"></p>
+                                            <p class="card-text text-justify" th:text="${offer.description}" th:if="${#strings.length(offer.description) < 81}"></p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <a th:href="@{'/offer/details/' + ${offer.id}}" class="d-inline">
+                                                <button type="button" class="btn btn-outline-info">Detalji</button></a>
+                                            <p class="d-inline pull-right" th:text="${offer.pricePerPerson + ' kn'}"></p>
                                         </div>
                                     </div>
                                 </a>
-                            </tr>
+                            </div>
+
                         </div>
                     </div>
 
@@ -121,7 +122,7 @@
 </div>
 <th:block th:include="fragments :: footer"></th:block>
 
-<th:block th:include="fragments :: formValidationScript"></th:block>
+<th:block th:include="fragments :: formValidationScrblt"></th:block>
 <th:block th:include="fragments :: additionalScripts"></th:block>
 </body>
 </html>

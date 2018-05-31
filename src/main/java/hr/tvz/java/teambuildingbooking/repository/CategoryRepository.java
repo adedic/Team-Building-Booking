@@ -9,5 +9,5 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
     Category findByName(String Category);
 
-
+    boolean existsByNameIgnoreCase(String name);
 }
