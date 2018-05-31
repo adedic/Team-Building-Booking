@@ -1,10 +1,12 @@
 package hr.tvz.java.teambuildingbooking.service;
 
+import hr.tvz.java.teambuildingbooking.model.Role;
 import hr.tvz.java.teambuildingbooking.model.User;
 import hr.tvz.java.teambuildingbooking.model.form.EditUserForm;
 import hr.tvz.java.teambuildingbooking.model.form.RegistrationForm;
 
 import java.text.ParseException;
+import java.util.Set;
 
 public interface UserService {
 
@@ -19,4 +21,8 @@ public interface UserService {
     boolean existsByEmailIgnoreCase(String email);
 
     User getById(Long id);
+
+    Set<Role> findRolesByUsername(String username);
+
+    boolean hasRole(String username, String role);
 }

@@ -1,13 +1,16 @@
-package hr.tvz.java.teambuildingbooking.repository;
+package hr.tvz.java.teambuildingbooking.repository.impl;
 
-import hr.tvz.java.teambuildingbooking.model.Category;
 import hr.tvz.java.teambuildingbooking.model.Offer;
 import hr.tvz.java.teambuildingbooking.model.criteria.SearchCriteria;
+import hr.tvz.java.teambuildingbooking.repository.OfferDaoRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

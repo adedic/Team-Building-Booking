@@ -11,10 +11,11 @@ import java.util.Set;
 
 @Entity
 @Table(name = "OFFER")
+@SequenceGenerator(name = "seq", initialValue = 6, allocationSize = 100)
 public class Offer implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     @Column(name = "ID", nullable = false)
     private Long id;
 
@@ -31,7 +32,7 @@ public class Offer implements Serializable {
     @Column(name = "CITY", nullable = false)
     private String city;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "OFFER_CATEGORY",
             joinColumns = {@JoinColumn(name = "OFFER_ID", referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")}
@@ -45,7 +46,7 @@ public class Offer implements Serializable {
     @OneToMany(mappedBy = "offer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Reservation> reservations;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "OFFER_PICTURE_ID", referencedColumnName = "ID")
     private OfferPicture offerPicture;
 
@@ -120,15 +121,19 @@ public class Offer implements Serializable {
         this.city = city;
     }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Set<Category> getCategories() {
         return categories;
     }
 
-    public void setRoles(Set<Category> categories) {
+    public void setCategories(Set<Category> categories) {
         this.categories = categories;
     }
 
