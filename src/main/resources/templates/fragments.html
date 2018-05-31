@@ -125,7 +125,7 @@
                                     <div class="card-footer">
                                         <a th:href="@{'/offer/details/' + ${offer.id}}" class="d-inline">
                                             <button type="button" class="btn btn-outline-info">Detalji</button></a>
-                                        <p class="d-inline pull-right" th:text="${offer.pricePerPerson + ' kn'}"></p>
+                                        <p class="d-inline pull-right" th:text="${#numbers.formatDecimal(offer.pricePerPerson,2,0)} + ' kn'"></p>
                                     </div>
                                 </div>
                             </a>

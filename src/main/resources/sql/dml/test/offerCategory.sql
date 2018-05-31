@@ -16,3 +16,14 @@ VALUES (3, 2);
 
 INSERT INTO offer_category (offer_id, category_id)
 VALUES (3, 4);
+
+
+INSERT INTO offer_category (offer_id, category_id)
+VALUES (4, 2);
+
+INSERT INTO offer_category (offer_id, category_id)
+VALUES (4, 4);
+
+
+INSERT INTO offer_category (offer_id, category_id)
+VALUES (5, 2);
