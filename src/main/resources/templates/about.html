@@ -7,6 +7,12 @@
     <title>O nama</title>
 
     <th:block th:replace="fragments :: css"></th:block>
+
+    <style>
+        .card p {
+            padding: 1%;
+        }
+    </style>
 </head>
 <body>
 <th:block th:include="fragments :: header"></th:block>
@@ -18,43 +24,43 @@
             <div class="col-md-7" style="padding-top: 20vh; padding-bottom: 10vh;">
                 <div class="panel panel-default" style="background: rgba(33,37,41,0.9); padding: 5% 5%">
                     <div class="panel-heading">
-                        <h3 class="panel-title text-white">O team-building bookingu</h3>
+                        <h3 class="panel-title text-white">O <b>team-building bookingu</b></h3>
                     </div>
                     <br>
 
                     <div class="panel-body">
-                        <h5 class="text-white">Za ponuditelje</h5>
+                        <h5 class="text-white"><b>Za ponuditelje</b></h5>
                         <p class="text-white">Ako ste korisnik koji želi objaviti svoju team-building ponudu preko aplikacije možete
                             dodati svoju ponudu tako da bude vidljiva svim potencijalnim korisnicima koji bi željeli rezervirati team-buidling.
                             <br>
-                            <button onclick="func('new-offer')">Kako dodati novu ponudu?</button>
+                            <button class="btn btn-primary" onclick="func('new-offer')">Kako dodati novu ponudu?</button>
                         </p>
 
-                        <div class="text-white" id="new-offer" style="display: none">
-                            <p class="text-white">Kako bi ste dodali novu team building ponudu ulogirajte se, odaberite opciju Nova ponuda na navigciji,
+                        <div class="card" id="new-offer" style="display: none">
+                            <p class="">Kako biste dodali novu team building ponudu ulogirajte se, odaberite opciju Nova ponuda na navigciji,
                              ispunite obrazac sa podacima o team building ponudi i dodajte ponudu.</p>
                         </div>
                         <p class="text-white">Ako ste napravili pogrešku prilikom unosa podataka o team-building ponudi, ne paničarite, istu ponudu možete vrlo
                             jednostavno urediti i ispraviti pogrešku.
                             <br>
-                            <button onclick="func('edit-offer')">Kako urediti postojeću ponudu?</button>
+                            <button class="btn btn-primary" onclick="func('edit-offer')">Kako urediti postojeću ponudu?</button>
 
                         </p>
-                        <div class="text-white" id="edit-offer" style="display: none">
-                            <p class="text-white">Kako bi ste uredili postojeću team building ponudu ulogirajte se, odaberite opciju Moje ponude
-                                i ispod ponude koju želite urediti odaberite opciju uredi.
+                        <div class="card" id="edit-offer" style="display: none">
+                            <p class="">Kako biste uredili postojeću team building ponudu ulogirajte se, odaberite opciju Moje ponude
+                                i ispod ponude koju želite urediti od`aberite opciju uredi.
                             </p>
                         </div>
 
-                        <h5 class="text-white">Za korisnike</h5>
+                        <h5 class="text-white"><b>Za korisnike</b></h5>
                         <p class="text-white">Želite rezervirati team building za svoj tim? Preko team-building bookinga možete pretražiti
                             i vidjeti detalje o svim team-building ponudama prema vašim kriterijima.
                             <br>
-                            <button onclick="func('new-reservation')">Kako pretražiti team building ponude?</button>
+                            <button class="btn btn-primary" onclick="func('new-reservation')">Kako pretražiti team building ponude?</button>
                         </p>
-                        <div class="text-white" id="new-reservation" style="display: none">
-                            <p class="text-white">Kako bi ste pretražili dostupne team building ponude odaberite opciju Ponude.
-                                Da bi ste pronašli ponude koje vam odgovaraju možete unijeti kriterije po kojima želite filtrirati ponude
+                        <div class="card" id="new-reservation" style="display: none">
+                            <p class="">Kako biste pretražili dostupne team building ponude odaberite opciju Ponude.
+                                Da biste pronašli ponude koje vam odgovaraju možete unijeti kriterije po kojima želite filtrirati ponude
                                  i odabrati opciju Pretraži ponude.
                             </p>
                         </div>
@@ -64,18 +70,18 @@
                         </p>
                         <p class="text-white">Predomislili ste se? Na pregledu rezervacija možete otkazati rezervaciju.
                             <br>
-                            <button onclick="func('cancel-reservation')">Kako otkazati rezervaciju?</button>
+                            <button class="btn btn-primary" onclick="func('cancel-reservation')">Kako otkazati rezervaciju?</button>
                         </p>
-                        <div class="text-white" id="cancel-reservation" style="display: none">
-                            <p class="text-white">Kako bi ste pretražili dostupne team building ponude odaberite opciju Ponude.
-                                Da bi ste otkazali rezervaciju team building ponude odaberite opciju Moje rezervacije
+                        <div class="card" id="cancel-reservation" style="display: none;">
+                            <p class="">Kako biste pretražili dostupne team building ponude odaberite opciju Ponude.
+                                Da biste otkazali rezervaciju team building ponude odaberite opciju Moje rezervacije
                                 , i ispod rezervacije koju želite otkazati odaberite opciju Izbriši.
                             </p>
                         </div>
 
                     </div>
                 </div>
-                <div class="panel panel-default" style="background: rgba(33,37,41,0.9); padding: 5% 5%">
+                <div class="panel panel-default" style="background: rgba(33,37,41,0.9); padding: 0% 5% 5% 5%">
                     <div class="panel-heading">
                         <h3 class="panel-title text-white">Tko smo mi</h3>
                     </div>
@@ -84,7 +90,7 @@
                     <div class="panel-body">
                         <p class="text-white">Tim tulipani osnovan je 05.05.2018. godine.</p>
                         <br>
-                        <p class="text-white">Na razvoju web aplikacije za rezervaciju team-building ponuda sudjelovali su:</p>
+                        <p class="text-white">Na razvoju web aplikacije za rezervaciju team-building ponuda sudjeluju:</p>
                         <ul>
                             <li class="text-white">Scrum master: Marko Štuban</li>
                             <li class="text-white">Product owner: Aleksander Radovan</li>
