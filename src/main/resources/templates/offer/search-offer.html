@@ -81,16 +81,18 @@
 
 
     <div class="container">
+        <br>
+        <br>
+    <th:block th:include="fragments :: results"></th:block>
 
-        <th:block th:include="fragments :: results"></th:block>
 
         <div class="row justify-content-md-center">
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title" id="ponude">Izdvojene team building ponude</h3>
+                        <h3 class="panel-title text-primary" id="ponude">Izdvojene team building ponude</h3>
                     </div>
-                    <br></br>
+                    <br>
 
                     <div class="panel-body">
                         <div class="card-columns">
@@ -100,17 +102,18 @@
                                         <img class="card-img-top" th:src="${offer.offerPicture.base64String}" alt="Card image cap" style="height: 18rem;">
                                         <div class="card-body" style="height: 10rem;">
                                             <h4 class="card-title" th:text="${offer.name}"></h4>
-                                            <p class="card-text text-justify" th:text="${#strings.substring(offer.description,0,79) + '...'}" th:if="${#strings.length(offer.description) > 80}"></p>
-                                            <p class="card-text text-justify" th:text="${offer.description}" th:if="${#strings.length(offer.description) < 81}"></p>
+                                            <p class="card-text text-left" th:text="${#strings.substring(offer.description,0,79) + '...'}" th:if="${#strings.length(offer.description) > 80}"></p>
+                                            <p class="card-text text-left" th:text="${offer.description}" th:if="${#strings.length(offer.description) < 81}"></p>
                                         </div>
                                         <div class="card-footer">
                                             <a th:href="@{'/offer/details/' + ${offer.id}}" class="d-inline">
                                                 <button type="button" class="btn btn-outline-info"><i class="fa fa-info"></i> Detalji</button></a>
-                                            <p class="d-inline pull-right" th:text="${offer.pricePerPerson + ' kn'}"></p>
+                                            <p class="d-inline pull-right" th:text="${#numbers.formatDecimal(offer.pricePerPerson,2,0)} + ' kn'"></p>
                                         </div>
                                     </div>
                                 </a>
-                            </tr>
+                            </div>
+
                         </div>
                     </div>
 

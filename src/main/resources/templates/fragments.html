@@ -94,9 +94,7 @@
 </th:block>
 
 <th:block th:fragment="results">
-	<br>
-	<br>
-	<div class="row justify-content-md-center" th:if="${offers != null}">
+	<div class="row justify-content-md-center" th:if="${offers != null}" style="padding-bottom: 40px">
 		<div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -126,7 +124,7 @@
                                     </div>
                                     <div class="card-footer">
                                         <a th:href="@{'/offer/details/' + ${offer.id}}" class="d-inline">
-                                            <button type="button" class="btn btn-outline-info">Detalji</button></a>
+                                            <button type="button" class="btn btn-outline-info"><i class="fa fa-info"></i> Detalji</button></a>
                                         <p class="d-inline pull-right" th:text="${#numbers.formatDecimal(offer.pricePerPerson,2,0)} + ' kn'"></p>
                                     </div>
                                 </div>
@@ -137,8 +135,6 @@
             </div>
 		</div>
 	</div>
-    <br>
-    <br>
 </th:block>
 
 <th:block th:fragment="additionalScripts">
