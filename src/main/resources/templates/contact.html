@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Kontakt</title>
+
+    <th:block th:replace="fragments :: css"></th:block>
+</head>
+<body>
+<th:block th:include="fragments :: header"></th:block>
+
+<div layout:fragment="content" >
+
+    <div style="background: url('/resources/static/img/login.jpeg')">
+        <div class="row justify-content-md-center"  style="background: rgba(255,255,255,0.4)">
+            <div class="col-md-7" style="padding-top: 20vh; padding-bottom: 10vh;">
+                <div class="panel panel-default" style="background: rgba(33,37,41,0.9); padding: 5% 5%">
+                    <div class="panel-heading">
+                        <h3 class="panel-title text-white">Kontaktirajte nas</h3>
+                    </div>
+                    <br>
+
+                    <div class="panel-body">
+                        <p class="text-white">Ako imate ikakvih upita, prijedolga, žalbi ili pohvala slobodno nam se javite na sljedeće email adrese:</p>
+                        <ul>
+                            <li><a href="mailto:mstuban@tvz.hr?Subject=Hello%20again" target="_top">mstuban@tvz.hr</a></li>
+                            <li><a href="mailto:abaric@tvz.hr?Subject=Hello%20again" target="_top">abaric@tvz.hr</a></li>
+                            <li><a href="mailto:adedic@tvz.hr?Subject=Hello%20again" target="_top">adedic@tvz.hr</a></li>
+                            <li><a href="mailto:mpuljic@tvz.hr?Subject=Hello%20again" target="_top">mpuljic@tvz.hr</a></li>
+                            <li><a href="mailto:fblazevic@tvz.hr?Subject=Hello%20again" target="_top">fblazevic@tvz.hr</a></li>
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:include="fragments :: footer"></th:block>
+
+<th:block th:include="fragments :: formValidationScript"></th:block>
+<th:block th:include="fragments :: additionalScripts"></th:block>
+</body>
+</html>

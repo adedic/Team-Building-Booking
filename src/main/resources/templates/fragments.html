@@ -48,9 +48,9 @@
 						class="sr-only">(current)</span></a></li>
 				<li class="nav-item active" sec:authorize="hasAnyRole('ROLE_ADMIN, ROLE_PROVIDER')" ><a class="nav-link" th:href="@{/offer/new}">Nova ponuda<span
 						class="sr-only">(current)</span></a></li>
-				<li class="nav-item active"><a class="nav-link" href="#">O
+				<li class="nav-item active"><a class="nav-link" th:href="@{/about}">O
 					nama</a></li>
-				<li class="nav-item active"><a class="nav-link" href="#">Kontakt</a>
+				<li class="nav-item active"><a class="nav-link" th:href="@{/contact}">Kontakt</a>
 				</li>
 			</ul>
 			<ul class="navbar-nav my-2 my-lg-0" style="margin-right: 10%">
