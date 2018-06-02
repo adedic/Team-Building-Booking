@@ -25,7 +25,7 @@ public class OfferRestController {
     private UserService userService;
 
     @Autowired
-    OfferRestController(OfferService offerService, UserService userService) {
+    public OfferRestController(OfferService offerService, UserService userService) {
         this.offerService = offerService;
         this.userService = userService;
     }
