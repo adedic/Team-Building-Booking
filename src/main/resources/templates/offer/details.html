@@ -89,9 +89,9 @@
         </div>
 
         <div class="row justify-content-md-center">
-
             <div class="col-md-9" style="padding-top: 5vh;">
                 <div class="col-md-12" >
+                    <p class="text-secondary" th:if="${offer.feedbacks.isEmpty()}">Nema osvrta za ovu ponudu.</p>
                     <div th:each="feedback, i : ${offer.feedbacks}">
 
                         <h4 class="text-muted" th:if="${i.index}==0">Osvrti korisnika:</h4><br>
@@ -124,7 +124,7 @@
                             </div>
 
                         </div>
-                        <div class="col-sm text-right" th:remove="${!i.last} ? all" th:if="${i.index > 1}">
+                        <div class="col-sm text-right" th:if="${i.index > 1}" th:remove="${!i.last} ? all" >
                             <a th:href="@{'/offer/details/' + ${offer.id} + '/reviews'}">Pogledaj sve osvrte</a>
                         </div>
                     </div>

@@ -16,11 +16,10 @@ public class LoginController {
 
     @RequestMapping("/login")
     private String login(Model model) {
-        model.addAttribute("loginView", true);
         return LOGIN_VIEW_NAME;
     }
 
-    @RequestMapping("/logut")
+    @RequestMapping("/logout")
     private String logout(HttpSession httpSession) {
         httpSession.invalidate();
         return "redirect:/login?editProfileSuccess";
