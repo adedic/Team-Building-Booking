@@ -1,5 +1,7 @@
 package hr.tvz.java.teambuildingbooking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -62,6 +64,7 @@ public class Reservation implements Serializable {
         return offer;
     }
 
+    @JsonIgnore
     public void setOffer(Offer offer) {
         this.offer = offer;
     }

@@ -79,7 +79,7 @@ public class OfferServiceImpl implements OfferService {
                 searchCriteria.add(new SearchCriteria("minNumberOfUsers", "<", searchOffer.getNumOfPeople()));
                 searchCriteria.add(new SearchCriteria("maxNumberOfUsers", ">", searchOffer.getNumOfPeople()));
             }
-            if (searchOffer.getDate() != null) {
+            if (searchOffer.getDate() != null && !searchOffer.getDate().equals("")) {
                 Date date1 = null;
                 SimpleDateFormat tDateFormatter1 = new SimpleDateFormat("dd.MM.yyyy");
                 try {

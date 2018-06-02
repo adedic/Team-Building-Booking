@@ -1,5 +1,6 @@
 package hr.tvz.java.teambuildingbooking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.OnDelete;
@@ -11,6 +12,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "OFFER")
 @SequenceGenerator(name = "seq", initialValue = 6, allocationSize = 100)

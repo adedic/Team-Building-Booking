@@ -1,10 +1,13 @@
 package hr.tvz.java.teambuildingbooking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "OFFER_PICTURE")
 @SequenceGenerator(name = "seq", initialValue = 6, allocationSize = 100)
@@ -78,6 +81,7 @@ public class OfferPicture implements Serializable {
         return offer;
     }
 
+    @JsonIgnore
     public void setOffer(Offer offer) {
         this.offer = offer;
     }

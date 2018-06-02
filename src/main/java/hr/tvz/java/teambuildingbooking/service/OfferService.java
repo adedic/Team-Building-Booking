@@ -7,7 +7,6 @@ import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;

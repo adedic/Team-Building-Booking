@@ -1,5 +1,6 @@
 package hr.tvz.java.teambuildingbooking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -129,6 +130,7 @@ public class User implements Serializable {
         return roles;
     }
 
+    @JsonIgnore
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
@@ -145,6 +147,7 @@ public class User implements Serializable {
         return offers;
     }
 
+    @JsonIgnore
     public void setOffers(Set<Offer> offers) {
         this.offers = offers;
     }
@@ -153,6 +156,7 @@ public class User implements Serializable {
         return reservations;
     }
 
+    @JsonIgnore
     public void setReservations(Set<Reservation> reservations) {
         this.reservations = reservations;
     }
@@ -193,6 +197,7 @@ public class User implements Serializable {
         return feedbacks;
     }
 
+    @JsonIgnore
     public void setFeedbacks(Set<Feedback> feedbacks) {
         this.feedbacks = feedbacks;
     }
