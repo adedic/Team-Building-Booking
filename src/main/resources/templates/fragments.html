@@ -53,7 +53,7 @@
 				<li class="nav-item active"><a class="nav-link" th:href="@{/contact}">Kontakt</a>
 				</li>
 			</ul>
-			<ul class="navbar-nav my-2 my-lg-0" style="margin-right: 10%">
+			<ul class="navbar-nav my-2 my-lg-0" >
 
 				<li th:if="${registerView == null}" class="nav-item" sec:authorize="isAnonymous()"><a
 						class="nav-link" th:href="@{/register}">Registriraj se</a>
@@ -74,6 +74,31 @@
 						<a class="dropdown-item" th:href="@{/logout}"><i class="fa fa-power-off"></i> Odjava</a>
 					</div>
 				</li>
+                <!-- Language selection -->
+                <li class="nav-item" style="padding: 5px 0 0 10px">
+                    <form class="btn-group btn-group-toggle" id="languages" data-toggle="buttons">
+                        <label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'hr'} ? 'active' : '' ">
+                            <input type="radio" name="language" value="hr" th:checked="${#locale.language == 'hr'}">
+                            <img style="height: 10px" src="/resources/static/img/flags/hr.png"/> <small th:text="#{msg.lang.hr}" class="text-uppercase"></small>
+                        </label>
+                        <label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'en'} ? 'active' : '' ">
+                            <input type="radio" name="language" id="en" autocomplete="off" value="en" th:checked="${#locale.language == 'en'}">
+                            <img style="height: 10px" src="/resources/static/img/flags/en.png"/> <small th:text="#{msg.lang.en}" class="text-uppercase"></small>
+                        </label>
+                        <label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'de'} ? 'active' : '' ">
+                            <input type="radio" name="language" id="de" autocomplete="off" value="de" th:checked="${#locale.language == 'de'}">
+                            <img style="height: 10px" src="/resources/static/img/flags/de.png"/> <small th:text="#{msg.lang.de}" class="text-uppercase"></small>
+                        </label>
+                        <label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'it'} ? 'active' : '' ">
+                            <input type="radio" name="language" id="it" autocomplete="off" value="it" th:checked="${#locale.language == 'it'}">
+                            <img style="height: 10px" src="/resources/static/img/flags/it.jpg"/> <small th:text="#{msg.lang.it}" class="text-uppercase"></small>
+                        </label>
+                        <label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'sr'} ? 'active' : '' ">
+                            <input type="radio" name="language" id="sr" autocomplete="off" value="sr" th:checked="${#locale.language == 'sr'}">
+                            <img style="height: 10px" src="/resources/static/img/flags/sr.png"/> <small th:text="#{msg.lang.sr}" class="text-uppercase"></small>
+                        </label>
+                    </form>
+                </li>
 			</ul>
 		</div>
 	</nav>
