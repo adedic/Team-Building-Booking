@@ -44,7 +44,7 @@
 							<fieldset>
 								<div class="form-group">
 									<input class="form-control" autofocus="autofocus"
-										   required="required" placeholder="Korisničko ime" name="username"
+										   required="required" th:placeholder="#{msg.username}" name="username"
 										   type="text" />
 									<div class="invalid-feedback">
 										Unesi korisničko ime!
@@ -53,7 +53,7 @@
 
 								<div class="form-group">
 									<input class="form-control" required="required"
-										   placeholder="Lozinka" name="password" type="password" value="" />
+										   th:placeholder="#{msg.password}" name="password" type="password" value="" />
 									<div class="invalid-feedback">
 										Unesi lozinku!
 									</div>
