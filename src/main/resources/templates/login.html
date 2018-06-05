@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorator="layout">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
 <head>
-	<title>Prijava</title>
+    <title th:text="#{msg.login.pageTitle}"></title>
 
-	<th:block th:replace="fragments :: css"></th:block>
+    <th:block th:replace="fragments :: css"></th:block>
 </head>
 
 <body>
@@ -15,80 +15,73 @@
 
 <div layout:fragment="content">
 
-	<div class="container" style="padding-top: 20vh;">
-		<div class="row justify-content-md-center">
-			<div class="col-md-5">
-				<div class="mx-auto text-center alert alert-success" th:if="${registrationSuccess}">
-					<span th:text="${registrationSuccess}"></span>
-				</div>
-				<div class="mx-auto text-center alert alert-success" th:if="${editSuccess}">
-					<span th:text="${editSuccess}"></span>
-				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">Prijava korisnika</h3>
-						<br></br>
-					</div>
-					<div th:if="${param.error}" class="mx-auto text-center alert alert-danger">
-						Unjeli ste krivo korisničko ime ili lozinku!
-					</div>
-					<div th:if="${param.logout}" class="mx-auto text-center alert alert-success">
-						Uspješno ste odjavljeni iz aplikacije!
-					</div>
-					<div th:if="${param.editSuccess}" class="mx-auto text-center alert alert-success">
-						Uređivanje uspješno! Prijavite se ponovno kako bi vidjeli izmjene.
-					</div>
-					<div class="panel-body">
-						<form role="form" method="POST" name="formLogin"
-							  th:action='@{/login}' class="needs-validation" novalidate>
-							<fieldset>
-								<div class="form-group">
-									<input class="form-control" autofocus="autofocus"
-										   required="required" th:placeholder="#{msg.username}" name="username"
-										   type="text" />
-									<div class="invalid-feedback">
-										Unesi korisničko ime!
-									</div>
-								</div>
+    <div class="container" style="padding-top: 20vh;">
+        <div class="row justify-content-md-center">
+            <div class="col-md-5">
+                <div class="mx-auto text-center alert alert-success" th:if="${registrationSuccess}">
+                    <span th:text="#{msg.login.registrationSuccess}"></span>
+                </div>
+                <div class="mx-auto text-center alert alert-success" th:if="${editSuccess}">
+                    <span th:text="#{msg.login.param.editSuccess}"></span>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" th:text="#{msg.login.title}"></h3>
+                        <br></br>
+                    </div>
+                    <div th:if="${param.error}" class="mx-auto text-center alert alert-danger" th:text="#{msg.login.param.error}">
+                    </div>
+                    <div th:if="${param.logout}" class="mx-auto text-center alert alert-success" th:text="#{msg.login.param.logout}">
+                    </div>
+                    <div th:if="${param.editSuccess}" class="mx-auto text-center alert alert-success" th:text="#{msg.login.param.editSuccess}">
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" method="POST" name="formLogin"
+                              th:action='@{/login}' class="needs-validation" novalidate>
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" autofocus="autofocus"
+                                           required="required" th:placeholder="#{msg.login.username}" name="username"
+                                           type="text" />
+                                    <div class="invalid-feedback" th:text="#{msg.login.validation.username}"></div>
+                                </div>
 
-								<div class="form-group">
-									<input class="form-control" required="required"
-										   th:placeholder="#{msg.password}" name="password" type="password" value="" />
-									<div class="invalid-feedback">
-										Unesi lozinku!
-									</div>
-								</div>
+                                <div class="form-group">
+                                    <input class="form-control" required="required"
+                                           th:placeholder="#{msg.login.password}" name="password" type="password" value="" />
+                                    <div class="invalid-feedback" th:text="#{msg.login.validation.password}"></div>
+                                </div>
 
-								<input class="btn btn-lg btn-outline-primary btn-block"
-									   type="submit" th:value="#{msg.login}" />
+                                <input class="btn btn-lg btn-outline-primary btn-block"
+                                       type="submit" th:value="#{msg.login}" />
 
-								<input type="hidden" name="${_csrf.parameterName}"
-									   value="${_csrf.token}"/>
-							</fieldset>
+                                <input type="hidden" name="${_csrf.parameterName}"
+                                       value="${_csrf.token}"/>
+                            </fieldset>
 
-							<div class="custom-control custom-checkbox" style="padding-top: 16px; padding-bottom: 16px">
-								<input type="checkbox" class="custom-control-input" id="rememberMe">
-								<label class="custom-control-label" for="rememberMe">Zapamti me?</label>
-							</div>
-						</form>
-						<div class="dropdown-divider"></div>
-						<div class="row">
-							<div class="col-sm">
-								<a href="#">Zaboravio sam lozinku?</a>
-							</div>
-							<div class="col-sm text-right">
-								<a th:href="@{/register}">Registriraj se!</a>
-							</div>
-						</div>
+                            <div class="custom-control custom-checkbox" style="padding-top: 16px; padding-bottom: 16px">
+                                <input type="checkbox" class="custom-control-input" id="rememberMe">
+                                <label class="custom-control-label" for="rememberMe" th:text="#{msg.login.rememberMe}"></label>
+                            </div>
+                        </form>
+                        <div class="dropdown-divider"></div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <a href="#" th:text="#{msg.login.forgotPassword}"></a>
+                            </div>
+                            <div class="col-sm text-right">
+                                <a th:href="@{/register}" th:text="#{msg.login.registerLink}"></a>
+                            </div>
+                        </div>
 
-					</div>
-				</div>
-			</div>
+                    </div>
+                </div>
+            </div>
 
-		</div>
+        </div>
 
 
-	</div>
+    </div>
 </div>
 
 <th:block th:include="fragments :: footer"></th:block>

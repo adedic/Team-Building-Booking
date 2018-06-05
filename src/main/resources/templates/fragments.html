@@ -32,8 +32,7 @@
 	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
 		<a class="navbar-brand" th:href="@{/}" style="margin-left: 3%"> <img
 				src="/resources/static/img/logo.png"
-				style="width: 80px; margin: -12px 7px 0px 0px;" /> Team building
-			booking
+				style="width: 80px; margin: -12px 7px 0px 0px;" /> <span th:text="#{msg.nav.home}"></span>
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent"
@@ -44,61 +43,75 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link" th:href="@{/offer/search}">Ponude<span
+				<li class="nav-item"><a class="nav-link" th:href="@{/offer/search}"><span th:text="#{msg.nav.offers}"></span><span
 						class="sr-only">(current)</span></a></li>
-				<li class="nav-item active" sec:authorize="hasAnyRole('ROLE_ADMIN, ROLE_PROVIDER')" ><a class="nav-link" th:href="@{/offer/new}">Nova ponuda<span
-						class="sr-only">(current)</span></a></li>
-				<li class="nav-item active"><a class="nav-link" th:href="@{/about}">O
-					nama</a></li>
-				<li class="nav-item active"><a class="nav-link" th:href="@{/contact}">Kontakt</a>
+				<li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN, ROLE_PROVIDER')" >
+					<a class="nav-link" th:href="@{/offer/new}">
+						<span th:text="#{msg.nav.newOffer}"></span>
+						<span class="sr-only">(current)</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/about}" th:text="#{msg.nav.about}"></a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" th:href="@{/contact}" th:text="#{msg.nav.contact}"></a>
 				</li>
 			</ul>
 			<ul class="navbar-nav my-2 my-lg-0" >
 
 				<li th:if="${registerView == null}" class="nav-item" sec:authorize="isAnonymous()"><a
-						class="nav-link" th:href="@{/register}">Registriraj se</a>
+						class="nav-link" th:href="@{/register}" th:text="#{msg.register}"></a>
 				</li>
 				<li th:if="${loginView == null}" class="nav-item" sec:authorize="isAnonymous()"><a
-						class="nav-link" th:href="@{/login}">Prijavi se</a>
+						class="nav-link" th:href="@{/login}" th:text="#{msg.login}"></a>
 				</li>
 				<li class="nav-item dropdown" sec:authorize="isAuthenticated()">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"><strong sec:authentication="name"></strong></a>
+					   role="button" data-toggle="dropdown" aria-haspopup="true"
+					   aria-expanded="false"><strong sec:authentication="name"></strong></a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="#" sec:authorize="!hasAnyRole('ROLE_PROVIDER')"><i class="fa fa-pencil-square"></i> Moje rezervacije</a>
-						<a class="dropdown-item" th:href="@{/offer/myOffers}" sec:authorize="hasAnyRole('ROLE_ADMIN, ROLE_PROVIDER')"><i class="fa fa-opencart"></i> Moje ponude</a>
-						<a class="dropdown-item" th:href="@{/profile/me}" sec:authorize="hasRole('ROLE_USER')"><i class="fa fa-user"></i> Moj profil</a>
-						<a class="dropdown-item" th:href="@{/profile/edit}" sec:authorize="hasRole('ROLE_USER')"><i class="fa fa-pencil"></i> Uredi profil</a>
+						<a class="dropdown-item" href="#" sec:authorize="!hasAnyRole('ROLE_PROVIDER')">
+							<i class="fa fa-pencil-square"></i> <span th:text="#{msg.nav.myReservations}"></span>
+						</a>
+						<a class="dropdown-item" th:href="@{/offer/myOffers}" sec:authorize="hasAnyRole('ROLE_ADMIN, ROLE_PROVIDER')">
+							<i class="fa fa-opencart"></i> <span th:text="#{msg.nav.myOffers}"></span>
+						</a>
+						<a class="dropdown-item" th:href="@{/profile/me}" sec:authorize="hasRole('ROLE_USER')">
+							<i class="fa fa-user"></i> <span th:text="#{msg.nav.myProfile}"></span>
+						</a>
+						<a class="dropdown-item" th:href="@{/profile/edit}" sec:authorize="hasRole('ROLE_USER')">
+							<i class="fa fa-pencil"></i> <span th:text="#{msg.nav.editProfile}"></span>
+						</a>
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" th:href="@{/logout}"><i class="fa fa-power-off"></i> Odjava</a>
+						<a class="dropdown-item" th:href="@{/logout}"><i class="fa fa-power-off"></i> <span th:text="#{msg.nav.logout}"></span></a>
 					</div>
 				</li>
-                <!-- Language selection -->
-                <li class="nav-item" style="padding: 5px 0 0 10px">
-                    <form class="btn-group btn-group-toggle" id="languages" data-toggle="buttons">
-                        <label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'hr'} ? 'active' : '' ">
-                            <input type="radio" name="language" value="hr" th:checked="${#locale.language == 'hr'}">
-                            <img style="height: 10px" src="/resources/static/img/flags/hr.png"/> <small th:text="#{msg.lang.hr}" class="text-uppercase"></small>
-                        </label>
-                        <label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'en'} ? 'active' : '' ">
-                            <input type="radio" name="language" id="en" autocomplete="off" value="en" th:checked="${#locale.language == 'en'}">
-                            <img style="height: 10px" src="/resources/static/img/flags/en.png"/> <small th:text="#{msg.lang.en}" class="text-uppercase"></small>
-                        </label>
-                        <label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'de'} ? 'active' : '' ">
-                            <input type="radio" name="language" id="de" autocomplete="off" value="de" th:checked="${#locale.language == 'de'}">
-                            <img style="height: 10px" src="/resources/static/img/flags/de.png"/> <small th:text="#{msg.lang.de}" class="text-uppercase"></small>
-                        </label>
-                        <label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'it'} ? 'active' : '' ">
-                            <input type="radio" name="language" id="it" autocomplete="off" value="it" th:checked="${#locale.language == 'it'}">
-                            <img style="height: 10px" src="/resources/static/img/flags/it.jpg"/> <small th:text="#{msg.lang.it}" class="text-uppercase"></small>
-                        </label>
-                        <label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'sr'} ? 'active' : '' ">
-                            <input type="radio" name="language" id="sr" autocomplete="off" value="sr" th:checked="${#locale.language == 'sr'}">
-                            <img style="height: 10px" src="/resources/static/img/flags/sr.png"/> <small th:text="#{msg.lang.sr}" class="text-uppercase"></small>
-                        </label>
-                    </form>
-                </li>
+				<!-- Language selection -->
+				<li class="nav-item" style="padding: 5px 0 0 10px">
+					<form class="btn-group btn-group-toggle" id="languages" data-toggle="buttons">
+						<label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'hr'} ? 'active' : '' ">
+							<input type="radio" name="language" value="hr" th:checked="${#locale.language == 'hr'}">
+							<img style="height: 10px" src="/resources/static/img/flags/hr.png"/> <small th:text="#{msg.lang.hr}" class="text-uppercase"></small>
+						</label>
+						<label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'en'} ? 'active' : '' ">
+							<input type="radio" name="language" id="en" autocomplete="off" value="en" th:checked="${#locale.language == 'en'}">
+							<img style="height: 10px" src="/resources/static/img/flags/en.png"/> <small th:text="#{msg.lang.en}" class="text-uppercase"></small>
+						</label>
+						<label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'de'} ? 'active' : '' ">
+							<input type="radio" name="language" id="de" autocomplete="off" value="de" th:checked="${#locale.language == 'de'}">
+							<img style="height: 10px" src="/resources/static/img/flags/de.png"/> <small th:text="#{msg.lang.de}" class="text-uppercase"></small>
+						</label>
+						<label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'it'} ? 'active' : '' ">
+							<input type="radio" name="language" id="it" autocomplete="off" value="it" th:checked="${#locale.language == 'it'}">
+							<img style="height: 10px" src="/resources/static/img/flags/it.jpg"/> <small th:text="#{msg.lang.it}" class="text-uppercase"></small>
+						</label>
+						<label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'sr'} ? 'active' : '' ">
+							<input type="radio" name="language" id="sr" autocomplete="off" value="sr" th:checked="${#locale.language == 'sr'}">
+							<img style="height: 10px" src="/resources/static/img/flags/sr.png"/> <small th:text="#{msg.lang.sr}" class="text-uppercase"></small>
+						</label>
+					</form>
+				</li>
 			</ul>
 		</div>
 	</nav>
@@ -108,8 +121,7 @@
 	<footer class="footer">
 		<div class="container-fluid">
 			<p class="text-center" style="margin-top: 30vh;">
-				<th:block>by <span class="text-info">Team
-							tulipani</span>
+				<th:block>by <span class="text-info" th:text="#{msg.footer.team}"></span>
 				</th:block>
 				&copy;
 				<th:block th:text="${#dates.format(#dates.createNow(), 'yyyy')}"></th:block>
@@ -121,43 +133,51 @@
 <th:block th:fragment="results">
 	<div class="row justify-content-md-center" th:if="${offers != null}" style="padding-bottom: 40px">
 		<div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title" th:text="${titleResults}"></h3>
-                    <span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.category)}" th:text="${'Kategorija: ' + searchOfferForm.category}"></span>
-                    <span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.numOfPeople)}" th:text="${'Broj ljudi: ' + searchOfferForm.numOfPeople}"></span>
-                    <span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.country)}" th:text="${'Država: ' + searchOfferForm.country}"></span>
-                    <span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.city)}" th:text="${'Grad: ' + searchOfferForm.city}"></span>
-                    <span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.date)}" th:text="${'Datum: ' + searchOfferForm.date}"></span>
-                    <br>
-                </div>
-                <br>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title" th:text="${titleResults}"></h3>
+					<span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.category)}">
+                        <span th:text="#{msg.search.category}"></span>: <span th:text="${searchOfferForm.category}"></span>
+                    </span>
+					<span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.numOfPeople)}">
+                        <span th:text="#{msg.search.numOfPeople}"></span>: <span th:text="${searchOfferForm.numOfPeople}"></span>
+                    </span>
+					<span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.country)}">
+                        <span th:text="#{msg.search.country}"></span>: <span th:text="${searchOfferForm.country}"></span>
+                    </span>
+					<span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.city)}">
+                        <span th:text="#{msg.search.city}"></span>: <span th:text="${searchOfferForm.city}"></span>
+                    </span>
+					<span class="badge badge-secondary" th:if="${!#strings.isEmpty(searchOfferForm.date)}">
+                        <span th:text="#{msg.search.date}"></span>: <span th:text="${searchOfferForm.date}"></span>
+                    </span>
+					<br>
+				</div>
+				<br>
 
-                <div class="panel-body">
-                    <div class="card-columns">
-                        <p th:if="${noResults}">
-                            Nema rezultata za tražene parametre.
-                        </p>
-                        <div th:each="offer : ${offers}">
-                            <a style="color: black; text-decoration: none;" th:href="@{'/offer/details/' + ${offer.id}}">
-                                <div class="card md-4">
-                                    <img class="card-img-top" th:src="${offer.offerPicture.base64String}" alt="Card image cap" style="height: 18rem;">
-                                    <div class="card-body" style="height: 10rem;">
-                                        <h4 class="card-title" th:text="${offer.name}"></h4>
-                                        <p class="card-text text-left" th:text="${#strings.substring(offer.description,0,79) + '...'}" th:if="${#strings.length(offer.description) > 80}"></p>
-                                        <p class="card-text text-left" th:text="${offer.description}" th:if="${#strings.length(offer.description) < 81}"></p>
-                                    </div>
-                                    <div class="card-footer">
-                                        <a th:href="@{'/offer/details/' + ${offer.id}}" class="d-inline">
-                                            <button type="button" class="btn btn-outline-info"><i class="fa fa-info"></i> Detalji</button></a>
-                                        <p class="d-inline pull-right" th:text="${#numbers.formatDecimal(offer.pricePerPerson,2,0)} + ' kn'"></p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+				<div class="panel-body">
+					<div class="card-columns">
+						<p th:if="${noResults}" th:text="#{msg.search.noResults}"></p>
+						<div th:each="offer : ${offers}">
+							<a style="color: black; text-decoration: none;" th:href="@{'/offer/details/' + ${offer.id}}">
+								<div class="card md-4">
+									<img class="card-img-top" th:src="${offer.offerPicture.base64String}" alt="Card image cap" style="height: 18rem;">
+									<div class="card-body" style="height: 10rem;">
+										<h4 class="card-title" th:text="${offer.name}"></h4>
+										<p class="card-text text-left" th:text="${#strings.substring(offer.description,0,79) + '...'}" th:if="${#strings.length(offer.description) > 80}"></p>
+										<p class="card-text text-left" th:text="${offer.description}" th:if="${#strings.length(offer.description) < 81}"></p>
+									</div>
+									<div class="card-footer">
+										<a th:href="@{'/offer/details/' + ${offer.id}}" class="d-inline">
+											<button type="button" class="btn btn-outline-info"><i class="fa fa-info"></i> <span th:text="#{msg.details}"></span></button></a>
+										<p class="d-inline pull-right" th:text="${#numbers.formatDecimal(offer.pricePerPerson,2,0)} + ' kn'"></p>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </th:block>
@@ -206,7 +226,7 @@
                                             function(
                                                 event) {
                                                 if (form
-                                                        .checkValidity() === false) {
+                                                    .checkValidity() === false) {
                                                     event
                                                         .preventDefault();
                                                     event
@@ -244,7 +264,7 @@
                                             function(
                                                 event) {
                                                 if (form
-                                                        .checkValidity() === false) {
+                                                    .checkValidity() === false) {
                                                     event
                                                         .preventDefault();
                                                     event
