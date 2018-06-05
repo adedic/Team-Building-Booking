@@ -54,23 +54,50 @@
 				<li class="nav-item">
 					<a class="nav-link" th:href="@{/about}" th:text="#{msg.nav.about}"></a>
 				</li>
-				<li class="nav-item active">
+				<li class="nav-item">
 					<a class="nav-link" th:href="@{/contact}" th:text="#{msg.nav.contact}"></a>
 				</li>
 			</ul>
 			<ul class="navbar-nav my-2 my-lg-0" >
 
-				<li th:if="${registerView == null}" class="nav-item" sec:authorize="isAnonymous()"><a
-						class="nav-link" th:href="@{/register}" th:text="#{msg.register}"></a>
-				</li>
-				<li th:if="${loginView == null}" class="nav-item" sec:authorize="isAnonymous()"><a
-						class="nav-link" th:href="@{/login}" th:text="#{msg.login}"></a>
-				</li>
-				<li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                <!-- Language selection -->
+                <li class="nav-item" style="padding: 5px 20px 0 10px">
+                    <form class="btn-group btn-group-toggle" id="languages" data-toggle="buttons">
+                        <label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'hr'} ? 'active' : '' ">
+                            <input type="radio" name="language" value="hr" th:checked="${#locale.language == 'hr'}">
+                            <img style="height: 10px" src="/resources/static/img/flags/hr.png"/> <small th:text="#{msg.lang.hr}" class="text-uppercase"></small>
+                        </label>
+                        <label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'en'} ? 'active' : '' ">
+                            <input type="radio" name="language" id="en" autocomplete="off" value="en" th:checked="${#locale.language == 'en'}">
+                            <img style="height: 10px" src="/resources/static/img/flags/en.png"/> <small th:text="#{msg.lang.en}" class="text-uppercase"></small>
+                        </label>
+                        <label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'de'} ? 'active' : '' ">
+                            <input type="radio" name="language" id="de" autocomplete="off" value="de" th:checked="${#locale.language == 'de'}">
+                            <img style="height: 10px" src="/resources/static/img/flags/de.png"/> <small th:text="#{msg.lang.de}" class="text-uppercase"></small>
+                        </label>
+                        <label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'it'} ? 'active' : '' ">
+                            <input type="radio" name="language" id="it" autocomplete="off" value="it" th:checked="${#locale.language == 'it'}">
+                            <img style="height: 10px" src="/resources/static/img/flags/it.jpg"/> <small th:text="#{msg.lang.it}" class="text-uppercase"></small>
+                        </label>
+                        <label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'sr'} ? 'active' : '' ">
+                            <input type="radio" name="language" id="sr" autocomplete="off" value="sr" th:checked="${#locale.language == 'sr'}">
+                            <img style="height: 10px" src="/resources/static/img/flags/sr.png"/> <small th:text="#{msg.lang.sr}" class="text-uppercase"></small>
+                        </label>
+                    </form>
+                </li>
+
+                <li th:if="${registerView == null}" class="nav-item" sec:authorize="isAnonymous()"><a
+                        class="nav-link" th:href="@{/register}" th:text="#{msg.register}"></a>
+                </li>
+                <li th:if="${loginView == null}" class="nav-item" sec:authorize="isAnonymous()"><a
+                        class="nav-link" th:href="@{/login}" th:text="#{msg.login}"></a>
+                </li>
+
+				<li class="nav-item dropdown" sec:authorize="isAuthenticated()" style="padding-right: 50px">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					   role="button" data-toggle="dropdown" aria-haspopup="true"
 					   aria-expanded="false"><strong sec:authentication="name"></strong></a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="#" sec:authorize="!hasAnyRole('ROLE_PROVIDER')">
 							<i class="fa fa-pencil-square"></i> <span th:text="#{msg.nav.myReservations}"></span>
 						</a>
@@ -87,31 +114,7 @@
 						<a class="dropdown-item" th:href="@{/logout}"><i class="fa fa-power-off"></i> <span th:text="#{msg.nav.logout}"></span></a>
 					</div>
 				</li>
-				<!-- Language selection -->
-				<li class="nav-item" style="padding: 5px 0 0 10px">
-					<form class="btn-group btn-group-toggle" id="languages" data-toggle="buttons">
-						<label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'hr'} ? 'active' : '' ">
-							<input type="radio" name="language" value="hr" th:checked="${#locale.language == 'hr'}">
-							<img style="height: 10px" src="/resources/static/img/flags/hr.png"/> <small th:text="#{msg.lang.hr}" class="text-uppercase"></small>
-						</label>
-						<label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'en'} ? 'active' : '' ">
-							<input type="radio" name="language" id="en" autocomplete="off" value="en" th:checked="${#locale.language == 'en'}">
-							<img style="height: 10px" src="/resources/static/img/flags/en.png"/> <small th:text="#{msg.lang.en}" class="text-uppercase"></small>
-						</label>
-						<label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'de'} ? 'active' : '' ">
-							<input type="radio" name="language" id="de" autocomplete="off" value="de" th:checked="${#locale.language == 'de'}">
-							<img style="height: 10px" src="/resources/static/img/flags/de.png"/> <small th:text="#{msg.lang.de}" class="text-uppercase"></small>
-						</label>
-						<label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'it'} ? 'active' : '' ">
-							<input type="radio" name="language" id="it" autocomplete="off" value="it" th:checked="${#locale.language == 'it'}">
-							<img style="height: 10px" src="/resources/static/img/flags/it.jpg"/> <small th:text="#{msg.lang.it}" class="text-uppercase"></small>
-						</label>
-						<label class="btn btn-sm btn-secondary" th:classappend="${#locale.language == 'sr'} ? 'active' : '' ">
-							<input type="radio" name="language" id="sr" autocomplete="off" value="sr" th:checked="${#locale.language == 'sr'}">
-							<img style="height: 10px" src="/resources/static/img/flags/sr.png"/> <small th:text="#{msg.lang.sr}" class="text-uppercase"></small>
-						</label>
-					</form>
-				</li>
+
 			</ul>
 		</div>
 	</nav>
