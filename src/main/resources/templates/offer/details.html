@@ -33,7 +33,7 @@
                         <div class="col-md-8">
                             <h1 class="panel-title" th:text="${offer.name}"></h1>
                             <h5 class="text-secondary"><span class="fa fa-map-marker"></span> <span th:text="${offer.country + ', '}"></span>
-                                <span class="text-black-50" th:text="${offer.city + ', '}"></span> <span class="text-black-50" th:text="${offer.adress}"></span>
+                                <span class="text-black-50" th:text="${offer.city + ', '}"></span> <span class="text-black-50" th:text="${offer.address}"></span>
                             </h5>
                             <span th:each="category : ${offer.categories}" class="h5">
                                 <span class="badge badge-danger" th:if="${category.name == 'Zabava'}" th:text="${category.name}"></span>

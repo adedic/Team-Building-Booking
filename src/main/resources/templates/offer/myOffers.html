@@ -71,7 +71,7 @@
                                             <p class="card-text"><b>Opis: </b> <span th:text="${offer.description}"></span></p>
                                             <p class="card-text"><b>Država: </b> <span th:text="${offer.country}"></span></p>
                                             <p class="card-text"><b>Mjesto: </b> <span th:text="${offer.city}"></span></p>
-                                            <p class="card-text"><b>Adresa: </b> <span >Adresa</span></p><!-- TODO zamijeniti nakon merga s podatkom iz baze-->
+                                            <p class="card-text"><b>Adresa: </b> <span th:text="${offer.address}"></span></p>
                                             <p class="card-text"><b>Minimalan broj korisnika: </b> <span th:text="${offer.minNumberOfUsers}"></span></p>
                                             <p class="card-text"><b>Maksimalan broj korisnika: </b> <span th:text="${offer.maxNumberOfUsers}"></span></p>
                                             <p class="card-text"><b>Dostupno od: </b> <span th:text="${#dates.format(offer.availableFrom, 'dd.MM.yyyy.')}"></span></p>

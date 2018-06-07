@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout">
 <head>
-    <title>Kontakt</title>
+    <title th:text="#{msg.contact.pageTitle}"></title>
     <style>
         ul {
             color: white;
@@ -23,7 +23,7 @@
             <div class="col-md-7" style="padding-top: 20vh; padding-bottom: 10vh;">
                 <div class="panel panel-default" style="background: rgba(33,37,41,0.9); padding: 5% 5%">
                     <div class="panel-heading">
-                        <h3 class="panel-title text-white">Kako do nas?</h3>
+                        <h3 class="panel-title text-white" th:text="#{msg.contact.title}"></h3>
                     </div>
                     <br>
 
@@ -31,13 +31,13 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                <span class="text-white"><i class="fa fa-phone"></i> 01 3233221</span>
+                                <span class="text-white"><i class="fa fa-phone"></i> <span th:text="#{msg.contact.telephone}"></span></span>
                                 <br/>
-                                <span class="text-white"><i class="fa fa-home"></i> Ul. Vrbik VIII, 10000, Zagreb</span>
+                                <span class="text-white"><i class="fa fa-home"></i> <span th:text="#{msg.contact.address}"></span></span>
                                 <br/>
                                 <br/>
 
-                                <p class="text-white">Ako imate ikakvih upita, prijedolga, žalbi ili pohvala slobodno nam se javite na sljedeće email adrese:</p>
+                                <p class="text-white" th:text="#{msg.contact.info}"></p>
                                 <ul>
                                     <li><a href="mailto:mstuban@tvz.hr?Subject=Hello%20again" target="_top">mstuban@tvz.hr</a></li>
                                     <li><a href="mailto:abaric@tvz.hr?Subject=Hello%20again" target="_top">abaric@tvz.hr</a></li>

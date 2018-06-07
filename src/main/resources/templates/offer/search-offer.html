@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout">
 <head>
-    <title>Team building ponude</title>
+    <title th:text="#{msg.search.pageTitle}"></title>
 
     <th:block th:replace="fragments :: css"></th:block>
 </head>
@@ -27,7 +27,7 @@
                 </div>
                 <div class="panel panel-default" style="background: rgba(33,37,41,0.9); padding: 5% 5%">
                     <div class="panel-heading">
-                        <h3 class="panel-title text-white">Pretraži team building ponude</h3>
+                        <h3 class="panel-title text-white" th:text="#{msg.search.title}"></h3>
                     </div>
                     <br>
 
@@ -36,40 +36,44 @@
                         <form role="form" method="POST" name="searchOffer" th:object="${searchOfferForm}" th:action="@{/offer/search}" class="needs-validation" novalidate>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="category" class="text-white">Odaberite željenu kategoriju</label>
+                                    <label for="category" class="text-white" th:text="#{msg.search.category.help}"></label>
                                     <select class="custom-select mr-sm-2" id="category" th:field="*{category}">
-                                        <option value="" selected>Odaberite kategoriju</option>
+                                        <option value="" selected th:text="#{msg.search.category.select}"></option>
                                         <option th:each="category : ${categories}" th:value="${category.name}" th:text="${category.name}">
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="category" class="text-white">Unesite željeni broj osoba</label>
-                                    <input th:field="*{numOfPeople}" th:value="${10}" type="number" min="1" max="250" onkeypress="return event.charCode >= 48" name="numOfPeople" class="form-control" id="numOfPeople" placeholder="Broj osoba" autofocus>
-                                    <div class="invalid-feedback">Unesite broj osoba za team building manji od 250!</div>
+                                    <label for="numOfPeople" class="text-white" th:text="#{msg.search.numOfPeople.help}"></label>
+                                    <input th:field="*{numOfPeople}" th:value="${10}" type="number" min="1" max="250" onkeypress="return event.charCode >= 48" name="numOfPeople"
+                                           class="form-control" id="numOfPeople" th:placeholder="#{msg.search.numOfPeople.placeholder}" autofocus>
+                                    <div class="invalid-feedback" th:text="#{msg.search.numOfPeople.invalid}"></div>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="country" class="text-white">Unesite željenu državu</label>
-                                    <input th:field="*{country}" type="text" name="country" class="form-control" id="country" placeholder="Država" autofocus>
-                                    <div class="invalid-feedback">Unesite valjan naziv države!</div>
+                                    <label for="country" class="text-white" th:text="#{msg.search.country.help}"></label>
+                                    <input th:field="*{country}" type="text" name="country" class="form-control"
+                                           id="country" th:placeholder="#{msg.search.country.placeholder}" autofocus>
+                                    <div class="invalid-feedback" th:text="#{msg.search.country.invalid}"></div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="country" class="text-white">Unesite željeni grad</label>
-                                    <input th:field="*{city}" type="text" name="city" class="form-control" id="city" placeholder="Grad" autofocus>
-                                    <div class="invalid-feedback">Unesite valjan naziv grada!</div>
+                                    <label for="city" class="text-white" th:text="#{msg.search.city.help}"></label>
+                                    <input th:field="*{city}" type="text" name="city" class="form-control"
+                                           id="city" th:placeholder="#{msg.search.city.placeholder}" autofocus>
+                                    <div class="invalid-feedback" th:text="#{msg.search.city.invalid}"></div>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6 align-content-md-center">
-                                    <label for="country" class="text-white">Datum održavanja team buildinga</label>
-                                    <input th:field="*{date}" type="text" name="date" class="form-control" id="date" placeholder="Datum">
+                                    <label for="date" class="text-white" th:text="#{msg.search.date.help}"></label>
+                                    <input th:field="*{date}" type="text" name="date" class="form-control"
+                                           id="date" th:placeholder="#{msg.search.date.placeholder}">
                                 </div>
                             </div>
 
-                            <input class="btn btn-lg btn-outline-primary btn-block" type="submit" value="Pretraži ponude!" />
+                            <input class="btn btn-lg btn-outline-primary btn-block" type="submit" th:value="#{msg.search.link}" />
 
                         </form>
                     </div>
@@ -83,14 +87,14 @@
     <div class="container">
         <br>
         <br>
-    <th:block th:include="fragments :: results"></th:block>
+        <th:block th:include="fragments :: results"></th:block>
 
 
         <div class="row justify-content-md-center">
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title text-primary" id="ponude">Izdvojene team building ponude</h3>
+                        <h3 class="panel-title text-primary" id="ponude" th:text="#{msg.offers.top}"></h3>
                     </div>
                     <br>
 
@@ -107,19 +111,22 @@
                                         </div>
                                         <div class="card-footer">
                                             <a th:href="@{'/offer/details/' + ${offer.id}}" class="d-inline">
-                                                <button type="button" class="btn btn-outline-info"><i class="fa fa-info"></i> Detalji</button></a>
+                                                <button type="button" class="btn btn-outline-info"><i class="fa fa-info"></i> <span th:text="#{msg.details}"></span>
+                                                </button>
+                                            </a>
                                             <p class="d-inline pull-right" th:text="${#numbers.formatDecimal(offer.pricePerPerson,2,0)} + ' kn'"></p>
                                         </div>
                                     </div>
                                 </a>
-                            </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
+</div>
 </div>
 <th:block th:include="fragments :: footer"></th:block>
 

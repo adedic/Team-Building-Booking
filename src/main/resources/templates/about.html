@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout">
 <head>
-    <title>O nama</title>
+    <title th:text="#{msg.about.pageTitle}"></title>
 
     <th:block th:replace="fragments :: css"></th:block>
 
@@ -28,55 +28,41 @@
             <div class="col-md-7" style="padding-top: 20vh; padding-bottom: 10vh;">
                 <div class="panel panel-default" style="background: rgba(33,37,41,0.9); padding: 5% 5%">
                     <div class="panel-heading">
-                        <h3 class="panel-title text-white">O <b>team-building bookingu</b></h3>
+                        <h3 class="panel-title text-white" th:utext="#{msg.about.title1}"></h3>
                     </div>
                     <br>
 
                     <div class="panel-body">
-                        <h5 class="text-white"><b>Za ponuditelje</b></h5>
-                        <p class="text-white">Ako ste korisnik koji želi objaviti svoju team-building ponudu preko aplikacije možete
-                            dodati svoju ponudu tako da bude vidljiva svim potencijalnim korisnicima koji bi željeli rezervirati team-buidling.
-                        </p>
+                        <h5 class="text-white"><b th:text="#{msg.about.forProviders}"></b></h5>
+                        <p class="text-white" th:text="#{msg.about.provider.info1}"></p>
 
-                        <button class="btn btn-danger" onclick="func('new-offer')"><i class="fa fa-angle-down"></i> Kako dodati novu ponudu?</button>
+                        <button class="btn btn-danger" onclick="func('new-offer')"><i class="fa fa-angle-down"></i> <span th:text="#{msg.about.provider.question1}"></span></button>
 
                         <div class="card" id="new-offer" style="display: none">
-                            <p class="">Kako biste dodali novu team building ponudu ulogirajte se, odaberite opciju Nova ponuda na navigciji,
-                                ispunite obrazac sa podacima o team building ponudi i dodajte ponudu.</p>
+                            <p th:text="#{msg.about.provider.answer1}"></p>
                         </div>
-                        <p class="text-white">Ako ste napravili pogrešku prilikom unosa podataka o team-building ponudi, ne paničarite, istu ponudu možete vrlo
-                            jednostavno urediti i ispraviti pogrešku.
+                        <p class="text-white" th:text="#{msg.about.provider.info2}">
                         </p>
-                        <button class="btn btn-danger" onclick="func('edit-offer')"><i class="fa fa-angle-down"></i> Kako urediti postojeću ponudu?</button>
+                        <button class="btn btn-danger" onclick="func('edit-offer')"><i class="fa fa-angle-down"></i> <span th:text="#{msg.about.provider.question2}"></span></button>
                         <div class="card" id="edit-offer" style="display: none">
-                            <p class="">Kako biste uredili postojeću team building ponudu ulogirajte se, odaberite opciju Moje ponude
-                                i ispod ponude koju želite urediti od`aberite opciju uredi.
+                            <p th:text="#{msg.about.provider.answer2}">
                             </p>
                         </div>
 
                         <br><br>
-                        <h5 class="text-white"><b>Za korisnike</b></h5>
-                        <p class="text-white">Želite rezervirati team building za svoj tim? Preko team-building bookinga možete pretražiti
-                            i vidjeti detalje o svim team-building ponudama prema vašim kriterijima.
-                        </p>
-                        <button class="btn btn-danger" onclick="func('new-reservation')"><i class="fa fa-angle-down"></i> Kako pretražiti team building ponude?</button>
+                        <h5 class="text-white"><b th:text="#{msg.about.forUsers}"></b></h5>
+                        <p class="text-white" th:text="#{msg.about.user.info1}"></p>
+                        <button class="btn btn-danger" onclick="func('new-reservation')"><i class="fa fa-angle-down"></i> <span th:text="#{msg.about.user.question1}"></span></button>
                         <div class="card" id="new-reservation" style="display: none">
-                            <p class="">Kako biste pretražili dostupne team building ponude odaberite opciju Ponude.
-                                Da biste pronašli ponude koje vam odgovaraju možete unijeti kriterije po kojima želite filtrirati ponude
-                                i odabrati opciju Pretraži ponude.
-                            </p>
+                            <p  th:text="#{msg.about.user.answer1}"></p>
                         </div>
 
-                        <p class="text-white">Pronašli ste ponudu koja vam odgovara? Nakon pregleda detalja o ponudi jednostavno odaberite planirani
-                            broj ljudi, planirani datum i odaberite opciju <span class="text-blue">Rezerviraj ponudu</span>.
+                        <p class="text-white"><span th:text="#{msg.about.user.info2}"></span> <span class="text-blue" th:text="#{msg.about.user.info2.reserve}"></span>.
                         </p>
-                        <p class="text-white">Predomislili ste se? Na pregledu rezervacija možete otkazati rezervaciju.
-                        </p>
-                        <button class="btn btn-danger" onclick="func('cancel-reservation')"><i class="fa fa-angle-down"></i> Kako otkazati rezervaciju?</button>
+                        <p class="text-white" th:text="#{msg.about.user.info3}"></p>
+                        <button class="btn btn-danger" onclick="func('cancel-reservation')"><i class="fa fa-angle-down"></i> <span th:text="#{msg.about.user.question2}"></span></button>
                         <div class="card" id="cancel-reservation" style="display: none;">
-                            <p class="">Kako biste pretražili dostupne team building ponude odaberite opciju Ponude.
-                                Da biste otkazali rezervaciju team building ponude odaberite opciju Moje rezervacije
-                                , i ispod rezervacije koju želite otkazati odaberite opciju Izbriši.
+                            <p><span th:text="#{msg.about.user.answer2}"> </span><span class="text-blue" th:text="#{msg.about.user.answer2.delete}"></span>
                             </p>
                         </div>
 
@@ -84,18 +70,18 @@
                 </div>
                 <div class="panel panel-default" style="background: rgba(33,37,41,0.9); padding: 0% 5% 5% 5%">
                     <div class="panel-heading">
-                        <h3 class="panel-title text-white">Tko smo mi</h3>
+                        <h3 class="panel-title text-white" th:text="#{msg.about.title2}"></h3>
                     </div>
                     <br>
 
                     <div class="panel-body">
-                        <p class="text-white">Tim tulipani osnovan je 05.05.2018. godine.</p>
+                        <p class="text-white" th:text="#{msg.about.team.found}"></p>
                         <br>
-                        <p class="text-white">Na razvoju web aplikacije za rezervaciju team-building ponuda sudjeluju:</p>
+                        <p class="text-white" th:text="#{msg.about.team.develop}"></p>
                         <ul>
-                            <li class="text-white">Scrum master: Marko Štuban</li>
-                            <li class="text-white">Product owner: Aleksander Radovan</li>
-                            <li class="text-white">Razvojni tim: Marko Štuban, Antonio Barić, Ana Dedić, Maja Puljić i Filip Blažević</li>
+                            <li class="text-white" th:text="#{msg.about.team.scrumMaster}"></li>
+                            <li class="text-white" th:text="#{msg.about.team.productOwner}"></li>
+                            <li class="text-white" th:text="#{msg.about.team.programmers}"></li>
                         </ul>
 
                     </div>

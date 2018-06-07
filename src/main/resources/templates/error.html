@@ -1,51 +1,49 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	  xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8" />
-<title>Error</title>
+	<meta charset="UTF-8" />
+	<title th:text="#{msg.error.pageTitle}"></title>
 
-<th:block th:replace="fragments :: css"></th:block>
+	<th:block th:replace="fragments :: css"></th:block>
 </head>
 <body>
-	<div class="container text-center" style="margin-top:10vh; margin-bottom:50vh;">
-		<div class="row">
+<div class="container text-center" style="margin-top:10vh; margin-bottom:50vh;">
+	<div class="row">
 
-			<div class="col-md-12">
-				<div class="error-template">
-					<h1>Ups!</h1>
-					<img th:src="@{/resources/static/img/logo.png}" />
-					<h3 th:if="${status} == '403'"
-						th:text=" '403: ' + 'Zabranjen pristup'"></h3>
-					<h3 th:if="${status} == '404'"
-						th:text=" '404: ' + 'Nepostojeća stranica'"></h3>
-					<h3 th:if="${status} == '500'"
-						th:text=" '500: ' + 'Greška na serveru'"></h3>
-					<div class="error-details">
-						Žao nam je, dogodila se greška.
-						<p th:if="${status} == '403'"
-							th:text="'Nemate pravo pristupa traženoj stranici.'"></p>
-						<p th:if="${status} == '404'"
-							th:text="'Tražena stranica nije pronađena.'"></p>
-						<p th:if="${status} == '500'"
-							th:text="${#dates.format(timestamp, 'dd.MM.YYYY. HH:mm:ss')}"></p>
-						<p th:if="${status} == '500'"
-							th:text="'Tražena stranica nije dostupna zbog problema na serveru.'"></p>
-					</div>
-
-
-					<hr />
-					<div class="error-actions">
-						<a th:href="@{/}" class="btn btn-outline-primary btn-lg"><span
-							class="fa fa-home"></span> Povratak na naslovnu
-							stranicu </a>
-					</div>
-
+		<div class="col-md-12">
+			<div class="error-template">
+				<h1 th:text="#{msg.error.heading}"></h1>
+				<img th:src="@{/resources/static/img/logo.png}" />
+				<h3 th:if="${status} == '403'"
+					th:text="#{msg.error.403.heading}"></h3>
+				<h3 th:if="${status} == '404'"
+					th:text="#{msg.error.404.heading}"></h3>
+				<h3 th:if="${status} == '500'"
+					th:text="#{msg.error.500.heading}"></h3>
+				<div class="error-details">
+					<span th:text="#{msg.error.info}"></span>
+					<p th:if="${status} == '403'"
+					   th:text="#{msg.error.403.details}"></p>
+					<p th:if="${status} == '404'"
+					   th:text="#{msg.error.404.details}'"></p>
+					<p th:if="${status} == '500'"
+					   th:text="${#dates.format(timestamp, #{msg.dateTime.format})}"></p>
+					<p th:if="${status} == '500'"
+					   th:text="#{msg.error.500.details}"></p>
 				</div>
+
+				<hr />
+				<div class="error-actions">
+					<a th:href="@{/}" class="btn btn-outline-primary btn-lg"><span
+							class="fa fa-home"></span> <span th:text="#{msg.error.action.home}"></span></a>
+				</div>
+
 			</div>
 		</div>
 	</div>
-	<div th:replace="fragments :: footer"></div>
-	<div th:replace="fragments :: additionalScripts"></div>
+</div>
+<div th:replace="fragments :: footer"></div>
+<div th:replace="fragments :: additionalScripts"></div>
 </body>
 </html>
