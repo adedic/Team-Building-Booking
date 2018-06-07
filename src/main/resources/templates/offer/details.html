@@ -33,7 +33,7 @@
                         <div class="col-md-8">
                             <h1 class="panel-title" th:text="${offer.name}"></h1>
                             <h5 class="text-secondary"><span class="fa fa-map-marker"></span> <span th:text="${offer.country + ', '}"></span>
-                                <span class="text-black-50" th:text="${offer.city}"></span>
+                                <span class="text-black-50" th:text="${offer.city + ', '}"></span> <span class="text-black-50" th:text="${offer.adress}"></span>
                             </h5>
                             <span th:each="category : ${offer.categories}" class="h5">
                                 <span class="badge badge-danger" th:if="${category.name == 'Zabava'}" th:text="${category.name}"></span>
@@ -120,7 +120,6 @@
 
                                     </div>
                                 </div>
-
                             </div>
 
                         </div>
@@ -137,14 +136,14 @@
 
             <div class="col-md-9" style="padding-top: 5vh;">
                 <div class="col-md-12">
-                    <form role="form" method="POST" name="formReservation"
-                          th:action="@{/offer/reserve}" class="needs-validation" novalidate>
+                    <form role="form" method="GET" name="formReservation" th:action="@{/reservation/checkout}"
+                          th:object="${reservationForm}" class="needs-validation" novalidate>
                         <div class="form-row">
 
                             <div class="form-group col-md-3">
-                                <label for="date">Datum dolaska:</label>
+                                <label for="dateString">Datum dolaska:</label>
                                     <input type="text" class="form-control form-control-lg col-md-12" required="required"
-                                           th:value="${#dates.format(#dates.createNow(), 'dd.MM.yyyy.')}" name="date" id="date"/>
+                                           th:field="*{dateString}" th:value="${#dates.format(#dates.createNow(), 'dd.MM.yyyy.')}" name="dateString" id="dateString"/>
                                     <div class="invalid-feedback">
                                        <span>Odaberi datum dolaska!</span>
                                     </div>
@@ -155,7 +154,7 @@
                                     <input type="number" th:attr="min=${offer.minNumberOfUsers}, max=${offer.maxNumberOfUsers}"
                                            required="required"
                                            th:placeholder="${offer.minNumberOfUsers}+ ' - ' + ${offer.maxNumberOfUsers}"
-                                           class="form-control form-control-lg col-md-12" name="numberOfUsers" id="numberOfUsers"  />
+                                           th:field="*{numberOfUsers}" class="form-control form-control-lg col-md-12" name="numberOfUsers" id="numberOfUsers"  />
                                     <div class="invalid-feedback">
                                        <span>Odaberi broj korisnika!</span>
                                     </div>
@@ -165,8 +164,7 @@
                                 <input class="btn btn-lg btn-outline-primary btn-block"
                                        type="submit" value="Rezerviraj ponudu" />
                             </div>
-
-
+                            <input type="hidden" th:field="*{offerId}"/>
                         </div>
                     </form>
                 </div>

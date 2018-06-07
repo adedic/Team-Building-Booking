@@ -5,7 +5,6 @@
       layout:decorator="layout">
 <head>
     <title th:text="#{msg.register.pageTitle}"></title>
-
     <th:block th:replace="fragments :: css"></th:block>
 </head>
 
@@ -50,7 +49,6 @@
 
                                 <div class="text-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Name Error</div>
                                 <div class="invalid-feedback" th:text="#{msg.register.validation.surname}"></div>
-
                             </div>
                             <div class="form-group">
                                 <input type="date" name="dateOfBirth" class="form-control" id="dateOfBirth"

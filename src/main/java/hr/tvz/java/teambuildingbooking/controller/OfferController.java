@@ -4,6 +4,7 @@ import hr.tvz.java.teambuildingbooking.facade.OfferFacade;
 import hr.tvz.java.teambuildingbooking.model.Category;
 import hr.tvz.java.teambuildingbooking.model.Offer;
 import hr.tvz.java.teambuildingbooking.model.User;
+import hr.tvz.java.teambuildingbooking.model.form.ReservationForm;
 import hr.tvz.java.teambuildingbooking.model.form.EditOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
@@ -120,9 +121,9 @@ public class OfferController {
             }
 
             EditOfferForm editOfferForm = offerFacade.mapOfferToEditOfferForm(receivedOffer);
-
             DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
             editOfferForm.setDateAdded(dateFormat.format(receivedOffer.getDateAdded()));
+
             model.addAttribute("editOfferForm", editOfferForm);
 
             List<Category> categories = categoryService.findAll();
@@ -210,8 +211,11 @@ public class OfferController {
     @RequestMapping("/details/{id}")
     private String showDetails(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         Optional<Offer> offer = offerService.findOne(id);
-        if (offer.isPresent()) {
+
+        if(offer.isPresent()){
+            ReservationForm reservationForm = new ReservationForm(offer.get().getId(), null, null);
             model.addAttribute("offer", offer.get());
+            model.addAttribute("reservationForm", reservationForm);
             log.info("---> Fetching offer entity with ID = " + id + " and all its children from the database ...");
         } else {
             redirectAttributes.addFlashAttribute("offerNotFound", "Ponuda s ID = " + id + " nije pronađena!");
@@ -260,5 +264,4 @@ public class OfferController {
     public void addEditOfferFormValidator(WebDataBinder dataBinder) {
         dataBinder.addValidators(editOfferFormValidator);
     }
-
 }

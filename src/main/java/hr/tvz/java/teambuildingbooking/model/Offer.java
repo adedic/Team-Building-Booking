@@ -36,6 +36,9 @@ public class Offer implements Serializable {
     @Column(name = "CITY", nullable = false)
     private String city;
 
+    @Column(name = "ADRESS")
+    private String adress;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "OFFER_CATEGORY",
             joinColumns = {@JoinColumn(name = "OFFER_ID", referencedColumnName = "ID")},
@@ -118,6 +121,14 @@ public class Offer implements Serializable {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
     }
 
     public String getCity() {

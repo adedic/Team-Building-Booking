@@ -10,6 +10,7 @@ import hr.tvz.java.teambuildingbooking.model.form.EditOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
 import hr.tvz.java.teambuildingbooking.repository.CategoryRepository;
+import hr.tvz.java.teambuildingbooking.model.form.ReservationForm;
 import hr.tvz.java.teambuildingbooking.repository.OfferDaoRepository;
 import hr.tvz.java.teambuildingbooking.repository.OfferRepository;
 import hr.tvz.java.teambuildingbooking.service.OfferPictureService;
@@ -91,6 +92,31 @@ public class OfferServiceImpl implements OfferService {
             }
         }
         return offerDaoRepository.findOffers(searchCriteria);
+    }
+
+    @Override
+    public boolean isOfferValid(ReservationForm reservationForm) {
+        List<SearchCriteria> searchCriteria = new ArrayList<>();
+        if (reservationForm != null) {
+            if (reservationForm.getOfferId() != null) {
+                searchCriteria.add(new SearchCriteria("id", ":", reservationForm.getOfferId()));
+            }
+            if (reservationForm.getDate() != null) {
+                searchCriteria.add(new SearchCriteria("availableFrom", ":>", reservationForm.getDate()));
+                searchCriteria.add(new SearchCriteria("availableTo", ":<", reservationForm.getDate()));
+            }
+            if (reservationForm.getNumberOfUsers() != null) {
+                searchCriteria.add(new SearchCriteria("minNumberOfUsers", "<", reservationForm.getNumberOfUsers()));
+                searchCriteria.add(new SearchCriteria("maxNumberOfUsers", ">", reservationForm.getNumberOfUsers()));
+            }
+        }
+
+        List<Offer> offers = offerDaoRepository.findOffers(searchCriteria);
+        if (offers.size() == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

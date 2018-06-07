@@ -125,7 +125,6 @@
                                     <label for="opis" class="text-white">Opis team building ponude:</label>
                                     <textarea th:field="*{description}" class="form-control" rows="5" id="opis"></textarea>
                                     <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Name Error</div>
-
                                 </div>
 
                                 <input class="btn btn-lg btn-primary btn-block" type="submit" value="Dodaj ponudu!" />
