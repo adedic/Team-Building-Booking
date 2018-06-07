@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout}">
 <head>
     <title>Uredi ponudu</title>
 
-    <th:block th:replace="fragments :: css"></th:block>
 </head>
 <body>
-<th:block th:include="fragments :: header"></th:block>
+
 
 <div layout:fragment="content">
     <div style="background-image: url('/resources/static/img/login.jpeg'); background-repeat: no-repeat;">
@@ -19,7 +19,7 @@
                     <div class="panel-heading">
                         <h3 class="panel-title text-white">Uredi team building ponudu</h3>
                     </div>
-                    <br></br>
+                    <br>
 
                     <div class="panel-body">
                         <form role="form" method="POST" name="formNewOffer" th:action="@{/offer/edit}" th:object="${editOfferForm}" class="needs-validation" enctype="multipart/form-data" novalidate>
@@ -141,13 +141,6 @@
         </div>
     </div>
 
-
-
-
 </div>
-<th:block th:include="fragments :: footer"></th:block>
-
-<th:block th:include="fragments :: formValidationScript"></th:block>
-<th:block th:include="fragments :: additionalScripts"></th:block>
 </body>
 </html>

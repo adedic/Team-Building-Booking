@@ -2,15 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout}">
 <head>
-    <title>Uredi profil</title>
+    <title th:text="'Uredi profil'"></title>
 
-    <th:block th:replace="fragments :: css"></th:block>
 </head>
 <body>
-<th:block th:include="fragments :: header"></th:block>
-
 <div layout:fragment="content">
     <div class="container" style="padding-top: 20vh;">
 
@@ -75,8 +73,5 @@
 
 
 </div>
-<th:block th:include="fragments :: footer"></th:block>
-
-<th:block th:include="fragments :: additionalScripts"></th:block>
 </body>
 </html>

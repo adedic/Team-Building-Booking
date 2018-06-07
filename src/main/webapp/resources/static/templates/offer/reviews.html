@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout}">
 <head>
     <title th:text="#{msg.reviews.pageTitle}"></title>
 
-    <th:block th:replace="fragments :: css"></th:block>
 </head>
 <body>
-<th:block th:include="fragments :: header"></th:block>
+
 
 <div layout:fragment="content">
 
@@ -21,7 +21,7 @@
                 <div class="row"  >
                     <div class="col-md-2">
                         <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" style="width:100px"/>
-                        <p class="text-secondary" th:text="${#dates.format(feedback.dateSubmitted, #{msg.dateFormat})}"></p>
+                        <p class="text-secondary" th:text="${#dates.format(feedback.dateSubmitted, 'dd.MM.YYYY. HH:mm')}"></p>
                     </div>
                     <div class="col-md-10">
                         <br>
@@ -48,8 +48,5 @@
     </div>
 </div>
 
-<th:block th:include="fragments :: footer"></th:block>
-<th:block th:include="fragments :: additionalScripts"></th:block>
-<th:block th:include="fragments :: formValidationScript"></th:block>
 </body>
 </html>

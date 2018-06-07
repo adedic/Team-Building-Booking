@@ -2,16 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout}">
 <head>
     <title>Nova ponuda</title>
 
-    <th:block th:replace="fragments :: css"></th:block>
 </head>
 <body>
-    <th:block th:include="fragments :: header"></th:block>
 
-    <div layout:fragment="content">
+
+<div layout:fragment="content">
         <div style="background-image: url('/resources/static/img/login.jpeg'); background-repeat: no-repeat;">
             <div class="row justify-content-md-center"  style="background: rgba(255,255,255,0.4); ">
                 <div class="col-md-7" style="padding-top: 20vh; padding-bottom: 20vh;">
@@ -137,13 +137,6 @@
             </div>
         </div>
 
-
-
-
     </div>
-    <th:block th:include="fragments :: footer"></th:block>
-
-    <th:block th:include="fragments :: formValidationScript"></th:block>
-    <th:block th:include="fragments :: additionalScripts"></th:block>
 </body>
 </html>

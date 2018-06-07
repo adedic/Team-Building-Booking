@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout">
+      layout:decorate="~{layout}">
 <head>
     <title th:text="#{msg.contact.pageTitle}"></title>
     <style>
@@ -11,10 +11,8 @@
         }
     </style>
 
-    <th:block th:replace="fragments :: css"></th:block>
 </head>
 <body>
-<th:block th:include="fragments :: header"></th:block>
 
 <div layout:fragment="content" >
 
@@ -57,9 +55,5 @@
         </div>
     </div>
 </div>
-<th:block th:include="fragments :: footer"></th:block>
-
-<th:block th:include="fragments :: formValidationScript"></th:block>
-<th:block th:include="fragments :: additionalScripts"></th:block>
 </body>
 </html>

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org">
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}">
 <head>
-	<meta charset="UTF-8" />
 	<title th:text="#{msg.error.pageTitle}"></title>
 
-	<th:block th:replace="fragments :: css"></th:block>
+	<th:block th:replace="fragments/fragments :: css"></th:block>
 </head>
 <body>
 <div class="container text-center" style="margin-top:10vh; margin-bottom:50vh;">
@@ -28,7 +29,7 @@
 					<p th:if="${status} == '404'"
 					   th:text="#{msg.error.404.details}'"></p>
 					<p th:if="${status} == '500'"
-					   th:text="${#dates.format(timestamp, #{msg.dateTime.format})}"></p>
+					   th:text="${#dates.format(timestamp, 'dd.MM.YYYY.')}"></p>
 					<p th:if="${status} == '500'"
 					   th:text="#{msg.error.500.details}"></p>
 				</div>
@@ -43,6 +44,8 @@
 		</div>
 	</div>
 </div>
+
+
 <div th:replace="fragments :: footer"></div>
 <div th:replace="fragments :: additionalScripts"></div>
 </body>

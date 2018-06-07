@@ -36,6 +36,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect')
 	compile "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
 	compile 'org.mapstruct:mapstruct-processor:1.1.0.Final'
     runtime('org.springframework.boot:spring-boot-devtools')

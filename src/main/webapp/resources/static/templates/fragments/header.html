@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head></head>
+<body>
+
+<th:block th:fragment="header">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+        <a class="navbar-brand" th:href="@{/}" style="margin-left: 3%"> <img
+                src="/resources/static/img/logo.png"
+                style="width: 80px; margin: -12px 7px 0px 0px;" /> <span th:text="#{msg.nav.home}"></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" th:href="@{/offer/search}"><span th:text="#{msg.nav.offers}"></span><span
+                        class="sr-only">(current)</span></a></li>
+                <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN, ROLE_PROVIDER')" >
+                    <a class="nav-link" th:href="@{/offer/new}">
+                        <span th:text="#{msg.nav.newOffer}"></span>
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/about}" th:text="#{msg.nav.about}"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/contact}" th:text="#{msg.nav.contact}"></a>
+                </li>
+            </ul>
+            <ul class="navbar-nav my-2 my-lg-0" >
+
+                <!-- Language selection -->
+                <th:block th:include="/fragments/languages :: languages"></th:block>
+
+
+                <li th:if="${registerView == null}" class="nav-item" sec:authorize="isAnonymous()"><a
+                        class="nav-link" th:href="@{/register}" th:text="#{msg.register}"></a>
+                </li>
+                <li th:if="${loginView == null}" class="nav-item" sec:authorize="isAnonymous()"><a
+                        class="nav-link" th:href="@{/login}" th:text="#{msg.login}"></a>
+                </li>
+
+                <li class="nav-item dropdown" sec:authorize="isAuthenticated()" style="padding-right: 50px">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                       role="button" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false"><strong sec:authentication="name"></strong></a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" sec:authorize="!hasAnyRole('ROLE_PROVIDER')">
+                            <i class="fa fa-pencil-square"></i> <span th:text="#{msg.nav.myReservations}"></span>
+                        </a>
+                        <a class="dropdown-item" th:href="@{/offer/myOffers}" sec:authorize="hasAnyRole('ROLE_ADMIN, ROLE_PROVIDER')">
+                            <i class="fa fa-opencart"></i> <span th:text="#{msg.nav.myOffers}"></span>
+                        </a>
+                        <a class="dropdown-item" th:href="@{/profile/me}" sec:authorize="hasRole('ROLE_USER')">
+                            <i class="fa fa-user"></i> <span th:text="#{msg.nav.myProfile}"></span>
+                        </a>
+                        <a class="dropdown-item" th:href="@{/profile/edit}" sec:authorize="hasRole('ROLE_USER')">
+                            <i class="fa fa-pencil"></i> <span th:text="#{msg.nav.editProfile}"></span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" th:href="@{/logout}"><i class="fa fa-power-off"></i> <span th:text="#{msg.nav.logout}"></span></a>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+</th:block>
+</body>
+</html>
