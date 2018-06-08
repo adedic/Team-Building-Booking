@@ -6,6 +6,7 @@ import hr.tvz.java.teambuildingbooking.model.form.EditUserForm;
 import hr.tvz.java.teambuildingbooking.model.form.RegistrationForm;
 
 import java.text.ParseException;
+import java.util.List;
 import java.util.Set;
 
 public interface UserService {
@@ -25,4 +26,6 @@ public interface UserService {
     Set<Role> findRolesByUsername(String username);
 
     boolean hasRole(String username, String role);
+
+    List<User> findAll();
 }

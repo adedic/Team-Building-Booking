@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController
-@RequestMapping(path="rest/offer", produces="application/json")
+@RequestMapping(path = "rest/offer", produces = "application/json")
 @CrossOrigin(origins = "*")
 public class OfferRestController {
 
@@ -30,13 +30,24 @@ public class OfferRestController {
         this.userService = userService;
     }
 
+    @GetMapping
+    private ResponseEntity<List<Offer>> findAll() {
+
+        List<Offer> offers = offerService.findAll();
+
+        if (offers.isEmpty()) {
+            return new ResponseEntity<>(offers, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(offers, HttpStatus.OK);
+    }
 
     @PostMapping("/search")
     private ResponseEntity<List<Offer>> findSearchResults(@RequestBody SearchOfferForm searchOfferForm) {
 
         List<Offer> offerResults = offerService.findOffers(searchOfferForm);
 
-        if(offerResults.isEmpty()) {
+        if (offerResults.isEmpty()) {
             return new ResponseEntity<>(offerResults, HttpStatus.NOT_FOUND);
         }
 
@@ -47,7 +58,7 @@ public class OfferRestController {
     private ResponseEntity<Offer> editOffer(@PathVariable Long id) {
         Optional<Offer> offer = offerService.findOne(id);
 
-        if(offer.isPresent()) {
+        if (offer.isPresent()) {
             return new ResponseEntity<>(offer.get(), HttpStatus.OK);
         }
 
@@ -58,7 +69,7 @@ public class OfferRestController {
     private ResponseEntity<Offer> showDetails(@PathVariable Long id) {
         Optional<Offer> offer = offerService.findOne(id);
 
-        if(offer.isPresent()) {
+        if (offer.isPresent()) {
             return new ResponseEntity<>(offer.get(), HttpStatus.OK);
         }
 
@@ -69,7 +80,7 @@ public class OfferRestController {
     private ResponseEntity<Set<Feedback>> showReviews(@PathVariable Long id) {
         Optional<Offer> offer = offerService.findOne(id);
 
-        if(offer.isPresent()) {
+        if (offer.isPresent()) {
             return new ResponseEntity<>(offer.get().getFeedbacks(), HttpStatus.OK);
         }
 
@@ -83,7 +94,7 @@ public class OfferRestController {
 
         User currentUser = userService.findByUsername(username);
 
-        if(currentUser != null) {
+        if (currentUser != null) {
             offers = offerService.findOffersByUserOrderByDateAdded(currentUser);
 
             if (!offers.isEmpty()) {

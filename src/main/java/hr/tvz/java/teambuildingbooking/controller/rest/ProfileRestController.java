@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.List;
 
 @RestController
 @RequestMapping(path="/rest/profile", produces="application/json")
@@ -18,6 +19,18 @@ public class ProfileRestController {
 
     public ProfileRestController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping
+    private ResponseEntity<List<User>> findAll() {
+
+        List<User> users = userService.findAll();
+
+        if (users.isEmpty()) {
+            return new ResponseEntity<>(users, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/me/{username}")
