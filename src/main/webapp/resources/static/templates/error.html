@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{layout}">
+	  xmlns:th="http://www.thymeleaf.org">
 <head>
+	<meta charset="UTF-8" />
 	<title th:text="#{msg.error.pageTitle}"></title>
 
-	<th:block th:replace="fragments/fragments :: css"></th:block>
+	<th:block th:replace="fragments/css :: css"></th:block>
 </head>
 <body>
 <div class="container text-center" style="margin-top:10vh; margin-bottom:50vh;">
@@ -17,21 +16,21 @@
 				<h1 th:text="#{msg.error.heading}"></h1>
 				<img th:src="@{/resources/static/img/logo.png}" />
 				<h3 th:if="${status} == '403'"
-					th:text="#{msg.error.403.heading}"></h3>
+					th:text="#{msg.error.forbidden.heading}"></h3>
 				<h3 th:if="${status} == '404'"
-					th:text="#{msg.error.404.heading}"></h3>
+					th:text="#{msg.error.notFound.heading}"></h3>
 				<h3 th:if="${status} == '500'"
-					th:text="#{msg.error.500.heading}"></h3>
+					th:text="#{msg.error.server.heading}"></h3>
 				<div class="error-details">
 					<span th:text="#{msg.error.info}"></span>
 					<p th:if="${status} == '403'"
-					   th:text="#{msg.error.403.details}"></p>
+					   th:text="#{msg.error.forbidden.details}"></p>
 					<p th:if="${status} == '404'"
-					   th:text="#{msg.error.404.details}'"></p>
+					   th:text="#{msg.error.notFound.details}"></p>
 					<p th:if="${status} == '500'"
 					   th:text="${#dates.format(timestamp, 'dd.MM.YYYY.')}"></p>
 					<p th:if="${status} == '500'"
-					   th:text="#{msg.error.500.details}"></p>
+					   th:text="#{msg.error.server.details}"></p>
 				</div>
 
 				<hr />
@@ -46,7 +45,7 @@
 </div>
 
 
-<div th:replace="fragments :: footer"></div>
-<div th:replace="fragments :: additionalScripts"></div>
+<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="fragments/scripts  :: additionalScripts"></div>
 </body>
 </html>
