@@ -45,13 +45,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .defaultSuccessUrl("/offer/search?loginSuccess=true", true)
                 .and()
+                .rememberMe()
+                .key("rem-me-key")
+                .rememberMeParameter("rememberMe")
+                .rememberMeCookieName("my-remember-me")
+                .tokenValiditySeconds(86400)
+                .and()
                 .logout()
                 .logoutSuccessUrl("/login?logout")
                 .and()
                 .exceptionHandling()
                 .and()
-                .csrf().disable()
-                .rememberMe();
+                .csrf().disable();
     }
 
     @Bean(name = "passwordEncoder")
