@@ -1,5 +1,7 @@
 package hr.tvz.java.teambuildingbooking.model.form;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,6 +10,7 @@ public class ReservationForm {
 
     private Long offerId;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date date;
 
     private String dateString;
