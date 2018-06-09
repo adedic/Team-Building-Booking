@@ -6,6 +6,16 @@
 <head>
     <title th:text="#{msg.about.pageTitle}"></title>
 
+    <script>
+        function func(id) {
+            var x = document.getElementById(id);
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+    </script>
 
     <style>
         .card p {
@@ -88,15 +98,6 @@
         </div>
     </div>
 </div>
-<script>
-    function func(id) {
-        var x = document.getElementById(id);
-        if (x.style.display === "none") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
-        }
-    }
-</script>
+
 </body>
 </html>
