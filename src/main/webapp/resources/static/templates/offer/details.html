@@ -25,7 +25,7 @@
             <div class="col-md-9" style="padding-top: 10vh;">
                 <div class="col-md-12">
                     <a th:if="${offer.user.username == #authentication.getName()}" th:href="@{'/offer/edit/' + ${offer.id}}"><button type="button"
-                                                                         class="btn btn-outline-warning"><i class="fa fa-pencil"></i> Uredi</button></a>
+                                                                         class="btn btn-outline-warning" ><i class="fa fa-pencil"></i> <span th:text="#{msg.offer.details.edit}"> Uredi</span></button></a>
                     <a th:if="${offer.user.username == #authentication.getName()}" th:href="@{'/offer/delete/' + ${offer.id}}"><button type="button"
                                                                            class="btn btn-outline-danger"><i class="fa fa-trash"></i> Izbriši</button></a>
                     <div class="row">
@@ -45,8 +45,8 @@
                         </div>
                         <div class="col-md-4" style="padding-top:2vh">
                             <h6><span class="fa fa-male text-danger"></span> <span th:text="${offer.minNumberOfUsers} + ' - '"></span>
-                                <span th:text="${offer.maxNumberOfUsers}"></span> ljudi</h6>
-                            <h6><span class="fa fa-money text-success"></span> <span th:text="${#numbers.formatDecimal(offer.pricePerPerson,2,0)}"></span> kn po osobi</h6>
+                                <span th:text="${offer.maxNumberOfUsers}"></span> <span  th:text="#{msg.offer.details.people}"></span></h6>
+                            <h6><span class="fa fa-money text-success"></span> <span th:text="${#numbers.formatDecimal(offer.pricePerPerson,2,0)}"></span> <span th:text="#{msg.offer.details.price-per-person}">kn po osobi</span></h6>
                         </div>
 
                     </div>
@@ -90,10 +90,10 @@
         <div class="row justify-content-md-center">
             <div class="col-md-9" style="padding-top: 5vh;">
                 <div class="col-md-12" >
-                    <p class="text-secondary" th:if="${offer.feedbacks.isEmpty()}">Nema osvrta za ovu ponudu.</p>
+                    <p class="text-secondary" th:if="${offer.feedbacks.isEmpty()}" th:text="#{msg.offer.details.reviews.no-reviews}">Nema osvrta za ovu ponudu.</p>
                     <div th:each="feedback, i : ${offer.feedbacks}">
 
-                        <h4 class="text-muted" th:if="${i.index}==0">Osvrti korisnika:</h4><br>
+                        <h4 class="text-muted" th:if="${i.index}==0" th:text="#{msg.offer.details.reviews.reviews}">Osvrti korisnika:</h4><br>
                         <div class="card" th:if="${i.index}<2">
                             <div class="card-body" >
                                 <div class="row"  >
@@ -140,7 +140,7 @@
                         <div class="form-row">
 
                             <div class="form-group col-md-3">
-                                <label for="dateString">Datum dolaska:</label>
+                                <label for="dateString" th:text="#{msg.offer.details.reservation.date-of-arrival}">Datum dolaska:</label>
                                     <input type="text" class="form-control form-control-lg col-md-12" required="required"
                                            th:field="*{dateString}" th:value="${#dates.format(#dates.createNow(), 'dd.MM.yyyy.')}" name="dateString" id="dateString"/>
                                     <div class="invalid-feedback">
@@ -149,19 +149,19 @@
 
                             </div>
                             <div class="form-group col-md-2">
-                                <label for="numberOfUsers">Broj korisnika:</label>
+                                <label for="numberOfUsers" th:text="#{msg.offer.details.reservation.number-of-users}">Broj korisnika:</label>
                                     <input type="number" th:attr="min=${offer.minNumberOfUsers}, max=${offer.maxNumberOfUsers}"
                                            required="required"
                                            th:placeholder="${offer.minNumberOfUsers}+ ' - ' + ${offer.maxNumberOfUsers}"
                                            th:field="*{numberOfUsers}" class="form-control form-control-lg col-md-12" name="numberOfUsers" id="numberOfUsers"  />
                                     <div class="invalid-feedback">
-                                       <span>Odaberi broj korisnika!</span>
+                                       <span th:text="#{msg.offer.details.reservation.no-users}">Odaberi broj korisnika!</span>
                                     </div>
                             </div>
                             <div class="form-group col-md-7" style="margin-top:32px">
 
                                 <input class="btn btn-lg btn-outline-primary btn-block"
-                                       type="submit" value="Rezerviraj ponudu" />
+                                       type="submit" th:value="#{msg.offer.details.reservation.book-offer}" />
                             </div>
                             <input type="hidden" th:field="*{offerId}"/>
                         </div>

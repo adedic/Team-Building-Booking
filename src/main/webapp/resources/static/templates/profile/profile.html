@@ -16,7 +16,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Podaci o profilu <a sec:authorize="isAuthenticated()" th:if="${user.username == #authentication.getPrincipal().getUsername()}" th:href="@{/profile/edit}" class="btn btn-warning"><i class="fa fa-pencil"></i> Uredi</a>
+                        <h3 class="panel-title"> <span th:text="#{msg.profile.heading}">Podaci o profilu</span> <a sec:authorize="isAuthenticated()" th:if="${user.username == #authentication.getPrincipal().getUsername()}" th:href="@{/profile/edit}" class="btn btn-warning"><i class="fa fa-pencil"></i> <span th:text="#{msg.profile.edit}">Uredi</a>
                         </h3>
                     </div>
 
@@ -25,27 +25,40 @@
                             <h4 class='card-title'></h4>
                             <img src="https://i.guildwalls.com/users/avatars/22791.png?t=1229176239"/>
                             <div class="list-group">
-                                <span class="list-group-item"
-                                      th:utext="${'<b>Korisničko ime: </b>' + user.username}"></span>
-                                <span class="list-group-item" th:utext="${'<b>Ime: </b>' + user.name}">Front-end designer
-                                </span>
-                                <span class="list-group-item" th:utext="${'<b>Prezime: </b>' + user.surname}">Front-end
-                                    designer
-                                </span>
-                                <br/>
+                                <div class="list-group-item">
+                                    <b>
+                                        <span th:text="#{msg.profile.username}"></span>
+                                    </b>
+                                    <span th:text="${user.username}"></span>
+                                </div>
+                                <div class="list-group-item">
+                                    <b>
+                                        <span th:text="#{msg.profile.name}"></span>
+                                    </b>
+                                    <span th:text="${user.name}"></span>
+                                </div>
+                                <div class="list-group-item">
+                                    <b>
+                                        <span th:text="#{msg.profile.surname}"></span>
+                                    </b>
+                                    <span th:text="${user.surname}"></span>
+                                </div>
                                 <div class="list-group-item">
                                     <i class="fa fa-user"></i>
-                                    <span th:utext="${'<b>Član od </b>' + #dates.format(user.dateOfRegistration, 'dd.MM.yyyy.')}">
-                                        Front-end designer
-                                    </span>
+                                    <b>
+                                        <span th:utext="#{msg.profile.member-since}">
+                                        </span>
+                                    </b>
+                                    <span th:text="${#dates.format(user.dateOfRegistration, 'dd.MM.yyyy.')}"></span>
                                 </div>
                                 <br/>
                                 <div th:if="${user.dateOfBirth != null}" class="list-group-item">
                                     <i class="fa fa-birthday-cake"></i>
-                                    <span
-                                            th:utext="${user.dateOfBirth != null ? ('<b>Rođen/a </b>' + #dates.format(user.dateOfBirth, 'dd.MM.yyyy.')) : ''}">
-                                    Front-end designer
-                                </span>
+                                    <b>
+                                        <span th:utext="#{msg.profile.birthday}">
+                                        </span>
+                                    </b>
+                                    <span th:text="${#dates.format(user.dateOfRegistration, 'dd.MM.yyyy.')}"></span>
                                 </div>
                                 <div th:if="${user.telephone != null}" class="list-group-item">
                                     <i class="fa fa-phone"></i>
@@ -58,17 +71,21 @@
                                 <br/>
                                 <div class="list-group-item">
                                     <i class="fa fa-check"></i> <em
-                                        th:text="${user.reservations.size() + ' rezervacija'}"></em>
+                                        th:text="${user.reservations.size()}"></em>
+                                    <span th:text="#{msg.profile.reservations}">
+                                    </span>
                                 </div>
                                 <br/>
                                 <div class="list-group-item">
                                     <i class="fa fa-star"></i> <em
-                                        th:text="${user.feedbacks.size() + ' recenzija'}"></em>
+                                        th:text="${user.feedbacks.size()}"></em>
+                                    <span th:text="#{msg.profile.reviews}">
+                                    </span>
                                 </div>
                                 <br/>
                                 <div class="list-group-item">
                                     <i class="fa fa-certificate"></i>
-                                    <b> Uloge: </b>
+                                    <b th:text="#{msg.profile.roles}"> Uloge: </b>
                                     <span th:each="role, iter : ${user.roles}">
                                         <b th:text="${role.getAuthority().replaceFirst('ROLE_', '')}"></b><span
                                             th:if="${iter.index < (iter.size - 1)}">,</span>
