@@ -5,7 +5,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
 <head>
-    <title th:text="'Uredi profil'"></title>
+    <title th:text="#{msg.profile.edit.heading}"></title>
 
 </head>
 <body>
@@ -16,7 +16,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title" th:text="${msg.profile.edit.heading}">Uredi profil</h3>
+                        <h3 class="panel-title" th:text="#{msg.profile.edit.heading}">Uredi profil</h3>
                     </div>
 
                     <div class="card card-profile">
@@ -54,14 +54,14 @@
                                    th:text="${error}">Validation error</p>
                             </div>
                             <div class="form-group col-md-12">
-                                <b><label >Broj telefona:</label></b>
-                                <input th:text="#{msg.profile.edit.phone}" class="form-control" type="text" th:field="*{telephone}"/>
+                                <b><label th:text="#{msg.profile.edit.phone}">Broj telefona:</label></b>
+                                <input class="form-control" type="text" th:field="*{telephone}"/>
                                 <p class="text-danger" th:each="error : ${#fields.errors('telephone')}"
                                    th:text="${error}">Validation error</p>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button class="col-md-12 btn btn-primary" type="submit" th:value="#{msg.profile.edit.submit}">Spremi promjene</button>
+                                    <button class="col-md-12 btn btn-primary" type="submit"><span th:text="#{msg.profile.edit.submit}"></span> </button>
                                 </div>
                             </div>
                         </form>
