@@ -83,7 +83,11 @@
 
     <div class="container">
         <br>
-        <th:block th:include="/fragments/offers :: offers(${offers}, ${titleResults}, 'search')"></th:block>
+        <div th:if="${titleResults !=null}">
+
+            <th:block th:include="/fragments/offers :: offers(${offers}, #{msg.search.results.title}, 'search')"></th:block>
+        </div>
+
 
         <th:block th:include="/fragments/offers :: offers(${topOffers}, #{msg.offers.top}, 'list')" ></th:block>
 
