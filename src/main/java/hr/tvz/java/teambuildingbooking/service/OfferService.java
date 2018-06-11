@@ -33,4 +33,6 @@ public interface OfferService {
     Offer editOffer(EditOfferForm editOfferForm, MultipartFile file, String name) throws ParseException, IOException;
 
     boolean isOfferValid(ReservationForm reservationForm);
+
+    Offer save(Offer offer);
 }

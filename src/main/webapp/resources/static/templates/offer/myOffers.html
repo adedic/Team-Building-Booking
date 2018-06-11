@@ -86,8 +86,8 @@
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <a th:href="@{'/offer/edit/' + ${offer.id}}"><button type="button"
                                                                                                         class="btn btn-outline-warning"><i class="fa fa-pencil"></i> Uredi</button></a>
-                                                <a th:href="@{'/offer/delete/' + ${offer.id}}"><button type="button"
-                                                                                                        class="btn btn-outline-danger"><i class="fa fa-trash"></i> Izbriši</button></a>
+                                                <a th:if="${offer.user.username == #authentication.getName()}" th:href="@{'/offer/updateActivity/' + ${offer.id}}"><button type="button"
+                                                                                                                                                                           th:class="${offer.isActive() ? 'btn btn-outline-danger' : 'btn btn-outline-success'}"><span th:if="${offer.isActive() == true}" th:text="#{msg.offer.set-inactive}"></span><span th:if="${offer.isActive() == false}" th:text="#{msg.offer.set-active}"></span></button></a>
                                                 <a th:href="@{'/offer/details/' + ${offer.id}}"><button type="button"
                                                                                                         class="btn btn-outline-info"><i class="fa fa-info"></i> Detalji</button></a>
                                             </div>
