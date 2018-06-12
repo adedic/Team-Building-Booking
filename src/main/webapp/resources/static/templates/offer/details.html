@@ -5,7 +5,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
 <head>
-    <title th:text="#{msg.offer.new.heading}">Detalji</title>
+    <title th:text="#{msg.offer.details.heading}">Detalji</title>
 
 </head>
 <body>
@@ -26,8 +26,8 @@
                 <div class="col-md-12">
                     <a th:if="${offer.user.username == #authentication.getName()}" th:href="@{'/offer/edit/' + ${offer.id}}"><button type="button"
                                                                          class="btn btn-outline-warning" ><i class="fa fa-pencil"></i> <span th:text="#{msg.offer.details.edit}"> Uredi</span></button></a>
-                    <a th:if="${offer.user.username == #authentication.getName()}" th:href="@{'/offer/delete/' + ${offer.id}}"><button type="button"
-                                                                           class="btn btn-outline-danger"><i class="fa fa-trash"></i> Izbriši</button></a>
+                    <a th:if="${offer.user.username == #authentication.getName()}" th:href="@{'/offer/updateActivity/' + ${offer.id}}"><button type="button"
+                                                                           th:class="${offer.isActive() ? 'btn btn-outline-danger' : 'btn btn-outline-success'}"><span th:if="${offer.isActive() == true}" th:text="#{msg.offer.set-inactive}"></span><span th:if="${offer.isActive() == false}" th:text="#{msg.offer.set-active}"></span></button></a>
                     <div class="row">
                         <div class="col-md-8">
                             <h1 class="panel-title" th:text="${offer.name}"></h1>

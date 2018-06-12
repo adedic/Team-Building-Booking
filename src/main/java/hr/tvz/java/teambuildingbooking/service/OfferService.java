@@ -33,4 +33,6 @@ public interface OfferService {
     Offer editOffer(EditOfferForm editOfferForm, String base64String, String name, Integer size, String username) throws ParseException, IOException;
 
     boolean isOfferValid(ReservationForm reservationForm);
+
+    Offer save(Offer offer);
 }

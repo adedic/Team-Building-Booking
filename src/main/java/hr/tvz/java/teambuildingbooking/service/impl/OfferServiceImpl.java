@@ -119,6 +119,11 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
+    public Offer save(Offer offer) {
+        return offerRepository.save(offer);
+    }
+
+    @Override
     public List<Offer> findTopOffers() {
         return offerRepository.findTopOffers();
     }

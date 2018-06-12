@@ -66,7 +66,7 @@ public class ThymeleafConfig
         templateResolver.setPrefix("/resources/static/templates/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
-        templateResolver.setCacheable(true);
+        templateResolver.setCacheable(false);
         return templateResolver;
     }
 

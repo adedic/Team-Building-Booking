@@ -195,13 +195,13 @@ public class OfferController {
     private String findSearchResults(@Valid @ModelAttribute("searchOfferForm") SearchOfferForm
                                              searchOfferForm, Model model, BindingResult bindingResult) throws ParseException {
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return SEARCH_OFFER_VIEW_NAME;
         }
         List<Offer> offerResults = offerService.findOffers(searchOfferForm);
         model.addAttribute("offers", offerResults);
-        if(offerResults.isEmpty()){
-            model.addAttribute("noResults",true);
+        if (offerResults.isEmpty()) {
+            model.addAttribute("noResults", true);
         }
         model.addAttribute("titleResults", "Rezultati pretrage:");
         //model.addAttribute("searchOfferForm", searchOfferForm);
@@ -212,7 +212,7 @@ public class OfferController {
     private String showDetails(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         Optional<Offer> offer = offerService.findOne(id);
 
-        if(offer.isPresent()){
+        if (offer.isPresent()) {
             ReservationForm reservationForm = new ReservationForm(offer.get().getId(), null, null);
             model.addAttribute("offer", offer.get());
             model.addAttribute("reservationForm", reservationForm);
@@ -239,6 +239,37 @@ public class OfferController {
         return REVIEWS_VIEW_NAME;
     }
 
+    @Secured({"PROVIDER, ADMIN"})
+    @GetMapping("/updateActivity/{id}")
+    private String updateActivity(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        Optional<Offer> offer = offerService.findOne(id);
+        if (offer.isPresent()) {
+            model.addAttribute("feedbacks", offer.get().getFeedbacks());
+            log.info("---> Fetching offer entity with ID = " + id + " and all its children from the database ...");
+
+            Offer receivedOffer = offer.get();
+
+            if (receivedOffer.isActive()) {
+                receivedOffer.setActive(false);
+            } else {
+                receivedOffer.setActive(true);
+            }
+
+            offerService.save(receivedOffer);
+
+            log.info("---> Updating activity (setting to {}) for offer with id = {}", receivedOffer.isActive(), receivedOffer.getId());
+
+            ReservationForm reservationForm = new ReservationForm(offer.get().getId(), null, null);
+            model.addAttribute("reservationForm", reservationForm);
+            model.addAttribute(receivedOffer);
+
+        } else {
+            redirectAttributes.addFlashAttribute("offerNotFound", "Ponuda s ID = " + id + " nije pronađena!");
+            return "redirect:/offer/search";
+        }
+
+        return DETAILS_VIEW_NAME;
+    }
 
     @Secured({"PROVIDER, ADMIN"})
     @RequestMapping("/myOffers")
