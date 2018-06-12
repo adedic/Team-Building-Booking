@@ -79,7 +79,6 @@ public class ThymeleafConfig
         templateEngine.setEnableSpringELCompiler(true);
 
         templateEngine.addDialect(new SpringSecurityDialect());
-        //templateEngine.addDialect(new SpringStandardDialect());
 
         return templateEngine;
     }
