@@ -1,6 +1,5 @@
 package hr.tvz.java.teambuildingbooking.model.rest;
 
-import hr.tvz.java.teambuildingbooking.model.User;
 import hr.tvz.java.teambuildingbooking.model.form.ReservationForm;
 
 public class UserReservation {

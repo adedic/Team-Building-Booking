@@ -4,25 +4,21 @@ import hr.tvz.java.teambuildingbooking.model.Offer;
 import hr.tvz.java.teambuildingbooking.model.Reservation;
 import hr.tvz.java.teambuildingbooking.model.User;
 import hr.tvz.java.teambuildingbooking.model.form.ReservationForm;
-import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
 import hr.tvz.java.teambuildingbooking.service.OfferService;
 import hr.tvz.java.teambuildingbooking.service.ReservationService;
 import hr.tvz.java.teambuildingbooking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/reservation")

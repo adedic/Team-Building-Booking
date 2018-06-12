@@ -6,7 +6,7 @@ import hr.tvz.java.teambuildingbooking.model.form.EditOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.ReservationForm;
 import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
-import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
@@ -22,7 +22,7 @@ public interface OfferService {
 
     Optional<Offer> findOne(Long id);
 
-    Offer createOffer(NewOfferForm newOfferForm, MultipartFile file, String username) throws ParseException, IOException;
+    Offer createOffer(NewOfferForm newOfferForm, String base64String, String name, Integer size, String username) throws ParseException, IOException;
 
     Long getOfferPictureIdByOfferId(Long id);
 
@@ -30,7 +30,7 @@ public interface OfferService {
 
     void deleteOfferById(Long id);
 
-    Offer editOffer(EditOfferForm editOfferForm, MultipartFile file, String name) throws ParseException, IOException;
+    Offer editOffer(EditOfferForm editOfferForm, String base64String, String name, Integer size, String username) throws ParseException, IOException;
 
     boolean isOfferValid(ReservationForm reservationForm);
 }

@@ -4,14 +4,15 @@ import hr.tvz.java.teambuildingbooking.facade.OfferFacade;
 import hr.tvz.java.teambuildingbooking.model.Category;
 import hr.tvz.java.teambuildingbooking.model.Offer;
 import hr.tvz.java.teambuildingbooking.model.User;
-import hr.tvz.java.teambuildingbooking.model.form.ReservationForm;
 import hr.tvz.java.teambuildingbooking.model.form.EditOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
+import hr.tvz.java.teambuildingbooking.model.form.ReservationForm;
 import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
 import hr.tvz.java.teambuildingbooking.service.CategoryService;
 import hr.tvz.java.teambuildingbooking.service.OfferPictureService;
 import hr.tvz.java.teambuildingbooking.service.OfferService;
 import hr.tvz.java.teambuildingbooking.service.UserService;
+import hr.tvz.java.teambuildingbooking.utils.UtilityClass;
 import hr.tvz.java.teambuildingbooking.validator.EditOfferFormValidator;
 import hr.tvz.java.teambuildingbooking.validator.NewOfferFormValidator;
 import hr.tvz.java.teambuildingbooking.validator.SearchOfferFormValidator;
@@ -45,7 +46,6 @@ public class OfferController {
 
     private static final String NEW_OFFER_VIEW_NAME = "offer/new-offer";
     private static final String SEARCH_OFFER_VIEW_NAME = "offer/search-offer";
-    private static final String SEARCH_RESULTS_VIEW_NAME = "offer/search-results";
     private static final String DETAILS_VIEW_NAME = "offer/details";
     private static final String REVIEWS_VIEW_NAME = "offer/reviews";
     private static final String EDIT_OFFER_VIEW_NAME = "offer/edit-offer";
@@ -98,7 +98,7 @@ public class OfferController {
             return NEW_OFFER_VIEW_NAME;
         }
 
-        Offer offer = offerService.createOffer(form, file, principal.getName());
+        Offer offer = offerService.createOffer(form, UtilityClass.convertByteArrayToBase64String(file.getBytes(), file.getContentType()), file.getName(), (int) file.getSize(), principal.getName());
         redirectAttributes.addFlashAttribute("createSuccess", "Dodavanje nove ponude je uspjelo!");
 
         log.info("---> Successfully created offer entity with ID = " + offer.getId() + " ...");
@@ -144,7 +144,7 @@ public class OfferController {
             return EDIT_OFFER_VIEW_NAME;
         }
 
-        Offer offer = offerService.editOffer(editOfferForm, file, principal.getName());
+        Offer offer = offerService.editOffer(editOfferForm, UtilityClass.convertByteArrayToBase64String(file.getBytes(), file.getContentType()), file.getName(), (int) file.getSize(), principal.getName());
         redirectAttributes.addFlashAttribute("editSuccess", "Uređivanje ponude je uspjelo!");
 
         log.info("---> Successfully edited offer entity with ID = " + offer.getId() + " ...");

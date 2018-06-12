@@ -4,6 +4,8 @@ import hr.tvz.java.teambuildingbooking.model.Feedback;
 import hr.tvz.java.teambuildingbooking.model.Offer;
 import hr.tvz.java.teambuildingbooking.model.User;
 import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
+import hr.tvz.java.teambuildingbooking.model.rest.RestEditOffer;
+import hr.tvz.java.teambuildingbooking.model.rest.RestNewOffer;
 import hr.tvz.java.teambuildingbooking.service.OfferService;
 import hr.tvz.java.teambuildingbooking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -54,6 +58,25 @@ public class OfferRestController {
         return new ResponseEntity<>(offerResults, HttpStatus.OK);
     }
 
+    @PostMapping("/new")
+    public ResponseEntity<Offer> handleNewOfferForm(@RequestBody RestNewOffer restNewOffer) {
+
+        Offer offer = null;
+        try {
+            offer = offerService.createOffer(restNewOffer.getEditOfferForm(), restNewOffer.getBase64string(), restNewOffer.getFileName(), restNewOffer.getFileSize(), restNewOffer.getUsername());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (offer != null) {
+            return new ResponseEntity<>(offer, HttpStatus.CREATED);
+        }
+
+        return new ResponseEntity<>(offer, HttpStatus.BAD_REQUEST);
+    }
+
     @GetMapping("/edit/{id}")
     private ResponseEntity<Offer> editOffer(@PathVariable Long id) {
         Optional<Offer> offer = offerService.findOne(id);
@@ -63,6 +86,24 @@ public class OfferRestController {
         }
 
         return new ResponseEntity<>(offer.get(), HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping("/edit")
+    public ResponseEntity<Offer> handleEditOfferForm(@RequestBody RestEditOffer restEditOffer) {
+
+        Offer offer = null;
+        try {
+            offer = offerService.editOffer(restEditOffer.getEditOfferForm(), restEditOffer.getBase64string(), restEditOffer.getFileName(), restEditOffer.getFileSize(), restEditOffer.getUsername());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (offer != null) {
+            return new ResponseEntity<>(offer, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(offer, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/details/{id}")

@@ -8,9 +8,9 @@ import hr.tvz.java.teambuildingbooking.model.User;
 import hr.tvz.java.teambuildingbooking.model.criteria.SearchCriteria;
 import hr.tvz.java.teambuildingbooking.model.form.EditOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
+import hr.tvz.java.teambuildingbooking.model.form.ReservationForm;
 import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
 import hr.tvz.java.teambuildingbooking.repository.CategoryRepository;
-import hr.tvz.java.teambuildingbooking.model.form.ReservationForm;
 import hr.tvz.java.teambuildingbooking.repository.OfferDaoRepository;
 import hr.tvz.java.teambuildingbooking.repository.OfferRepository;
 import hr.tvz.java.teambuildingbooking.service.OfferPictureService;
@@ -20,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -131,7 +130,7 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public Offer createOffer(NewOfferForm newOfferForm, MultipartFile file, String username) throws ParseException, IOException {
+    public Offer createOffer(NewOfferForm newOfferForm, String base64String, String name, Integer size, String username) throws ParseException, IOException {
         Offer offer = OfferMapper.INSTANCE.newOfferFormToOffer(newOfferForm);
 
         Set<Category> categoriesSet = new HashSet<>();
@@ -157,8 +156,8 @@ public class OfferServiceImpl implements OfferService {
         offer.setUser(userService.findByUsername(username));
         offer.setName(newOfferForm.getName());
 
-        if (!file.isEmpty()) {
-            OfferPicture offerPicture = new OfferPicture(convertByteArrayToBase64String(file.getBytes(), file.getContentType()), file.getName(), (int) file.getSize());
+        if (!base64String.isEmpty()) {
+            OfferPicture offerPicture = new OfferPicture(base64String, name, size);
             offerPictureService.save(offerPicture);
             offer.setOfferPicture(offerPicture);
         }
@@ -171,7 +170,7 @@ public class OfferServiceImpl implements OfferService {
     @Transactional
     @Modifying
     @Override
-    public Offer editOffer(EditOfferForm editOfferForm, MultipartFile file, String username) throws ParseException, IOException {
+    public Offer editOffer(EditOfferForm editOfferForm, String base64String, String name, Integer size, String username) throws ParseException, IOException {
         Offer offer = OfferMapper.INSTANCE.editOfferFormToOffer(editOfferForm);
 
         offer.setName(editOfferForm.getName());
@@ -191,8 +190,8 @@ public class OfferServiceImpl implements OfferService {
 
         offer.setUser(userService.findByUsername(username));
 
-        if (!file.isEmpty()) {
-            OfferPicture offerPicture = new OfferPicture(convertByteArrayToBase64String(file.getBytes(), file.getContentType()), file.getName(), (int) file.getSize());
+        if (!base64String.isEmpty()) {
+            OfferPicture offerPicture = new OfferPicture(base64String, name, size);
             offerPictureService.save(offerPicture);
             offer.setOfferPicture(offerPicture);
         } else {
@@ -229,7 +228,7 @@ public class OfferServiceImpl implements OfferService {
 
     // --- private / util methods ---------------------------------------------
 
-    private String convertByteArrayToBase64String(byte[] bytes, String contentType) {
-        return "data:" + contentType + ";base64," + Base64.getEncoder().encodeToString(bytes);
-    }
+//    private String convertByteArrayToBase64String(byte[] bytes, String contentType) {
+//        return "data:" + contentType + ";base64," + Base64.getEncoder().encodeToString(bytes);
+//    }
 }
