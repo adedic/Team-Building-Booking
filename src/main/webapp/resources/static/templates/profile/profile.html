@@ -27,26 +27,26 @@
                             <div class="list-group">
                                 <div class="list-group-item">
                                     <b>
-                                        <span th:text="#{msg.profile.username}"></span>
+                                        <span th:text="#{msg.profile.username} + ':'"></span>
                                     </b>
                                     <span th:text="${user.username}"></span>
                                 </div>
                                 <div class="list-group-item">
                                     <b>
-                                        <span th:text="#{msg.profile.name}"></span>
+                                        <span th:text="#{msg.profile.name} + ':'"></span>
                                     </b>
                                     <span th:text="${user.name}"></span>
                                 </div>
                                 <div class="list-group-item">
                                     <b>
-                                        <span th:text="#{msg.profile.surname}"></span>
+                                        <span th:text="#{msg.profile.surname} + ':'"></span>
                                     </b>
                                     <span th:text="${user.surname}"></span>
                                 </div>
                                 <div class="list-group-item">
                                     <i class="fa fa-user"></i>
                                     <b>
-                                        <span th:utext="#{msg.profile.member-since}">
+                                        <span th:utext="#{msg.profile.member-since} + ':'">
                                         </span>
                                     </b>
                                     <span th:text="${#dates.format(user.dateOfRegistration, 'dd.MM.yyyy.')}"></span>
@@ -55,7 +55,7 @@
                                 <div th:if="${user.dateOfBirth != null}" class="list-group-item">
                                     <i class="fa fa-birthday-cake"></i>
                                     <b>
-                                        <span th:utext="#{msg.profile.birthday}">
+                                        <span th:utext="#{msg.profile.birthday} + ':'">
                                         </span>
                                     </b>
                                     <span th:text="${#dates.format(user.dateOfRegistration, 'dd.MM.yyyy.')}"></span>
@@ -72,7 +72,7 @@
                                 <div class="list-group-item">
                                     <i class="fa fa-check"></i> <em
                                         th:text="${user.reservations.size()}"></em>
-                                    <span th:text="#{msg.profile.reservations}">
+                                    <span th:text="#{msg.profile.reservations} + ':'">
                                     </span>
                                 </div>
                                 <br/>

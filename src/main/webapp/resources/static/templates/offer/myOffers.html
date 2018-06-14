@@ -2,52 +2,65 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
 <head>
-    <title>Moje ponude</title>
+    <title th:text="#{msg.myOffers.heading}"></title>
+    <script>
 
+
+        function showActive(){
+            var checkbox = document.getElementById('showActive');
+            if (checkbox.checked){
+                $('.myOffer').each(function() {
+                    if ($($(this).find('.activeState')).hasClass("inactive")) {
+                        $(this).hide();
+                    }
+                });
+            }
+            if (!checkbox.checked){
+                $('.myOffer').each(function(i, obj) {
+                    $(this).show();
+                });
+            }
+        }
+    </script>
 </head>
 <body>
 
 
 <div layout:fragment="content">
     <div class="container" style="padding-top: 20vh;">
-
-
         <div class="alert alert-info text-center" th:if="${myOffers.isEmpty()}">
-            Još niste dodali nijednu ponudu!
-            <a th:href="@{/offer/new}" class="btn btn-primary text-center mx-auto"><i class="fa fa-plus"></i> Dodaj novu ponudu</a>
+            <span th:text="#{msg.myOffers.noOffers}"></span>
+            <a th:href="@{/offer/new}" class="btn btn-primary text-center mx-auto"><i class="fa fa-plus"></i> <span th:text="#{msg.myOffers.add}"></span></a>
         </div>
 
         <div th:if="${!myOffers.isEmpty()}" class="row justify-content-md-center">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title text-secondary">Moje ponude:</h3>
+                    <h3 class="panel-title text-secondary" th:text="#{msg.myOffers.heading} + ':'"></h3>
                     <div class="custom-control custom-checkbox" style="padding-top: 16px; padding-bottom: 16px">
                         <input type="checkbox" onclick="showActive()" class="custom-control-input" id="showActive" >
-                        <label class="custom-control-label" for="showActive" >Prikaži samo aktivne</label>
+                        <label class="custom-control-label" for="showActive" th:text="#{msg.myOffers.showActive}"></label>
                     </div>
                 </div>
                 <div class="panel-body">
                     <div class="album py-5">
-
                         <div class="row">
                             <div class="col-md-6 myOffer" th:each="offer : ${myOffers}">
                                 <div class="card mb-4 box-shadow">
                                     <div class="list-group">
                                         <div class="card-body">
-
                                             <div class="row">
                                                 <div class="col-md-7">
                                                     <h4 th:text="${offer.name}"></h4>
-                                                    <span class="badge badge-success activeState" th:if="${offer.active}">Aktivna</span>
-                                                    <span class="badge badge-dark" activeState th:if="${!offer.active}">Neaktivna</span>
+                                                    <span class="badge badge-success activeState active" th:if="${offer.active}" th:text="#{msg.myOffers.active}"></span>
+                                                    <span class="badge badge-dark activeState inactive" th:if="${!offer.active}" th:text="#{msg.myOffers.inactive}"></span>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <span class="text-muted">Dodano:</span>
+                                                    <span class="text-muted" th:text="#{msg.myOffers.added}"></span>
                                                     <small th:text="${#dates.format(offer.dateAdded, 'dd.MM.yyyy. HH:mm')}"></small>
-                                                    <span class="text-muted">Izmijenjeno:</span>
+                                                    <span class="text-muted" th:text="#{msg.myOffers.edited}"></span>
                                                     <small th:text="${#dates.format(offer.dateLastEdited, 'dd.MM.yyyy. HH:mm')}"></small>
                                                 </div>
                                             </div>
@@ -58,26 +71,26 @@
 
 
 
-                                            <p><b>Kategorije: </b>
+                                            <p><b th:text="#{msg.myOffers.categories}"></b>
                                             <span th:each="category : ${offer.categories}" class="h5">
                                                 <span class="badge badge-danger" th:if="${category.name == 'Zabava'}" th:text="${category.name}"></span>
                                                 <span class="badge badge-warning text-white" th:if="${category.name == 'Hrana i piće'}" th:text="${category.name}"></span>
                                                 <span class="badge badge-primary" th:if="${category.name == 'Sport'}" th:text="${category.name}"></span>
-                                                <span class="badge badge-sport" th:if="${category.name == 'Putovanja'}" th:text="${category.name}"></span>
+                                                <span class="badge badge-success" th:if="${category.name == 'Putovanja'}" th:text="${category.name}"></span>
                                                 <span class="badge badge-info" th:if="${category.name == 'Seminar'}" th:text="${category.name}"></span>
                                                 <span class="badge badge-dark" th:if="${category.name == 'Ostalo'}" th:text="${category.name}"></span>
                                             </span>
                                             </p>
-                                            <p class="card-text"><b>Opis: </b> <span th:text="${offer.description}"></span></p>
-                                            <p class="card-text"><b>Država: </b> <span th:text="${offer.country}"></span></p>
-                                            <p class="card-text"><b>Mjesto: </b> <span th:text="${offer.city}"></span></p>
-                                            <p class="card-text"><b>Adresa: </b> <span th:text="${offer.address}"></span></p>
-                                            <p class="card-text"><b>Minimalan broj korisnika: </b> <span th:text="${offer.minNumberOfUsers}"></span></p>
-                                            <p class="card-text"><b>Maksimalan broj korisnika: </b> <span th:text="${offer.maxNumberOfUsers}"></span></p>
-                                            <p class="card-text"><b>Dostupno od: </b> <span th:text="${#dates.format(offer.availableFrom, 'dd.MM.yyyy.')}"></span></p>
-                                            <p class="card-text"><b>Dostupno do: </b> <span th:text="${#dates.format(offer.availableTo, 'dd.MM.yyyy.')}"></span></p>
+                                            <p class="card-text"><b th:text="#{msg.myOffers.description}"></b> <span th:text="${offer.description}"></span></p>
+                                            <p class="card-text"><b th:text="#{msg.myOffers.country}"></b> <span th:text="${offer.country}"></span></p>
+                                            <p class="card-text"><b th:text="#{msg.myOffers.city}"></b> <span th:text="${offer.city}"></span></p>
+                                            <p class="card-text"><b th:text="#{msg.myOffers.address}"></b> <span th:text="${offer.address}"></span></p>
+                                            <p class="card-text"><b th:text="#{msg.myOffers.minNumUsers}"></b> <span th:text="${offer.minNumberOfUsers}"></span></p>
+                                            <p class="card-text"><b th:text="#{msg.myOffers.maxNumUsers}"></b> <span th:text="${offer.maxNumberOfUsers}"></span></p>
+                                            <p class="card-text"><b th:text="#{msg.myOffers.availableFrom}"></b> <span th:text="${#dates.format(offer.availableFrom, 'dd.MM.yyyy.')}"></span></p>
+                                            <p class="card-text"><b th:text="#{msg.myOffers.availableTo}"></b> <span th:text="${#dates.format(offer.availableTo, 'dd.MM.yyyy.')}"></span></p>
 
-                                            <p class="card-text"><b>Cijena po osobi: </b> <span th:text="${#numbers.formatDecimal(offer.pricePerPerson,2,2) + ' kn'}">Adresa</span></p>
+                                            <p class="card-text"><b th:text="#{msg.myOffers.pricePerPerson}"></b> <span th:text="${#numbers.formatDecimal(offer.pricePerPerson,2,2) + ' kn'}"></span></p>
 
                                             <br>
 
@@ -85,11 +98,18 @@
 
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <a th:href="@{'/offer/edit/' + ${offer.id}}"><button type="button"
-                                                                                                        class="btn btn-outline-warning"><i class="fa fa-pencil"></i> Uredi</button></a>
-                                                <a th:if="${offer.user.username == #authentication.getName()}" th:href="@{'/offer/updateActivity/' + ${offer.id}}"><button type="button"
-                                                                                                                                                                           th:class="${offer.isActive() ? 'btn btn-outline-danger' : 'btn btn-outline-success'}"><span th:if="${offer.isActive() == true}" th:text="#{msg.offer.set-inactive}"></span><span th:if="${offer.isActive() == false}" th:text="#{msg.offer.set-active}"></span></button></a>
-                                                <a th:href="@{'/offer/details/' + ${offer.id}}"><button type="button"
-                                                                                                        class="btn btn-outline-info"><i class="fa fa-info"></i> Detalji</button></a>
+                                                                                                        class="btn btn-outline-warning"><i class="fa fa-pencil"></i> <span th:text="#{msg.myOffers.edit}"></span></button></a>
+                                                <a th:if="${offer.user.username == #authentication.getName()}" th:href="@{'/offer/updateActivity/' + ${offer.id}}">
+                                                    <button type="button" th:class="${offer.isActive() ? 'btn btn-outline-danger' : 'btn btn-outline-success'}">
+                                                        <span th:if="${offer.isActive() == true}" th:text="#{msg.offer.set-inactive}"></span>
+                                                        <span th:if="${offer.isActive() == false}" th:text="#{msg.offer.set-active}"></span>
+                                                    </button>
+                                                </a>
+                                                <a th:href="@{'/offer/details/' + ${offer.id}}">
+                                                    <button type="button" class="btn btn-outline-info">
+                                                        <i class="fa fa-info"></i> <span th:text="#{msg.details}"></span>
+                                                    </button>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -106,25 +126,6 @@
     </div>
 </div>
 
-<script>
 
-
-    function showActive(){
-        var checkbox = document.getElementById('showActive');
-
-        if (checkbox.checked){
-            $('.myOffer').each(function() {
-                 if ($($(this).find('.activeState')).text() !== 'Aktivna') {
-                    $(this).hide();
-                }
-            });
-        }
-        if (!checkbox.checked){
-            $('.myOffer').each(function(i, obj) {
-                    $(this).show();
-            });
-        }
-    }
-</script>
 </body>
 </html>
