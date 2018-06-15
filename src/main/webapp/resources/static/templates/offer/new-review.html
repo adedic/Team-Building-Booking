@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="#{msg.details.reviews.newReview.title}">Nova ponuda</title>
+
+    <style>
+        .txt-center {
+            text-align: center;
+        }
+        .hide {
+            display: none;
+        }
+
+        .clear {
+            float: none;
+            clear: both;
+        }
+
+        .rating {
+            width: 90px;
+            unicode-bidi: bidi-override;
+            direction: rtl;
+            text-align: center;
+            margin-left:45%;
+            position: relative;
+        }
+
+        .rating > label {
+            float: right;
+            display: inline;
+            padding: 0;
+            margin: 0;
+            position: relative;
+            width: 1.1em;
+            cursor: pointer;
+            color: #ffffff;
+        }
+
+        .rating > label:hover,
+        .rating > label:hover ~ label,
+        .rating > input.radio-btn:checked ~ label {
+            color: transparent;
+        }
+
+        .rating > label:hover:before,
+        .rating > label:hover ~ label:before,
+        .rating > input.radio-btn:checked ~ label:before,
+        .rating > input.radio-btn:checked ~ label:before {
+            content: "\2605";
+            position: absolute;
+            left: 0;
+            color: #FFD700;
+        }
+    </style>
+</head>
+<body>
+
+
+<div layout:fragment="content">
+    <div style="background-image: url('/resources/static/img/login.jpeg'); background-repeat: no-repeat;">
+        <div class="row justify-content-md-center"  style="background: rgba(255,255,255,0.4); ">
+            <div class="col-md-7" style="padding-top: 20vh; padding-bottom: 20vh;">
+                <div class="panel panel-default"  style="background: rgba(33,37,41,0.9); padding: 5% 5%">
+                    <div class="panel-heading">
+
+                        <h3 class="panel-title text-white" th:text="#{msg.details.reviews.newReview.heading}">Dodajte novi osvrt</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="txt-center">
+                            <form role="form" method="POST" name="formNewReview" th:action="@{/offer/newReview}" th:object="${newReviewForm}" class="needs-validation">
+                                <div class="form-group">
+                                    <label for="rating" class="text-white" th:text="#{msg.offer.details.reviews.newReview.stars}"></label>
+                                    <div name="rating" id="rating" class="rating">
+                                        <input id="star5" name="numberOfStars" type="radio" value="5" required class="radio-btn hide" />
+                                        <label for="star5">☆</label>
+                                        <input id="star4" name="numberOfStars" type="radio" value="4" class="radio-btn hide" />
+                                        <label for="star4">☆</label>
+                                        <input id="star3" name="numberOfStars" type="radio" value="3" class="radio-btn hide" />
+                                        <label for="star3">☆</label>
+                                        <input id="star2" name="numberOfStars" type="radio" value="2" class="radio-btn hide" />
+                                        <label for="star2">☆</label>
+                                        <input id="star1" name="numberOfStars" type="radio" value="1" class="radio-btn hide" />
+                                        <label for="star1">☆</label>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="review" class="text-white" th:text="#{msg.offer.details.reviews.newReview.description}"></label>
+                                    <textarea th:field="*{comment}" class="form-control" rows="5" id="review" required></textarea>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}">Name Error</div>
+
+                                    <div class="invalid-feedback">
+                                        Niste napisali osvrt!
+                                    </div>
+                                </div>
+
+                                <input class="btn btn-lg btn-primary btn-block" type="submit" th:value="#{msg.offer.details.reviews.newReview.submit}" />
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

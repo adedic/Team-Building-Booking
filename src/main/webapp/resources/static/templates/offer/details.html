@@ -126,6 +126,7 @@
                             <a th:href="@{'/offer/details/' + ${offer.id} + '/reviews'}">Pogledaj sve osvrte</a>
                         </div>
                     </div>
+                    <a th:text="#{msg.offer.details.reviews.newReview.link}" th:href="@{'/offer/newReview/' + ${offer.id} }" class="btn btn-primary active">Dodaj novi osvrt</a>
 
                 </div>
             </div>
