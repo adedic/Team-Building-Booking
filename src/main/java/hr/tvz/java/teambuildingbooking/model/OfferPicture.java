@@ -10,7 +10,7 @@ import java.io.Serializable;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "OFFER_PICTURE")
-@SequenceGenerator(name = "seq", initialValue = 6, allocationSize = 100)
+@SequenceGenerator(name = "seq", initialValue = 9, allocationSize = 100)
 public class OfferPicture implements Serializable {
 
     @Id

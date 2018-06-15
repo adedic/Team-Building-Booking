@@ -27,12 +27,12 @@
                             <input type="hidden" name="id" th:field="*{id}"/>
 
                             <div class="form-group">
-                                <label for="name" class="text-white" th:text="#{msg.offer.new.name} + ':'"> </label>
+                                <label for="name" class="text-white" th:text="#{msg.offer.new.name}"> </label>
                                 <input class="form-control" type="text" th:field="*{name}" id="name"/>
                                 <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
                             </div>
 
-                            <label class="text-white" th:text="#{msg.offer.new.categories}+ ':'"> </label>
+                            <label class="text-white" th:text="#{msg.offer.new.categories}"> </label>
                             <br/>
                             <span class="form-group" th:each="category, stat : ${categories}">
                                     <label th:for="${'category' + category.id}" class="btn btn-secondary text-white" th:text="${category.name}"/>
@@ -45,7 +45,7 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="country" class="text-white" th:text="#{msg.offer.new.country} + ':'"></label>
+                                    <label for="country" class="text-white" th:text="#{msg.offer.new.country}"></label>
                                     <input th:field="*{country}" type="text" name="country" class="form-control" id="country"
                                            th:placeholder="#{msg.offer.new.country}" required autofocus>
                                     <div class="text-danger" th:if="${#fields.hasErrors('country')}" th:errors="*{country}">Country Error</div>
@@ -54,18 +54,27 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="city" class="text-white" th:text="#{msg.offer.new.location} + ':'"></label>
+                                    <label for="city" class="text-white" th:text="#{msg.offer.new.location}"></label>
                                     <input th:field="*{city}" type="text" name="city" class="form-control" id="city"
                                            th:placeholder="#{msg.offer.new.city}" required autofocus>
                                     <div class="text-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Location Error</div>
 
                                     <div class="invalid-feedback" th:text="#{msg.offer.new.city.help}"></div>
                                 </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="city" class="text-white" th:text="#{msg.offer.new.address}"></label>
+                                    <input th:field="*{address}" type="text" name="city" class="form-control" id="address"
+                                           th:placeholder="#{msg.offer.new.address}" required autofocus>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Location Error</div>
+
+                                    <div class="invalid-feedback" th:text="#{msg.offer.new.address.help}"></div>
+                                </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="min" class="text-white" th:text="#{msg.offer.new.min-people} + ':'"></label>
+                                    <label for="min" class="text-white" th:text="#{msg.offer.new.min-people}"></label>
                                     <input th:field="*{minNumberOfUsers}" type="number" min="1" onkeypress="return event.charCode >= 48" name="min" class="form-control" id="min"
                                            th:placeholder="#{msg.offer.new.min-people}" required autofocus>
                                     <div class="text-danger" th:if="${#fields.hasErrors('minNumberOfUsers')}" th:errors="*{minNumberOfUsers}">Min people Error</div>
@@ -74,7 +83,7 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="max" class="text-white" th:text="#{msg.offer.new.max-people} + ':'"></label>
+                                    <label for="max" class="text-white" th:text="#{msg.offer.new.max-people}"></label>
                                     <input th:field="*{maxNumberOfUsers}" type="number" min="1" onkeypress="return event.charCode >= 48" name="max" class="form-control" id="max"
                                            th:placeholder="#{msg.offer.new.max-people}" required autofocus>
                                     <div class="text-danger" th:if="${#fields.hasErrors('maxNumberOfUsers')}" th:errors="*{maxNumberOfUsers}">Max people Error</div>
@@ -83,7 +92,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="price" class="text-white" th:text="#{msg.offer.new.price-per-person} + ':'"></label>
+                                <label for="price" class="text-white" th:text="#{msg.offer.new.price-per-person}"></label>
                                 <input th:field="*{pricePerPerson}" type="number" min="0" step = "any" onkeypress="return event.charCode >= 48" name="price" class="form-control" id="price"
                                        th:placeholder="#{msg.offer.new.price-per-person}" required autofocus>
                                 <div class="text-danger" th:if="${#fields.hasErrors('pricePerPerson')}" th:errors="*{pricePerPerson}">Price Error</div>
@@ -93,14 +102,14 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="availableFrom" class="text-white" th:text="#{msg.offer.new.available-from} + ':'"></label>
+                                    <label for="availableFrom" class="text-white" th:text="#{msg.offer.new.available-from}"></label>
                                     <input th:field="*{availableFrom}" type="date" name="availableFrom" class="form-control" id="availableFrom"
                                            th:placeholder="#{msg.offer.new.available-from}" required autofocus>
                                     <div class="text-danger" th:if="${#fields.hasErrors('availableFrom')}" th:errors="*{availableFrom}">Available from Error</div>
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="availableTo" class="text-white" th:text="#{msg.offer.new.available-to} + ':'"></label>
+                                    <label for="availableTo" class="text-white" th:text="#{msg.offer.new.available-to}"></label>
                                     <input th:field="*{availableTo}" type="date" name="availableTo" class="form-control" id="availableTo"
                                            th:placeholder="#{msg.offer.new.available-to}" required autofocus>
                                     <div class="text-danger" th:if="${#fields.hasErrors('availableTo')}" th:errors="*{availableTo}">Available to Error</div>
@@ -110,12 +119,12 @@
                             <input th:field="*{dateAdded}" type="hidden" name="availableTo" class="form-control" id="availableTo" required autofocus>
 
                             <div class="form-group">
-                                <label for="file" class="text-white" th:text="#{msg.offer.new.picture} + ':'"><br/><span th:text="#{msg.offer.edit.image}"> </span></label>
+                                <label for="file" class="text-white" th:text="#{msg.offer.new.picture}"><br/><span th:text="#{msg.offer.edit.image}"> </span></label>
                                 <input class="form-control" type="file" id="file" name="file" accept="image">
                             </div>
 
                             <div class="form-group">
-                                <label for="description" class="text-white" th:text="#{msg.offer.new.description} + ':'"></label>
+                                <label for="description" class="text-white" th:text="#{msg.offer.new.description}"></label>
                                 <textarea th:field="*{description}" class="form-control" rows="5" id="description"></textarea>
                                 <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</div>
                             </div>

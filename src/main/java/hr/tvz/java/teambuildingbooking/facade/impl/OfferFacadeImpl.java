@@ -38,6 +38,7 @@ public class OfferFacadeImpl implements OfferFacade {
         }
 
         editOfferForm.setName(offer.getName());
+        editOfferForm.setAddress(offer.getAddress());
 
         List<String> mappedCategories = new ArrayList<>();
 

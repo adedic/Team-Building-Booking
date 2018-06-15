@@ -12,7 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "`USER`")
-@SequenceGenerator(name = "seq", initialValue = 6, allocationSize = 100)
+@SequenceGenerator(name = "seq", initialValue = 9, allocationSize = 100)
 public class User implements Serializable {
 
     @Id

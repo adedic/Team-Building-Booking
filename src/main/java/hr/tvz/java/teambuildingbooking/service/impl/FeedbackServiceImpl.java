@@ -15,17 +15,25 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 @Slf4j
 @Service
 
 public class FeedbackServiceImpl implements FeedbackService {
+
     private UserService userService;
+
     private FeedbackRepository feedbackRepository;
+
     private OfferService offerService;
+
+    public FeedbackServiceImpl(UserService userService, FeedbackRepository feedbackRepository, OfferService offerService) {
+        this.userService = userService;
+        this.feedbackRepository = feedbackRepository;
+        this.offerService = offerService;
+    }
+
     @Override
     public Feedback createFeedback(NewReviewForm newReviewForm, String username) throws ParseException, IOException {
         Feedback feedback = FeedbackMapper.INSTANCE.newReviewFormToReview(newReviewForm);
@@ -44,20 +52,19 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public double average(long offerId){
+    public double average(long offerId) {
         double average;
-        int sum=0, count=0;
+        int sum = 0, count = 0;
         Set<Feedback> feedbacks;
-        if(offerService.findOne(offerId).isPresent()){
+        if (offerService.findOne(offerId).isPresent()) {
             Offer offer = offerService.findOne(offerId).get();
             feedbacks = offer.getFeedbacks();
-            for(Feedback f : feedbacks){
+            for (Feedback f : feedbacks) {
                 count++;
-                sum+=f.getNumberOfStars();
+                sum += f.getNumberOfStars();
             }
-            average = sum/count;
-        }
-        else{
+            average = sum / count;
+        } else {
             average = 0;
         }
 

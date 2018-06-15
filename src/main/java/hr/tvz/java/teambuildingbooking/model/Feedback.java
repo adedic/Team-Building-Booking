@@ -9,10 +9,11 @@ import java.util.Date;
 
 @Entity
 @Table(name = "FEEDBACK")
+@SequenceGenerator(name = "seq", initialValue = 9, allocationSize = 100)
 public class Feedback implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     @Column(name = "ID", nullable = false)
     private Long id;
 

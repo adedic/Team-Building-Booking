@@ -14,6 +14,8 @@ public class EditOfferForm {
 
     private String city;
 
+    private String address;
+
     private int minNumberOfUsers;
 
     private int maxNumberOfUsers;
@@ -70,6 +72,14 @@ public class EditOfferForm {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public int getMinNumberOfUsers() {
