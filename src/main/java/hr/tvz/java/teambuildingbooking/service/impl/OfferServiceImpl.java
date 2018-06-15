@@ -160,6 +160,7 @@ public class OfferServiceImpl implements OfferService {
         offer.setDateLastEdited(new Date());
         offer.setUser(userService.findByUsername(username));
         offer.setName(newOfferForm.getName());
+        offer.setAddress(newOfferForm.getAddress());
 
         if (!base64String.isEmpty()) {
             OfferPicture offerPicture = new OfferPicture(base64String, name, size);
@@ -204,6 +205,8 @@ public class OfferServiceImpl implements OfferService {
             OfferPicture offerPicture = offerPictureService.findById(offerPictureId);
             offer.setOfferPicture(offerPicture);
         }
+
+        offer.setAddress(editOfferForm.getAddress());
 
         return offerRepository.save(offer);
     }

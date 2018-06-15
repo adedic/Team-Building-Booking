@@ -82,7 +82,7 @@
             <div class="col-md-9" style="padding-top: 5vh;">
 
                 <div class="col-md-12">
-                    <iframe th:src="'//www.google.com/maps/embed/v1/place?q=' + ${offer.city} + '/&zoom=10&key=AIzaSyBpTDfNDgB8BaIZiSj19PSJeqgvFnXL6Vg'" height="500" class="col-md-12"></iframe>
+                    <iframe th:src="'//www.google.com/maps/embed/v1/place?q=' + ${offer.address + ', ' + offer.city} + '/&zoom=10&key=AIzaSyBpTDfNDgB8BaIZiSj19PSJeqgvFnXL6Vg'" height="500" class="col-md-12"></iframe>
 
                 </div>
             </div>
@@ -127,6 +127,7 @@
                             <a th:href="@{'/offer/details/' + ${offer.id} + '/reviews'}" th:text="#{msg.offer.details.reviews.link-all}"></a>
                         </div>
                     </div>
+                    <a th:text="#{msg.offer.details.reviews.newReview.link}" th:href="@{'/offer/newReview/' + ${offer.id} }" class="btn btn-primary active">Dodaj novi osvrt</a>
 
                 </div>
             </div>

@@ -56,6 +56,15 @@
 
                                         <div class="invalid-feedback" th:text="#{msg.offer.new.city.help}"></div>
                                     </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label th:text="#{msg.offer.new.address} + ':'" for="address" class="text-white"></label>
+                                        <input th:field="*{address}" type="text" name="address" class="form-control" id="address"
+                                               th:placeholder="#{msg.offer.new.address}" required autofocus>
+                                        <div class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">City Error</div>
+
+                                        <div class="invalid-feedback" th:text="#{msg.offer.new.address.help}"></div>
+                                    </div>
                                 </div>
 
                                 <div class="form-row">

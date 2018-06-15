@@ -2,16 +2,11 @@ package hr.tvz.java.teambuildingbooking.controller;
 
 import hr.tvz.java.teambuildingbooking.facade.OfferFacade;
 import hr.tvz.java.teambuildingbooking.model.Category;
+import hr.tvz.java.teambuildingbooking.model.Feedback;
 import hr.tvz.java.teambuildingbooking.model.Offer;
 import hr.tvz.java.teambuildingbooking.model.User;
-import hr.tvz.java.teambuildingbooking.model.form.EditOfferForm;
-import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
-import hr.tvz.java.teambuildingbooking.model.form.ReservationForm;
-import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
-import hr.tvz.java.teambuildingbooking.service.CategoryService;
-import hr.tvz.java.teambuildingbooking.service.OfferPictureService;
-import hr.tvz.java.teambuildingbooking.service.OfferService;
-import hr.tvz.java.teambuildingbooking.service.UserService;
+import hr.tvz.java.teambuildingbooking.model.form.*;
+import hr.tvz.java.teambuildingbooking.service.*;
 import hr.tvz.java.teambuildingbooking.utils.UtilityClass;
 import hr.tvz.java.teambuildingbooking.validator.EditOfferFormValidator;
 import hr.tvz.java.teambuildingbooking.validator.NewOfferFormValidator;
@@ -50,6 +45,7 @@ public class OfferController {
     private static final String REVIEWS_VIEW_NAME = "offer/reviews";
     private static final String EDIT_OFFER_VIEW_NAME = "offer/edit-offer";
     private static final String MY_OFFERS_VIEW_NAME = "offer/myOffers";
+    private static final String NEW_REVIEW_VIEW_NAME = "offer/new-review";
 
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
@@ -69,8 +65,10 @@ public class OfferController {
 
     private SearchOfferFormValidator searchOfferFormValidator;
 
+    private final FeedbackService feedbackService;
+
     @Autowired
-    public OfferController(OfferService offerService, CategoryService categoryService, UserService userService, OfferFacade offerFacade, NewOfferFormValidator newOfferFormValidator, EditOfferFormValidator editOfferFormValidator, OfferPictureService offerPictureService, SearchOfferFormValidator searchOfferFormValidator) {
+    public OfferController(OfferService offerService, CategoryService categoryService, UserService userService, OfferFacade offerFacade, NewOfferFormValidator newOfferFormValidator, EditOfferFormValidator editOfferFormValidator, OfferPictureService offerPictureService, SearchOfferFormValidator searchOfferFormValidator, FeedbackService feedbackService) {
         this.offerService = offerService;
         this.categoryService = categoryService;
         this.userService = userService;
@@ -79,6 +77,7 @@ public class OfferController {
         this.editOfferFormValidator = editOfferFormValidator;
         this.offerPictureService = offerPictureService;
         this.searchOfferFormValidator = searchOfferFormValidator;
+        this.feedbackService = feedbackService;
     }
 
     @Secured({"PROVIDER, ADMIN"})
@@ -208,6 +207,8 @@ public class OfferController {
         return SEARCH_OFFER_VIEW_NAME;
     }
 
+
+
     @RequestMapping("/details/{id}")
     private String showDetails(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         Optional<Offer> offer = offerService.findOne(id);
@@ -238,6 +239,35 @@ public class OfferController {
 
         return REVIEWS_VIEW_NAME;
     }
+
+    @RequestMapping("/newReview/{id}")
+    private String newReview(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes){
+        Optional<Offer> offer = offerService.findOne(id);
+        if(offer.isPresent()){
+            model.addAttribute("newReviewForm", new NewReviewForm());
+            model.addAttribute("offer", offer.get());
+            return NEW_REVIEW_VIEW_NAME;
+        }
+        else{
+            redirectAttributes.addFlashAttribute("offerNotFound", "Ponuda s ID = " + id + "nije pronađena!");
+            return "redirect:/offer/search";
+        }
+    }
+
+    @PostMapping("/newReview")
+    private String handleNewReviewForm(@Valid @ModelAttribute ("newReviewForm") NewReviewForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes, Principal principal, Model model) throws ParseException, IOException{
+        if(bindingResult.hasErrors()){
+            return NEW_REVIEW_VIEW_NAME;
+        }
+
+        Feedback feedback = feedbackService.createFeedback(form, principal.getName());
+        //redirectAttributes.addFlashAttribute("createSuccess", "Dodavanje osvrta je uspjelo.!");
+
+        //log.info("Successfully created review with ID = " + feedback.getId());
+
+        return "redirect:/offer/search";
+    }
+
 
     @Secured({"PROVIDER, ADMIN"})
     @GetMapping("/updateActivity/{id}")

@@ -48,8 +48,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMe()
                 .key("rem-me-key")
                 .rememberMeParameter("rememberMe")
-                .rememberMeCookieName("my-remember-me")
-                .tokenValiditySeconds(86400)
+                .rememberMeCookieName("team-building-remember-me")
+                .tokenValiditySeconds(259200) //3 dana
                 .and()
                 .logout()
                 .logoutSuccessUrl("/login?logout")
