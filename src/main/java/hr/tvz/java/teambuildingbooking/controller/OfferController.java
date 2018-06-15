@@ -167,13 +167,14 @@ public class OfferController {
         if (bindingResult.hasErrors()) {
             return SEARCH_OFFER_VIEW_NAME;
         }
+        log.info("---> Fetching offers ...");
         List<Offer> offerResults = offerService.findOffers(searchOfferForm);
         model.addAttribute("offers", offerResults);
         if (offerResults.isEmpty()) {
             model.addAttribute("noResults", true);
+            log.info("---> No results!");
         }
         model.addAttribute("titleResults", "Rezultati pretrage:");
-        //model.addAttribute("searchOfferForm", searchOfferForm);
         return SEARCH_OFFER_VIEW_NAME;
     }
 
