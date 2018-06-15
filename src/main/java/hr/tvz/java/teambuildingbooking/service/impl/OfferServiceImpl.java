@@ -1,10 +1,7 @@
 package hr.tvz.java.teambuildingbooking.service.impl;
 
 import hr.tvz.java.teambuildingbooking.mapper.OfferMapper;
-import hr.tvz.java.teambuildingbooking.model.Category;
-import hr.tvz.java.teambuildingbooking.model.Offer;
-import hr.tvz.java.teambuildingbooking.model.OfferPicture;
-import hr.tvz.java.teambuildingbooking.model.User;
+import hr.tvz.java.teambuildingbooking.model.*;
 import hr.tvz.java.teambuildingbooking.model.criteria.SearchCriteria;
 import hr.tvz.java.teambuildingbooking.model.form.EditOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
@@ -13,6 +10,7 @@ import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
 import hr.tvz.java.teambuildingbooking.repository.CategoryRepository;
 import hr.tvz.java.teambuildingbooking.repository.OfferDaoRepository;
 import hr.tvz.java.teambuildingbooking.repository.OfferRepository;
+import hr.tvz.java.teambuildingbooking.repository.ReservationRepository;
 import hr.tvz.java.teambuildingbooking.service.OfferPictureService;
 import hr.tvz.java.teambuildingbooking.service.OfferService;
 import hr.tvz.java.teambuildingbooking.service.UserService;
@@ -32,9 +30,11 @@ import java.util.*;
 public class OfferServiceImpl implements OfferService {
 
     private static final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final String DATE_FORMAT_2 = "dd.MM.yyyy";
 
     private OfferRepository offerRepository;
     private CategoryRepository categoryRepository;
+    private ReservationRepository reservationRepository;
 
     private OfferDaoRepository offerDaoRepository;
 
@@ -44,12 +44,13 @@ public class OfferServiceImpl implements OfferService {
 
     @Autowired
     public OfferServiceImpl(OfferRepository offerRepository, OfferDaoRepository offerDaoRepository,
-                            CategoryRepository categoryRepository, UserService userService, OfferPictureService offerPictureService) {
+                            CategoryRepository categoryRepository, UserService userService, OfferPictureService offerPictureService, ReservationRepository reservationRepository) {
         this.offerRepository = offerRepository;
         this.offerDaoRepository = offerDaoRepository;
         this.categoryRepository = categoryRepository;
         this.userService = userService;
         this.offerPictureService = offerPictureService;
+        this.reservationRepository = reservationRepository;
     }
 
     @Override
@@ -90,7 +91,35 @@ public class OfferServiceImpl implements OfferService {
                 searchCriteria.add(new SearchCriteria("availableTo", ":<", date1));
             }
         }
-        return offerDaoRepository.findOffers(searchCriteria);
+
+        List<Offer> offerList = offerDaoRepository.findOffers(searchCriteria);
+        List<Offer> finalList = new ArrayList<>();
+
+        for(Offer offer : offerList) {
+            Date date = null;
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT_2);
+            try {
+                date = simpleDateFormat.parse(searchOffer.getDate());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            List<Reservation> reservationList = reservationRepository.getReservationsByOffer(date, offer.getId());
+
+            Integer numOfPeople = 0;
+            for(Reservation reservation : reservationList) {
+                numOfPeople += reservation.getNumberOfUsers();
+            }
+
+            if(searchOffer.getNumOfPeople() != null) {
+                if ((numOfPeople + searchOffer.getNumOfPeople()) <= offer.getMaxNumberOfUsers()) {
+                    finalList.add(offer);
+                }
+            } else {
+                finalList.add(offer);
+            }
+        }
+
+        return finalList;
     }
 
     @Override
@@ -196,7 +225,7 @@ public class OfferServiceImpl implements OfferService {
 
         offer.setUser(userService.findByUsername(username));
 
-        if (!base64String.isEmpty()) {
+        if (!base64String.isEmpty() && size > 0) {
             OfferPicture offerPicture = new OfferPicture(base64String, name, size);
             offerPictureService.save(offerPicture);
             offer.setOfferPicture(offerPicture);
@@ -227,16 +256,4 @@ public class OfferServiceImpl implements OfferService {
         return categoriesSet;
     }
 
-    @Modifying
-    @Transactional
-    @Override
-    public void deleteOfferById(Long id) {
-        offerRepository.deleteOfferById(id);
-    }
-
-    // --- private / util methods ---------------------------------------------
-
-//    private String convertByteArrayToBase64String(byte[] bytes, String contentType) {
-//        return "data:" + contentType + ";base64," + Base64.getEncoder().encodeToString(bytes);
-//    }
 }

@@ -151,36 +151,6 @@ public class OfferController {
         return "redirect:/offer/details/" + offer.getId();
     }
 
-    @Secured({"PROVIDER, ADMIN"})
-    @GetMapping("/delete/{id}")
-    public String deleteOffer(@PathVariable("id") Long id, Principal principal, RedirectAttributes redirectAttributes) {
-        Optional<Offer> offer = offerService.findOne(id);
-
-        if (offer.isPresent()) {
-            Offer receivedOffer = offer.get();
-
-            boolean hasAdminRole = userService.hasRole(principal.getName(), "ROLE_ADMIN");
-            if (!receivedOffer.getUser().getUsername().equals(principal.getName()) && !hasAdminRole) {
-                redirectAttributes.addFlashAttribute("invalidOwner", "Ponuda s ID = " + id + " ne pripada vašem računu!");
-                return "redirect:/offer/search";
-            }
-
-            offerService.deleteOfferById(receivedOffer.getId());
-
-            if (receivedOffer.getOfferPicture() != null) {
-                offerPictureService.deleteById(receivedOffer.getOfferPicture().getId());
-            }
-
-            log.info("---> Deleting offer entity with ID = " + receivedOffer.getId() + " and all its children from the database ...");
-
-            redirectAttributes.addFlashAttribute("offerDeleted", "Ponuda s ID = " + id + " uspješno izbrisana!");
-            return "redirect:/offer/search";
-        } else {
-            redirectAttributes.addFlashAttribute("offerNotFound", "Ponuda s ID = " + id + " nije pronađena!");
-            return "redirect:/offer/search";
-        }
-    }
-
     @GetMapping("/search")
     private String searchOffer(Model model) {
         model.addAttribute("categories", categoryService.findAll());
@@ -197,13 +167,14 @@ public class OfferController {
         if (bindingResult.hasErrors()) {
             return SEARCH_OFFER_VIEW_NAME;
         }
+        log.info("---> Fetching offers ...");
         List<Offer> offerResults = offerService.findOffers(searchOfferForm);
         model.addAttribute("offers", offerResults);
         if (offerResults.isEmpty()) {
             model.addAttribute("noResults", true);
+            log.info("---> No results!");
         }
         model.addAttribute("titleResults", "Rezultati pretrage:");
-        //model.addAttribute("searchOfferForm", searchOfferForm);
         return SEARCH_OFFER_VIEW_NAME;
     }
 

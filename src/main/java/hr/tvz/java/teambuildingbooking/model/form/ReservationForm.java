@@ -38,7 +38,7 @@ public class ReservationForm {
         if (this.date != null) {
             return date;
         } else {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 Date date = formatter.parse(this.dateString);
                 return date;

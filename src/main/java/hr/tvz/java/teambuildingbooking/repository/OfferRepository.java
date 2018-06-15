@@ -3,11 +3,9 @@ package hr.tvz.java.teambuildingbooking.repository;
 import hr.tvz.java.teambuildingbooking.model.Offer;
 import hr.tvz.java.teambuildingbooking.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -35,11 +33,6 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
 
     @Query("select o.offerPicture.id from Offer o where o.id = ?1")
     Long getOfferPictureIdByOfferId(Long id);
-
-    @Transactional
-    @Modifying
-    @Query("delete from Offer o where o.id = ?1 ")
-    void deleteOfferById(Long id);
 
     List<Offer> findAllByUserOrderByDateAddedDesc(User user);
 

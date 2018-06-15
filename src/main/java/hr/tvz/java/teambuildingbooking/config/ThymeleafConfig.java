@@ -1,7 +1,6 @@
 package hr.tvz.java.teambuildingbooking.config;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
-import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -29,8 +28,7 @@ public class ThymeleafConfig
     }
 
 
-    public void setApplicationContext(final ApplicationContext applicationContext)
-            throws BeansException {
+    public void setApplicationContext(final ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 
