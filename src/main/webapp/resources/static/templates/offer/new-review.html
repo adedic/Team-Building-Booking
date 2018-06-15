@@ -69,10 +69,10 @@
 
                         <h3 class="panel-title text-white" th:text="#{msg.details.reviews.newReview.heading}">Dodajte novi osvrt</h3>
                     </div>
-
+                    <input class="hide" type="text" th:value="${offer.id}" name="offerId">
                     <div class="panel-body">
                         <div class="txt-center">
-                            <form role="form" method="POST" name="formNewReview" th:action="@{/offer/newReview}" th:object="${newReviewForm}" class="needs-validation">
+                            <form role="form" method="POST" name="formNewReview" th:action="@{/offer/newReview/}" th:object="${newReviewForm}" class="needs-validation">
                                 <div class="form-group">
                                     <label for="rating" class="text-white" th:text="#{msg.offer.details.reviews.newReview.stars}"></label>
                                     <div name="rating" id="rating" class="rating">

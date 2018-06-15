@@ -211,6 +211,7 @@ public class OfferController {
         return REVIEWS_VIEW_NAME;
     }
 
+    @Secured({"USER"})
     @RequestMapping("/newReview/{id}")
     private String newReview(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes){
         Optional<Offer> offer = offerService.findOne(id);
@@ -224,13 +225,12 @@ public class OfferController {
             return "redirect:/offer/search";
         }
     }
-
+    @Secured({"USER"})
     @PostMapping("/newReview")
     private String handleNewReviewForm(@Valid @ModelAttribute ("newReviewForm") NewReviewForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes, Principal principal, Model model) throws ParseException, IOException{
         if(bindingResult.hasErrors()){
             return NEW_REVIEW_VIEW_NAME;
         }
-
         Feedback feedback = feedbackService.createFeedback(form, principal.getName());
         //redirectAttributes.addFlashAttribute("createSuccess", "Dodavanje osvrta je uspjelo.!");
 
