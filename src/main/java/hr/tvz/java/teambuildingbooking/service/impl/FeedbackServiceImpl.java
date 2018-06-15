@@ -37,15 +37,17 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     public Feedback createFeedback(NewReviewForm newReviewForm, String username) throws ParseException, IOException {
         Feedback feedback = FeedbackMapper.INSTANCE.newReviewFormToReview(newReviewForm);
-        int stars = newReviewForm.getNumberOfStars();
+
+        //Offer offer = offerService.findOne(newReviewForm.getOfferId()).get();
         feedback.setDateSubmitted(new Date());
         feedback.setDateLastEdited(new Date());
 
+        //feedback.setOffer(offer);
         User user = userService.findByUsername(username);
 
-        feedback.setNumberOfStars(stars);
 
         feedback.setUser(user);
+
 
         Feedback savedFeedback = feedbackRepository.save(feedback);
         return savedFeedback;
