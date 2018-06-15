@@ -5,7 +5,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
 <head>
-    <title th:text="#{msg.offer.edit.heading}">Uredi ponudu</title>
+    <title th:text="#{msg.offer.edit.heading}"></title>
 
 </head>
 <body>
@@ -17,7 +17,7 @@
             <div class="col-md-7" style="padding-top: 20vh; padding-bottom: 20vh;">
                 <div class="panel panel-default"  style="background: rgba(33,37,41,0.9); padding: 5% 5%">
                     <div class="panel-heading">
-                        <h3 class="panel-title text-white" th:text="#{msg.offer.edit.heading}">Uredi team building ponudu</h3>
+                        <h3 class="panel-title text-white" th:text="#{msg.offer.edit.heading}"></h3>
                     </div>
                     <br>
 
@@ -27,12 +27,12 @@
                             <input type="hidden" name="id" th:field="*{id}"/>
 
                             <div class="form-group">
-                                <label for="name" class="text-white" th:text="#{msg.offer.new.name}">Naziv: </label>
+                                <label for="name" class="text-white" th:text="#{msg.offer.new.name} + ':'"> </label>
                                 <input class="form-control" type="text" th:field="*{name}" id="name"/>
                                 <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
                             </div>
 
-                            <label class="text-white" th:text="#{msg.offer.new.categories}">Kategorije: </label>
+                            <label class="text-white" th:text="#{msg.offer.new.categories}+ ':'"> </label>
                             <br/>
                             <span class="form-group" th:each="category, stat : ${categories}">
                                     <label th:for="${'category' + category.id}" class="btn btn-secondary text-white" th:text="${category.name}"/>
@@ -41,101 +41,87 @@
                                            th:field="*{categories}"
                                            th:value="${category.name}" />
                                 </span>
-                            <div class="text-danger" th:if="${#fields.hasErrors('categories')}" th:errors="*{categories}">Name Error</div>
+                            <div class="text-danger" th:if="${#fields.hasErrors('categories')}" th:errors="*{categories}">Categories Error</div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="country" class="text-white" th:text="#{msg.offer.new.country}">Država: </label>
+                                    <label for="country" class="text-white" th:text="#{msg.offer.new.country} + ':'"></label>
                                     <input th:field="*{country}" type="text" name="country" class="form-control" id="country"
-                                           placeholder="Država" required autofocus>
-                                    <div class="text-danger" th:if="${#fields.hasErrors('country')}" th:errors="*{country}">Name Error</div>
+                                           th:placeholder="#{msg.offer.new.country}" required autofocus>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('country')}" th:errors="*{country}">Country Error</div>
 
-                                    <div class="invalid-feedback">
-                                        Unesite državu!
-                                    </div>
+                                    <div class="invalid-feedback" th:text="#{msg.offer.new.country.help}"></div>
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="city" class="text-white" th:text="#{msg.offer.new.location}">Mjesto održavanja: </label>
+                                    <label for="city" class="text-white" th:text="#{msg.offer.new.location} + ':'"></label>
                                     <input th:field="*{city}" type="text" name="city" class="form-control" id="city"
-                                           placeholder="Grad" required autofocus>
-                                    <div class="text-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Name Error</div>
+                                           th:placeholder="#{msg.offer.new.city}" required autofocus>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Location Error</div>
 
-                                    <div class="invalid-feedback">
-                                        Unesite grad!
-                                    </div>
+                                    <div class="invalid-feedback" th:text="#{msg.offer.new.city.help}"></div>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="min" class="text-white" th:text="#{msg.offer.new.min-persons}">Najmanji broj osoba: </label>
+                                    <label for="min" class="text-white" th:text="#{msg.offer.new.min-people} + ':'"></label>
                                     <input th:field="*{minNumberOfUsers}" type="number" min="1" onkeypress="return event.charCode >= 48" name="min" class="form-control" id="min"
-                                           placeholder="Minimalni broj osoba" required autofocus>
-                                    <div class="text-danger" th:if="${#fields.hasErrors('minNumberOfUsers')}" th:errors="*{minNumberOfUsers}">Name Error</div>
+                                           th:placeholder="#{msg.offer.new.min-people}" required autofocus>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('minNumberOfUsers')}" th:errors="*{minNumberOfUsers}">Min people Error</div>
 
-                                    <div class="invalid-feedback">
-                                        Unesite najmanji broj osoba potreban za održavanje team buildinga!
-                                    </div>
+                                    <div class="invalid-feedback" th:text="#{msg.offer.new.min-people.help}"></div>
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="max" class="text-white" th:text="#{msg.offer.new.max-persons}">Najveći mogući broj osoba: </label>
+                                    <label for="max" class="text-white" th:text="#{msg.offer.new.max-people} + ':'"></label>
                                     <input th:field="*{maxNumberOfUsers}" type="number" min="1" onkeypress="return event.charCode >= 48" name="max" class="form-control" id="max"
-                                           placeholder="Maksimalan broj osoba" required autofocus>
-                                    <div class="text-danger" th:if="${#fields.hasErrors('maxNumberOfUsers')}" th:errors="*{maxNumberOfUsers}">Name Error</div>
+                                           th:placeholder="#{msg.offer.new.max-people}" required autofocus>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('maxNumberOfUsers')}" th:errors="*{maxNumberOfUsers}">Max people Error</div>
 
-                                    <div class="invalid-feedback">
-                                        Unesite najveći mogući broj osoba na team building ponudi!
-                                    </div>
+                                    <div class="invalid-feedback" th:text="#{msg.offer.new.max-people.help}"></div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="price" class="text-white" th:text="#{msg.offer.new.price-per-person}">Cijena po osobi: </label>
+                                <label for="price" class="text-white" th:text="#{msg.offer.new.price-per-person} + ':'"></label>
                                 <input th:field="*{pricePerPerson}" type="number" min="0" step = "any" onkeypress="return event.charCode >= 48" name="price" class="form-control" id="price"
-                                       placeholder="Cijena po osobi" required autofocus>
-                                <div class="text-danger" th:if="${#fields.hasErrors('pricePerPerson')}" th:errors="*{pricePerPerson}">Name Error</div>
+                                       th:placeholder="#{msg.offer.new.price-per-person}" required autofocus>
+                                <div class="text-danger" th:if="${#fields.hasErrors('pricePerPerson')}" th:errors="*{pricePerPerson}">Price Error</div>
 
-                                <div class="invalid-feedback">
-                                    Unesite cijenu!
-                                </div>
+                                <div class="invalid-feedback" th:text="#{msg.offer.new.price-per-person.help}"></div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="availableFrom" class="text-white" th:text="#{msg.offer.new.available-from}">Ponuda raspoloživa od:</label>
+                                    <label for="availableFrom" class="text-white" th:text="#{msg.offer.new.available-from} + ':'"></label>
                                     <input th:field="*{availableFrom}" type="date" name="availableFrom" class="form-control" id="availableFrom"
-                                           placeholder="Ponuda raspoloživa od" required autofocus>
-                                    <div class="text-danger" th:if="${#fields.hasErrors('availableFrom')}" th:errors="*{availableFrom}">Name Error</div>
+                                           th:placeholder="#{msg.offer.new.available-from}" required autofocus>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('availableFrom')}" th:errors="*{availableFrom}">Available from Error</div>
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="availableTo" class="text-white" th:text="#{msg.offer.new.available-to}">Ponuda raspoloživa do:</label>
+                                    <label for="availableTo" class="text-white" th:text="#{msg.offer.new.available-to} + ':'"></label>
                                     <input th:field="*{availableTo}" type="date" name="availableTo" class="form-control" id="availableTo"
-                                           placeholder="Ponuda raspoloživa do" required autofocus>
-                                    <div class="text-danger" th:if="${#fields.hasErrors('availableTo')}" th:errors="*{availableTo}">Name Error</div>
+                                           th:placeholder="#{msg.offer.new.available-to}" required autofocus>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('availableTo')}" th:errors="*{availableTo}">Available to Error</div>
                                 </div>
                             </div>
 
-                            <input th:field="*{dateAdded}" type="hidden" name="availableTo" class="form-control" id="availableTo"
-                                   placeholder="Ponuda raspoloživa do" required autofocus>
+                            <input th:field="*{dateAdded}" type="hidden" name="availableTo" class="form-control" id="availableTo" required autofocus>
 
                             <div class="form-group">
-                                <label for="file" class="text-white" th:text="#{msg.offer.new.picture}">Slika:<br/>Ako želite drugu sliku, prenesite je ovdje:</label>
+                                <label for="file" class="text-white" th:text="#{msg.offer.new.picture} + ':'"><br/><span th:text="#{msg.offer.edit.image}"> </span></label>
                                 <input class="form-control" type="file" id="file" name="file" accept="image">
                             </div>
 
                             <div class="form-group">
-                                <label for="opis" class="text-white" th:text="#{msg.offer.new.description}">Opis team building ponude:</label>
-                                <textarea th:field="*{description}" class="form-control" rows="5" id="opis"></textarea>
-                                <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Name Error</div>
+                                <label for="description" class="text-white" th:text="#{msg.offer.new.description} + ':'"></label>
+                                <textarea th:field="*{description}" class="form-control" rows="5" id="description"></textarea>
+                                <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</div>
                             </div>
-
-                            <input class="btn btn-lg btn-primary btn-block" type="submit" th:value="#{msg.offer.new.submit}" />
-
+                            <input class="btn btn-lg btn-primary btn-block" type="submit" th:value="#{msg.offer.new.submit}"/>
                         </form>
                     </div>
-
                 </div>
             </div>
         </div>

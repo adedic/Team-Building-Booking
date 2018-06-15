@@ -24,37 +24,37 @@
                             <span th:value="${#authentication.principal.id}"> </span>
                             <input type="hidden" th:field="*{id}" th:value="${#authentication.principal.id}"/>
                             <div class="form-group col-md-12">
-                                <b><label th:text="#{msg.profile.username}">:</label></b>
+                                <b><label th:text="#{msg.profile.username} + ':'"></label></b>
                                 <input class="form-control" th:field="*{username}" autofocus/>
                                 <p class="text-danger" th:each="error: ${#fields.errors('username')}"
                                    th:text="${error}">Validation error</p>
                             </div>
                             <div class="form-group col-md-12">
-                                <b><label th:text="#{msg.profile.name}">Ime:</label></b>
+                                <b><label th:text="#{msg.profile.name} + ':'"></label></b>
                                 <input class="form-control" th:field="*{name}"/>
                                 <p class="text-danger" th:each="error: ${#fields.errors('name')}"
                                    th:text="${error}">Validation error</p>
                             </div>
                             <div class="form-group col-md-12">
-                                <b><label th:text="#{msg.profile.surname}">Prezime:</label></b>
+                                <b><label th:text="#{msg.profile.surname} + ':'"></label></b>
                                 <input class="form-control" th:field="*{surname}"/>
                                 <p class="text-danger" th:each="error: ${#fields.errors('surname')}"
                                    th:text="${error}">Validation error</p>
                             </div>
                             <div class="form-group col-md-12">
-                                <b><label th:text="#{msg.profile.birthday}">Datum rođenja:</label></b>
+                                <b><label th:text="#{msg.profile.birthday} + ':'"></label></b>
                                 <input type="date" class="form-control" th:field="*{dateOfBirth}"/>
                                 <p class="text-danger" th:each="error: ${#fields.errors('dateOfBirth')}"
                                    th:text="${error}">Validation error</p>
                             </div>
                             <div class="form-group col-md-12">
-                                <b><label th:text="#{msg.profile.edit.email}">Email:</label></b>
+                                <b><label th:text="#{msg.profile.edit.email} + ':'"></label></b>
                                 <input class="form-control" type="email" th:field="*{email}"/>
                                 <p class="text-danger" th:each="error : ${#fields.errors('email')}"
                                    th:text="${error}">Validation error</p>
                             </div>
                             <div class="form-group col-md-12">
-                                <b><label th:text="#{msg.profile.edit.phone}">Broj telefona:</label></b>
+                                <b><label th:text="#{msg.profile.edit.phone} + ':'"></label></b>
                                 <input class="form-control" type="text" th:field="*{telephone}"/>
                                 <p class="text-danger" th:each="error : ${#fields.errors('telephone')}"
                                    th:text="${error}">Validation error</p>

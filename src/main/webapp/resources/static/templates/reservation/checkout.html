@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
-    <title th:text="'Potvrda rezervacije'"></title>
+    <title th:text="#{msg.reservation.checkout.heading}"></title>
 
 </head>
 <body>
@@ -15,10 +15,10 @@
         <div class="row justify-content-md-start">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title text-secondary">Potvrda rezervacije</h3>
+                    <h3 class="panel-title text-secondary" th:text="#{msg.reservation.checkout.heading}"></h3>
                     <div class="row">
                         <div class="col-md-6" th:if="${errorMessage == null}">
-                            <p class="text-danger">Molimo Vas da provjerite Vase podatke prije potvrde rezervacije.</p>
+                            <p class="text-danger" th:text="#{msg.reservation.checkout.info}"></p>
                         </div>
                         <div class="col-md-6" th:if="${errorMessage}">
                             <h4 class="text-danger" th:text="${errorMessage}"></h4>
@@ -32,32 +32,32 @@
                             <table class="table table-hover">
                                 <tbody>
                                     <tr>
-                                        <td><b>Naziv: </b></td>
-                                        <!-- Put link to offer here on name -->
+                                        <td><b th:text="#{msg.reservation.checkout.name}"></b></td>
+                                        <!--TODO Put link to offer here on name -->
                                         <td th:text="${offer.name}"></td>
                                     </tr>
                                     <tr>
-                                        <td><b>Mjesto: </b></td>
-                                        <td th:text="${offer.country + ' ' + offer.city}"></td>
+                                        <td><b th:text="#{msg.reservation.checkout.place}"></b></td>
+                                        <td th:text="${offer.country + ', ' + offer.city}"></td>
                                     </tr>
                                     <tr>
-                                        <td><b>Adresa: </b></td>
+                                        <td><b th:text="#{msg.reservation.checkout.address}"></b></td>
                                         <td th:text="${offer.address}"></td>
                                     </tr>
                                     <tr>
-                                        <td><b>Datum: </b></td>
+                                        <td><b th:text="#{msg.reservation.checkout.date}"></b></td>
                                         <td th:text="${#dates.format(reservationForm.date, 'dd.MM.yyyy')}"></td>
                                     </tr>
                                     <tr>
-                                        <td><b>Broj osoba: </b></td>
+                                        <td><b th:text="#{msg.reservation.checkout.numOfUsers}"></b></td>
                                         <td th:text="${reservationForm.numberOfUsers}"></td>
                                     </tr>
                                     <tr>
-                                        <td><b>Cijena po osobi: </b></td>
+                                        <td><b th:text="#{msg.reservation.checkout.pricePerPerson}"></b></td>
                                         <td th:text="${offer.pricePerPerson}"></td>
                                     </tr>
                                     <tr class="text-info">
-                                        <td><b>Cijena ukupno: </b></td>
+                                        <td><b th:text="#{msg.reservation.checkout.priceTotal}"></b></td>
                                         <td th:text="${offer.pricePerPerson * reservationForm.numberOfUsers}"></td>
                                     </tr>
                                 </tbody>
@@ -75,7 +75,7 @@
                             <input type="hidden" th:field="*{numberOfUsers}"/>
                             <input class="btn btn-lg btn-outline-primary btn-block"
                                    th:disabled="${errorMessage != null}"
-                                   type="submit" value="Potvrdi rezervaciju" />
+                                   type="submit" th:value="#{msg.reservation.checkout.confirmLink}"/>
                         </form>
                     </div>
                 </div>

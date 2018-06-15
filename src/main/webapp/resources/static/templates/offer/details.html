@@ -24,10 +24,16 @@
         <div class="row justify-content-md-center">
             <div class="col-md-9" style="padding-top: 10vh;">
                 <div class="col-md-12">
-                    <a th:if="${offer.user.username == #authentication.getName()}" th:href="@{'/offer/edit/' + ${offer.id}}"><button type="button"
-                                                                         class="btn btn-outline-warning" ><i class="fa fa-pencil"></i> <span th:text="#{msg.offer.details.edit}"> Uredi</span></button></a>
-                    <a th:if="${offer.user.username == #authentication.getName()}" th:href="@{'/offer/updateActivity/' + ${offer.id}}"><button type="button"
-                                                                           th:class="${offer.isActive() ? 'btn btn-outline-danger' : 'btn btn-outline-success'}"><span th:if="${offer.isActive() == true}" th:text="#{msg.offer.set-inactive}"></span><span th:if="${offer.isActive() == false}" th:text="#{msg.offer.set-active}"></span></button></a>
+                    <a th:if="${offer.user.username == #authentication.getName()}" th:href="@{'/offer/edit/' + ${offer.id}}">
+                        <button type="button" class="btn btn-outline-warning"><i class="fa fa-pencil"></i> <span th:text="#{msg.offer.details.edit}"></span>
+                        </button>
+                    </a>
+                    <a th:if="${offer.user.username == #authentication.getName()}" th:href="@{'/offer/updateActivity/' + ${offer.id}}">
+                        <button type="button" th:class="${offer.isActive() ? 'btn btn-outline-danger' : 'btn btn-outline-success'}">
+                            <span th:if="${offer.isActive() == true}" th:text="#{msg.offer.set-inactive}"></span>
+                            <span th:if="${offer.isActive() == false}" th:text="#{msg.offer.set-active}"></span>
+                        </button>
+                    </a>
                     <div class="row">
                         <div class="col-md-8">
                             <h1 class="panel-title" th:text="${offer.name}"></h1>
@@ -46,14 +52,11 @@
                         <div class="col-md-4" style="padding-top:2vh">
                             <h6><span class="fa fa-male text-danger"></span> <span th:text="${offer.minNumberOfUsers} + ' - '"></span>
                                 <span th:text="${offer.maxNumberOfUsers}"></span> <span  th:text="#{msg.offer.details.people}"></span></h6>
-                            <h6><span class="fa fa-money text-success"></span> <span th:text="${#numbers.formatDecimal(offer.pricePerPerson,2,0)}"></span> <span th:text="#{msg.offer.details.price-per-person}">kn po osobi</span></h6>
+                            <h6><span class="fa fa-money text-success"></span> <span th:text="${#numbers.formatDecimal(offer.pricePerPerson,2,0)}"></span> <span th:text="#{msg.offer.details.price-per-person}"></span></h6>
                         </div>
-
                     </div>
                 </div>
-
             </div>
-
         </div>
         <div class="row justify-content-md-center">
 
@@ -61,7 +64,6 @@
 
                 <div class="col-md-12">
                     <div class="row">
-
                         <div class="col-md-8">
                             <p class="text-black-50" th:text="${offer.description}"></p>
                         </div>
@@ -90,13 +92,13 @@
         <div class="row justify-content-md-center">
             <div class="col-md-9" style="padding-top: 5vh;">
                 <div class="col-md-12" >
-                    <p class="text-secondary" th:if="${offer.feedbacks.isEmpty()}" th:text="#{msg.offer.details.reviews.no-reviews}">Nema osvrta za ovu ponudu.</p>
+                    <p class="text-secondary" th:if="${offer.feedbacks.isEmpty()}" th:text="#{msg.offer.details.reviews.no-reviews}"></p>
                     <div th:each="feedback, i : ${offer.feedbacks}">
 
-                        <h4 class="text-muted" th:if="${i.index}==0" th:text="#{msg.offer.details.reviews.reviews}">Osvrti korisnika:</h4><br>
+                        <h4 class="text-muted" th:if="${i.index}==0" th:text="#{msg.offer.details.reviews.reviews}"></h4><br>
                         <div class="card" th:if="${i.index}<2">
-                            <div class="card-body" >
-                                <div class="row"  >
+                            <div class="card-body">
+                                <div class="row">
                                     <div class="col-md-2">
                                         <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" style="width:100px"/>
                                         <p class="text-secondary" th:text="${#dates.format(feedback.dateSubmitted, 'dd.MM.yyyy.')}"></p>
@@ -116,14 +118,13 @@
                                         <div class="clearfix"></div>
                                         <br>
                                         <p th:text="${feedback.comment}"></p>
-
                                     </div>
                                 </div>
                             </div>
 
                         </div>
                         <div class="col-sm text-right" th:if="${i.index > 1}" th:remove="${!i.last} ? all" >
-                            <a th:href="@{'/offer/details/' + ${offer.id} + '/reviews'}">Pogledaj sve osvrte</a>
+                            <a th:href="@{'/offer/details/' + ${offer.id} + '/reviews'}" th:text="#{msg.offer.details.reviews.link-all}"></a>
                         </div>
                     </div>
                     <a th:text="#{msg.offer.details.reviews.newReview.link}" th:href="@{'/offer/newReview/' + ${offer.id} }" class="btn btn-primary active">Dodaj novi osvrt</a>
@@ -139,18 +140,16 @@
                     <form role="form" method="GET" name="formReservation" th:action="@{/reservation/checkout}"
                           th:object="${reservationForm}" class="needs-validation" novalidate>
                         <div class="form-row">
-
                             <div class="form-group col-md-3">
-                                <label for="dateString" th:text="#{msg.offer.details.reservation.date-of-arrival}">Datum dolaska:</label>
+                                <label for="dateString" th:text="#{msg.offer.details.reservation.date-of-arrival}"></label>
                                     <input type="text" class="form-control form-control-lg col-md-12" required="required"
                                            th:field="*{dateString}" th:value="${#dates.format(#dates.createNow(), 'dd.MM.yyyy.')}" name="dateString" id="dateString"/>
                                     <div class="invalid-feedback">
-                                       <span>Odaberi datum dolaska!</span>
+                                       <span th:text="#{msg.offer.details.reservation.date-of-arrival.help}"></span>
                                     </div>
-
                             </div>
                             <div class="form-group col-md-2">
-                                <label for="numberOfUsers" th:text="#{msg.offer.details.reservation.number-of-users}">Broj korisnika:</label>
+                                <label for="numberOfUsers" th:text="#{msg.offer.details.reservation.number-of-users}"></label>
                                     <input type="number" th:attr="min=${offer.minNumberOfUsers}, max=${offer.maxNumberOfUsers}"
                                            required="required"
                                            th:placeholder="${offer.minNumberOfUsers}+ ' - ' + ${offer.maxNumberOfUsers}"
@@ -160,7 +159,6 @@
                                     </div>
                             </div>
                             <div class="form-group col-md-7" style="margin-top:32px">
-
                                 <input class="btn btn-lg btn-outline-primary btn-block"
                                        type="submit" th:value="#{msg.offer.details.reservation.book-offer}" />
                             </div>
@@ -169,12 +167,9 @@
                     </form>
                 </div>
             </div>
-
         </div>
-
     </div>
     </div>
-
 
 </body>
 </html>
