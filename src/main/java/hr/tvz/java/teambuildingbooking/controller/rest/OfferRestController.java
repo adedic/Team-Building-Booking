@@ -3,9 +3,12 @@ package hr.tvz.java.teambuildingbooking.controller.rest;
 import hr.tvz.java.teambuildingbooking.model.Feedback;
 import hr.tvz.java.teambuildingbooking.model.Offer;
 import hr.tvz.java.teambuildingbooking.model.User;
+import hr.tvz.java.teambuildingbooking.model.form.NewReviewForm;
 import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
 import hr.tvz.java.teambuildingbooking.model.rest.RestEditOffer;
 import hr.tvz.java.teambuildingbooking.model.rest.RestNewOffer;
+import hr.tvz.java.teambuildingbooking.model.rest.RestNewReview;
+import hr.tvz.java.teambuildingbooking.service.FeedbackService;
 import hr.tvz.java.teambuildingbooking.service.OfferService;
 import hr.tvz.java.teambuildingbooking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +30,13 @@ public class OfferRestController {
 
     private OfferService offerService;
     private UserService userService;
+    private FeedbackService feedbackService;
 
     @Autowired
-    public OfferRestController(OfferService offerService, UserService userService) {
+    public OfferRestController(OfferService offerService, UserService userService, FeedbackService feedbackService) {
         this.offerService = offerService;
         this.userService = userService;
+        this.feedbackService = feedbackService;
     }
 
     @GetMapping
@@ -145,6 +150,18 @@ public class OfferRestController {
 
         return new ResponseEntity<>(offers, HttpStatus.NOT_FOUND);
 
+    }
+
+    @PostMapping("/newReview")
+    private ResponseEntity<Feedback> handleNewReviewForm(@RequestBody RestNewReview review) throws ParseException, IOException{
+
+        Feedback feedback = feedbackService.createFeedback(review.getNewReviewForm(), review.getUsername());
+
+        if (feedback != null) {
+            return new ResponseEntity<>(feedback, HttpStatus.CREATED);
+        }
+
+        return new ResponseEntity<>(feedback, HttpStatus.NOT_FOUND);
     }
 
 }
