@@ -196,7 +196,7 @@ public class OfferServiceImpl implements OfferService {
 
         offer.setUser(userService.findByUsername(username));
 
-        if (!base64String.isEmpty()) {
+        if (!base64String.isEmpty() && size > 0) {
             OfferPicture offerPicture = new OfferPicture(base64String, name, size);
             offerPictureService.save(offerPicture);
             offer.setOfferPicture(offerPicture);
@@ -227,16 +227,4 @@ public class OfferServiceImpl implements OfferService {
         return categoriesSet;
     }
 
-    @Modifying
-    @Transactional
-    @Override
-    public void deleteOfferById(Long id) {
-        offerRepository.deleteOfferById(id);
-    }
-
-    // --- private / util methods ---------------------------------------------
-
-//    private String convertByteArrayToBase64String(byte[] bytes, String contentType) {
-//        return "data:" + contentType + ";base64," + Base64.getEncoder().encodeToString(bytes);
-//    }
 }

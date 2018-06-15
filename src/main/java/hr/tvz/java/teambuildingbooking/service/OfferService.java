@@ -28,8 +28,6 @@ public interface OfferService {
 
     List<Offer> findOffersByUserOrderByDateAdded(User user);
 
-    void deleteOfferById(Long id);
-
     Offer editOffer(EditOfferForm editOfferForm, String base64String, String name, Integer size, String username) throws ParseException, IOException;
 
     boolean isOfferValid(ReservationForm reservationForm);

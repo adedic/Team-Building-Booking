@@ -5,7 +5,6 @@ import hr.tvz.java.teambuildingbooking.model.form.NewReviewForm;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface FeedbackMapper {
