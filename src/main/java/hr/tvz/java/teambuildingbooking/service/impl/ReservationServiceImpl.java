@@ -36,6 +36,7 @@ public class ReservationServiceImpl implements ReservationService {
         Reservation reservation = new Reservation();
         reservation.setOffer(offer);
         reservation.setUser(user);
+        reservation.setNotificationSent(false);
         reservation.setDateOfReservation(reservationForm.getDate());
         reservation.setNumberOfUsers(reservationForm.getNumberOfUsers());
         reservation.setDateLastEdited(reservationForm.getDate());

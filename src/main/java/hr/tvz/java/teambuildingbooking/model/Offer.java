@@ -271,15 +271,14 @@ public class Offer implements Serializable {
     public String toString() {
         return "Offer{" +
                 "id=" + id +
-                ", user=" + user +
+                //", user=" + user +
                 ", country='" + country + '\'' +
                 ", name='" + name + '\'' +
                 ", city='" + city + '\'' +
                 ", address='" + address + '\'' +
-                ", categories=" + categories +
-                ", feedbacks=" + feedbacks +
-                ", reservations=" + reservations +
-                ", offerPicture=" + offerPicture +
+               // ", categories=" + categories +
+               // ", feedbacks=" + feedbacks +
+               // ", reservations=" + reservations +
                 ", minNumberOfUsers=" + minNumberOfUsers +
                 ", maxNumberOfUsers=" + maxNumberOfUsers +
                 ", pricePerPerson=" + pricePerPerson +
