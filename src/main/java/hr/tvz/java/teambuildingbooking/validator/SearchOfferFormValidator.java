@@ -2,7 +2,6 @@ package hr.tvz.java.teambuildingbooking.validator;
 
 import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
 import hr.tvz.java.teambuildingbooking.service.CategoryService;
-import hr.tvz.java.teambuildingbooking.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
