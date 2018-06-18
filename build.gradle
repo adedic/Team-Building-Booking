@@ -35,7 +35,10 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     compile('org.springframework.boot:spring-boot-starter-quartz')
-	compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
+    compile('org.springframework.boot:spring-boot-starter-mail')
+    compile group: 'javax.mail', name: 'mail', version: '1.4.1'
+
+    compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect')
 	compile "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
