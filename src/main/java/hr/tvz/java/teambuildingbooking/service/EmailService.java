@@ -1,6 +1,6 @@
 package hr.tvz.java.teambuildingbooking.service;
 
-import hr.tvz.java.teambuildingbooking.model.rest.Mail;
+import hr.tvz.java.teambuildingbooking.model.Mail;
 
 public interface EmailService {
 

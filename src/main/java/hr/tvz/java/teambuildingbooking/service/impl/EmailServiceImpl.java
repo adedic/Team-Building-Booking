@@ -1,12 +1,11 @@
 package hr.tvz.java.teambuildingbooking.service.impl;
 
-import hr.tvz.java.teambuildingbooking.model.rest.Mail;
+import hr.tvz.java.teambuildingbooking.model.Mail;
 import hr.tvz.java.teambuildingbooking.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 public class EmailServiceImpl implements EmailService {

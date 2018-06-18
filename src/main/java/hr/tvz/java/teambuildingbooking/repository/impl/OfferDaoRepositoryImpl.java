@@ -3,6 +3,7 @@ package hr.tvz.java.teambuildingbooking.repository.impl;
 import hr.tvz.java.teambuildingbooking.model.Offer;
 import hr.tvz.java.teambuildingbooking.model.criteria.SearchCriteria;
 import hr.tvz.java.teambuildingbooking.repository.OfferDaoRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -16,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
+@Slf4j
 public class OfferDaoRepositoryImpl implements OfferDaoRepository {
 
     @PersistenceContext
@@ -60,7 +62,7 @@ public class OfferDaoRepositoryImpl implements OfferDaoRepository {
         try {
             result = entityManager.createQuery(query).getResultList();
         } catch (Exception e){
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return result;
     }
