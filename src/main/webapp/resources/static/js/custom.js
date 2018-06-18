@@ -41,7 +41,7 @@ $(function() {
 //on language select change
     $("#languages").change(function () {
 
-        selectedOption = $("input[name='language']:checked").val();
+        var selectedOption = $("input[name='language']:checked").val();
 
         if (selectedOption != ''){
             window.location.replace('?language=' + selectedOption);

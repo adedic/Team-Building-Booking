@@ -1,11 +1,13 @@
 package hr.tvz.java.teambuildingbooking.model.form;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.extern.slf4j.Slf4j;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@Slf4j
 public class ReservationForm {
 
     private Long offerId;
@@ -40,10 +42,9 @@ public class ReservationForm {
         } else {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             try {
-                Date date = formatter.parse(this.dateString);
-                return date;
+                return formatter.parse(this.dateString);
             } catch (ParseException e) {
-                e.printStackTrace();
+               log.error(e.getMessage());
                 return null;
             }
         }
