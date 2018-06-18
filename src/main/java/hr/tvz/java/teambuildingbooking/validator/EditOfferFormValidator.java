@@ -72,6 +72,7 @@ public class EditOfferFormValidator implements Validator {
     }
 
 
+    @SuppressWarnings("Duplicates")
     private void validateDates(String availableFrom, String availableTo, Errors errors) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
 

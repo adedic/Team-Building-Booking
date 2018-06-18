@@ -69,7 +69,7 @@
 
                         <h3 class="panel-title text-white" th:text="#{msg.details.reviews.newReview.heading}">Dodajte novi osvrt</h3>
                     </div>
-                    <input class="hide" type="text" th:value="${offer.id}" name="offerId">
+
                     <div class="panel-body">
                         <div class="txt-center">
                             <form role="form" method="POST" name="formNewReview" th:action="@{/offer/newReview/}" th:object="${newReviewForm}" class="needs-validation">
@@ -98,7 +98,7 @@
                                         Niste napisali osvrt!
                                     </div>
                                 </div>
-
+                                <input type="hidden" th:value="${offer.id}" name="offerId">
                                 <input class="btn btn-lg btn-primary btn-block" type="submit" th:value="#{msg.offer.details.reviews.newReview.submit}" />
 
 
