@@ -18,11 +18,6 @@ public class CustomUserDetails extends User implements Serializable, UserDetails
     }
 
     @Override
-    public String getPassword() {
-        return super.getPassword();
-    }
-
-    @Override
     public boolean isAccountNonExpired() {
         return true;
     }
@@ -40,11 +35,6 @@ public class CustomUserDetails extends User implements Serializable, UserDetails
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    @Override
-    public String getUsername() {
-        return super.getUsername();
     }
 
 }
