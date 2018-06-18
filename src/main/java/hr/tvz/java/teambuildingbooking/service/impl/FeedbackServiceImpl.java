@@ -38,11 +38,12 @@ public class FeedbackServiceImpl implements FeedbackService {
     public Feedback createFeedback(NewReviewForm newReviewForm, String username) throws ParseException, IOException {
         Feedback feedback = FeedbackMapper.INSTANCE.newReviewFormToReview(newReviewForm);
 
-        //Offer offer = offerService.findOne(newReviewForm.getOfferId()).get();
+        long offerId = newReviewForm.getOfferId();
+        Offer offer = offerService.findOne(offerId).get();
         feedback.setDateSubmitted(new Date());
         feedback.setDateLastEdited(new Date());
 
-        //feedback.setOffer(offer);
+        feedback.setOffer(offer);
         User user = userService.findByUsername(username);
 
 
