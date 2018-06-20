@@ -245,9 +245,8 @@ public class OfferController {
         Feedback feedback = feedbackService.createFeedback(form, principal.getName());
         //redirectAttributes.addFlashAttribute("createSuccess", "Dodavanje osvrta je uspjelo.!");
 
-        //log.info("Successfully created review with ID = " + feedback.getId());
 
-        return OFFER_SEARCH_REDIRECT_NAME;
+        return "redirect:/offer/details/" + feedback.getOffer().getId();
     }
 
 
