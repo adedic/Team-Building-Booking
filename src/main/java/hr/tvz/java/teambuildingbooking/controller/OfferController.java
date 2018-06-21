@@ -53,6 +53,7 @@ public class OfferController {
 
     private static final String OFFER_SEARCH_REDIRECT_NAME = "redirect:/offer/search";
     private static final String OFFER_DETAILS_REDIRECT_NAME = "redirect:/offer/details/";
+
     // --- model attribute names ----------------------------------------------
 
     private static final String CATEGORIES_MODEL_ATTRIBUTE_NAME = "categories";
@@ -77,11 +78,9 @@ public class OfferController {
 
     private SearchOfferFormValidator searchOfferFormValidator;
 
-    private final FeedbackService feedbackService;
 
-    //TODO odvojiti feedback dodavanje u novi kontroler za FeedbackController jer constructor ima nedozvoljeno mnogo parametara
     @Autowired
-    public OfferController(OfferService offerService, CategoryService categoryService, UserService userService, OfferFacade offerFacade, NewOfferFormValidator newOfferFormValidator, EditOfferFormValidator editOfferFormValidator, OfferPictureService offerPictureService, SearchOfferFormValidator searchOfferFormValidator, FeedbackService feedbackService) {
+    public OfferController(OfferService offerService, CategoryService categoryService, UserService userService, OfferFacade offerFacade, NewOfferFormValidator newOfferFormValidator, EditOfferFormValidator editOfferFormValidator, OfferPictureService offerPictureService, SearchOfferFormValidator searchOfferFormValidator) {
         this.offerService = offerService;
         this.categoryService = categoryService;
         this.userService = userService;
@@ -89,9 +88,7 @@ public class OfferController {
         this.newOfferFormValidator = newOfferFormValidator;
         this.editOfferFormValidator = editOfferFormValidator;
         this.searchOfferFormValidator = searchOfferFormValidator;
-        this.feedbackService = feedbackService;
     }
-
     @Secured({"PROVIDER, ADMIN"})
     @RequestMapping("/new")
     private String newOffer(Model model) {
@@ -191,13 +188,26 @@ public class OfferController {
         return SEARCH_OFFER_VIEW_NAME;
     }
 
-
+    @RequestMapping("/newReview/{id}")
+    private String newReview(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes){
+        Optional<Offer> offer = offerService.findOne(id);
+        if(offer.isPresent()){
+            model.addAttribute("newReviewForm", new NewReviewForm());
+            model.addAttribute("offer", offer.get());
+            return NEW_REVIEW_VIEW_NAME;
+        }
+        else{
+            redirectAttributes.addFlashAttribute(OFFER_NOT_FOUND_REDIRECT_ATTRIBUTE, "Ponuda s ID = " + id + "nije pronađena!");
+            return OFFER_SEARCH_REDIRECT_NAME;
+        }
+    }
 
     @RequestMapping("/details/{id}")
     private String showDetails(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         Optional<Offer> offer = offerService.findOne(id);
 
         if (offer.isPresent()) {
+            //double average = feedbackService.average(id);
             ReservationForm reservationForm = new ReservationForm(offer.get().getId(), null, null);
             model.addAttribute("offer", offer.get());
             model.addAttribute("reservationForm", reservationForm);
@@ -208,47 +218,6 @@ public class OfferController {
         }
 
         return DETAILS_VIEW_NAME;
-    }
-
-    @RequestMapping("/details/{id}/reviews")
-    private String showReviews(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
-        Optional<Offer> offer = offerService.findOne(id);
-        if (offer.isPresent()) {
-            model.addAttribute("feedbacks", offer.get().getFeedbacks());
-            fetchOfferLogMessage(id);
-        } else {
-            redirectAttributes.addFlashAttribute(OFFER_NOT_FOUND_REDIRECT_ATTRIBUTE, getOfferNotFoundRedirectAttribute(id));
-            return OFFER_SEARCH_REDIRECT_NAME;
-        }
-
-        return REVIEWS_VIEW_NAME;
-    }
-
-    @Secured({"USER"})
-    @RequestMapping("/newReview/{id}")
-    private String newReview(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes){
-        Optional<Offer> offer = offerService.findOne(id);
-        if(offer.isPresent()){
-            model.addAttribute("newReviewForm", new NewReviewForm());
-            model.addAttribute("offer", offer.get());
-            return NEW_REVIEW_VIEW_NAME;
-        }
-        else{
-            redirectAttributes.addFlashAttribute(OFFER_NOT_FOUND_REDIRECT_ATTRIBUTE, getOfferNotFoundRedirectAttribute(id));
-            return OFFER_SEARCH_REDIRECT_NAME;
-        }
-    }
-    @Secured({"USER"})
-    @PostMapping("/newReview")
-    private String handleNewReviewForm(@Valid @ModelAttribute ("newReviewForm") NewReviewForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes, Principal principal, Model model) throws ParseException, IOException{
-        if(bindingResult.hasErrors()){
-            return NEW_REVIEW_VIEW_NAME;
-        }
-        Feedback feedback = feedbackService.createFeedback(form, principal.getName());
-        //redirectAttributes.addFlashAttribute("createSuccess", "Dodavanje osvrta je uspjelo.!"); ovo maknuti zbog Sonara
-
-
-        return OFFER_DETAILS_REDIRECT_NAME + feedback.getOffer().getId();
     }
 
 
