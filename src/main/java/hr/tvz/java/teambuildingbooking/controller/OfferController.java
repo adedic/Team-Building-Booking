@@ -2,7 +2,6 @@ package hr.tvz.java.teambuildingbooking.controller;
 
 import hr.tvz.java.teambuildingbooking.facade.OfferFacade;
 import hr.tvz.java.teambuildingbooking.model.Category;
-import hr.tvz.java.teambuildingbooking.model.Feedback;
 import hr.tvz.java.teambuildingbooking.model.Offer;
 import hr.tvz.java.teambuildingbooking.model.User;
 import hr.tvz.java.teambuildingbooking.model.form.*;
@@ -44,7 +43,6 @@ public class OfferController {
     private static final String NEW_OFFER_VIEW_NAME = "offer/new-offer";
     private static final String SEARCH_OFFER_VIEW_NAME = "offer/search-offer";
     private static final String DETAILS_VIEW_NAME = "offer/details";
-    private static final String REVIEWS_VIEW_NAME = "offer/reviews";
     private static final String EDIT_OFFER_VIEW_NAME = "offer/edit-offer";
     private static final String MY_OFFERS_VIEW_NAME = "offer/myOffers";
     private static final String NEW_REVIEW_VIEW_NAME = "offer/new-review";
@@ -197,7 +195,7 @@ public class OfferController {
             return NEW_REVIEW_VIEW_NAME;
         }
         else{
-            redirectAttributes.addFlashAttribute(OFFER_NOT_FOUND_REDIRECT_ATTRIBUTE, "Ponuda s ID = " + id + "nije pronađena!");
+            redirectAttributes.addFlashAttribute(OFFER_NOT_FOUND_REDIRECT_ATTRIBUTE, getOfferNotFoundRedirectAttribute(id));
             return OFFER_SEARCH_REDIRECT_NAME;
         }
     }
@@ -207,7 +205,7 @@ public class OfferController {
         Optional<Offer> offer = offerService.findOne(id);
 
         if (offer.isPresent()) {
-            //double average = feedbackService.average(id);
+            //double average = feedbackService.average(id); prosjecna ocjena
             ReservationForm reservationForm = new ReservationForm(offer.get().getId(), null, null);
             model.addAttribute("offer", offer.get());
             model.addAttribute("reservationForm", reservationForm);

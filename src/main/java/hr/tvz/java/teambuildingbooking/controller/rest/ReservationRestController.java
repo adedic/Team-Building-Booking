@@ -76,7 +76,7 @@ public class ReservationRestController {
         if (offer.isPresent() && user != null) {
             if (offerService.isOfferValid(reservationForm)) {
                 List<Reservation> reservations = reservationService.getAllReservationsByOffer(reservationForm);
-                if (reservations.size() > 0) {
+                if (!reservations.isEmpty()) {
                     Optional<Reservation> reservedByThisUser = reservations.stream().findFirst().filter(r -> r.getUser().getId().equals(user.getId()));
                     if (reservedByThisUser.isPresent()) {
                         return MESSAGE_OFFER_RESSERVED_BY_THIS_USER;

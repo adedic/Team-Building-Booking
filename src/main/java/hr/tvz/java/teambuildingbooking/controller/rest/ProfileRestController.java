@@ -36,19 +36,18 @@ public class ProfileRestController {
     @GetMapping("/me/{username}")
     private ResponseEntity<User> getMyProfile(@PathVariable String username) {
 
-        User user = userService.findByUsername(username);
-
-        if(user != null) {
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
+        return getProfile(username);
 
     }
 
     @GetMapping("/{username}")
     private ResponseEntity<User> getUserProfile(@PathVariable String username) {
 
+        return getProfile(username);
+
+    }
+
+    private ResponseEntity<User> getProfile(@PathVariable String username) {
         User user = userService.findByUsername(username);
 
         if(user != null) {
@@ -56,19 +55,12 @@ public class ProfileRestController {
         }
 
         return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
-
     }
 
     @GetMapping("/edit/{username}")
     private ResponseEntity<User> editProfile(@PathVariable String username) {
 
-        User user = userService.findByUsername(username);
-
-        if(user != null) {
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
+        return getProfile(username);
 
     }
 

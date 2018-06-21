@@ -82,7 +82,7 @@ public class FeedbackController {
             return NEW_REVIEW_VIEW_NAME;
         }
         Feedback feedback = feedbackService.createFeedback(form, principal.getName());
-        //redirectAttributes.addFlashAttribute("createSuccess", "Dodavanje osvrta je uspjelo.!");
+        //redirectAttributes.addFlashAttribute("createSuccess", "Dodavanje osvrta je uspjelo.!"); uspjesno dodavanje
 
 
         return "redirect:/offer/details/" + feedback.getOffer().getId();
