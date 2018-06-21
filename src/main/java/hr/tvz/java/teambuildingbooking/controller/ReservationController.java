@@ -27,7 +27,6 @@ import java.util.Optional;
 public class ReservationController {
 
     private static final String RESERVATION_CHECKOUT = "reservation/checkout";
-    //private static final String SAVE_RESERVATION = "reservation/saveReservation"; TODO
     private static final String SAVE_SUCCESSFUL = "reservation/saveSuccessful";
     private static final String SAVE_UNSUCCESSFUL = "reservation/saveUnsuccessful";
 
