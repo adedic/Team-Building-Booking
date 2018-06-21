@@ -39,25 +39,30 @@ public class FeedbackServiceImpl implements FeedbackService {
         Feedback feedback = FeedbackMapper.INSTANCE.newReviewFormToReview(newReviewForm);
 
         long offerId = newReviewForm.getOfferId();
-        Offer offer = offerService.findOne(offerId).get();
-        feedback.setDateSubmitted(new Date());
-        feedback.setDateLastEdited(new Date());
 
-        feedback.setOffer(offer);
-        User user = userService.findByUsername(username);
+        if(offerService.findOne(offerId).isPresent()) {
+            Offer offer = offerService.findOne(offerId).get();
 
 
-        feedback.setUser(user);
+            feedback.setDateSubmitted(new Date());
+            feedback.setDateLastEdited(new Date());
+
+            feedback.setOffer(offer);
+            User user = userService.findByUsername(username);
 
 
-        Feedback savedFeedback = feedbackRepository.save(feedback);
-        return savedFeedback;
+            feedback.setUser(user);
+        }
+
+        return feedbackRepository.save(feedback);
+
     }
 
     @Override
     public double average(long offerId) {
-        double average;
-        int sum = 0, count = 0;
+        double average = 0;
+        int sum = 0;
+        int count = 0;
         Set<Feedback> feedbacks;
         if (offerService.findOne(offerId).isPresent()) {
             Offer offer = offerService.findOne(offerId).get();
@@ -66,7 +71,9 @@ public class FeedbackServiceImpl implements FeedbackService {
                 count++;
                 sum += f.getNumberOfStars();
             }
-            average = sum / count;
+            if(count!=0){
+                average = (double)sum / count;
+            }
         } else {
             average = 0;
         }
