@@ -28,9 +28,7 @@ public class Role implements GrantedAuthority, Serializable {
     // --- get / set methods --------------------------------------------------
 
     @Override
-    public String getAuthority() {
-        return name;
-    }
+    public String getAuthority() { return name; }
 
     public Integer getId() {
         return id;

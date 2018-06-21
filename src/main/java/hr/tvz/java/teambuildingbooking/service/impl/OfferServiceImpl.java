@@ -65,6 +65,36 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public List<Offer> findOffers(SearchOfferForm searchOffer) {
+        List<SearchCriteria> searchCriteria = getSearchCriteria(searchOffer);
+
+        return getSearchedOffers(searchOffer, searchCriteria);
+    }
+
+    private List<Offer> getSearchedOffers(SearchOfferForm searchOffer, List<SearchCriteria> searchCriteria) {
+        List<Offer> offerList = offerDaoRepository.findOffers(searchCriteria);
+        List<Offer> finalList = new ArrayList<>();
+
+        for(Offer offer : offerList) {
+            Date date = parseDate(searchOffer);
+            List<Reservation> reservationList = reservationRepository.getReservationsByOffer(date, offer.getId());
+
+            Integer numOfPeople = 0;
+            for(Reservation reservation : reservationList) {
+                numOfPeople += reservation.getNumberOfUsers();
+            }
+
+            if(searchOffer.getNumOfPeople() != null) {
+                if ((numOfPeople + searchOffer.getNumOfPeople()) <= offer.getMaxNumberOfUsers()) {
+                    finalList.add(offer);
+                }
+            } else {
+                finalList.add(offer);
+            }
+        }
+        return finalList;
+    }
+
+    private List<SearchCriteria> getSearchCriteria(SearchOfferForm searchOffer) {
         List<SearchCriteria> searchCriteria = new ArrayList<>();
         if (searchOffer != null) {
             if (searchOffer.getCategory() != null && !searchOffer.getCategory().equals("")) {
@@ -81,45 +111,23 @@ public class OfferServiceImpl implements OfferService {
                 searchCriteria.add(new SearchCriteria("maxNumberOfUsers", ">", searchOffer.getNumOfPeople()));
             }
             if (searchOffer.getDate() != null && !searchOffer.getDate().equals("")) {
-                Date date1 = null;
-                SimpleDateFormat tDateFormatter1 = new SimpleDateFormat("dd.MM.yyyy");
-                try {
-                    date1 = tDateFormatter1.parse(searchOffer.getDate());
-                } catch (ParseException pE) {
-                }
+                Date date1 = parseDate(searchOffer);
                 searchCriteria.add(new SearchCriteria("availableFrom", ":>", date1));
                 searchCriteria.add(new SearchCriteria("availableTo", ":<", date1));
             }
         }
+        return searchCriteria;
+    }
 
-        List<Offer> offerList = offerDaoRepository.findOffers(searchCriteria);
-        List<Offer> finalList = new ArrayList<>();
-
-        for(Offer offer : offerList) {
-            Date date = null;
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT_2);
-            try {
-                date = simpleDateFormat.parse(searchOffer.getDate());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            List<Reservation> reservationList = reservationRepository.getReservationsByOffer(date, offer.getId());
-
-            Integer numOfPeople = 0;
-            for(Reservation reservation : reservationList) {
-                numOfPeople += reservation.getNumberOfUsers();
-            }
-
-            if(searchOffer.getNumOfPeople() != null) {
-                if ((numOfPeople + searchOffer.getNumOfPeople()) <= offer.getMaxNumberOfUsers()) {
-                    finalList.add(offer);
-                }
-            } else {
-                finalList.add(offer);
-            }
+    private Date parseDate(SearchOfferForm searchOffer) {
+        Date date1 = null;
+        SimpleDateFormat tDateFormatter1 = new SimpleDateFormat(DATE_FORMAT_2);
+        try {
+            date1 = tDateFormatter1.parse(searchOffer.getDate());
+        } catch (ParseException pE) {
+            log.info(pE.getMessage());
         }
-
-        return finalList;
+        return date1;
     }
 
     @Override
@@ -140,11 +148,7 @@ public class OfferServiceImpl implements OfferService {
         }
 
         List<Offer> offers = offerDaoRepository.findOffers(searchCriteria);
-        if (offers.size() == 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return offers.size() == 1;
     }
 
     @Override
