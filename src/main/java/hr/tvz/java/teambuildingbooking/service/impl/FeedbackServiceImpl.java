@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Optional;
 import java.util.Set;
 
 @Slf4j
@@ -37,38 +38,46 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     public Feedback createFeedback(NewReviewForm newReviewForm, String username) throws ParseException, IOException {
         Feedback feedback = FeedbackMapper.INSTANCE.newReviewFormToReview(newReviewForm);
-        int stars = newReviewForm.getNumberOfStars();
+
+        long offerId = newReviewForm.getOfferId();
+        Optional<Offer> offer = offerService.findOne(offerId);
+        if(offer.isPresent()) {
+            feedback.setOffer(offer.get());
+        }
         feedback.setDateSubmitted(new Date());
         feedback.setDateLastEdited(new Date());
 
         User user = userService.findByUsername(username);
 
-        feedback.setNumberOfStars(stars);
 
         feedback.setUser(user);
 
-        Feedback savedFeedback = feedbackRepository.save(feedback);
-        return savedFeedback;
+        return feedbackRepository.save(feedback);
     }
 
     @Override
     public double average(long offerId) {
-        double average;
-        int sum = 0, count = 0;
+        double average = 0;
+        int sum = 0;
+        int count = 0;
         Set<Feedback> feedbacks;
         if (offerService.findOne(offerId).isPresent()) {
-            Offer offer = offerService.findOne(offerId).get();
-            feedbacks = offer.getFeedbacks();
-            for (Feedback f : feedbacks) {
-                count++;
-                sum += f.getNumberOfStars();
+            Offer offer = null;
+            Optional<Offer> optionalOffer = offerService.findOne(offerId);
+            if(optionalOffer.isPresent()){
+                offer = optionalOffer.get();
+                feedbacks = offer.getFeedbacks();
+
+                for (Feedback f : feedbacks) {
+                    count++;
+                    sum += f.getNumberOfStars();
+                }
             }
-            average = sum / count;
-        } else {
-            average = 0;
+
+            if(count != 0) {
+                average = (double)sum / count;
+            }
         }
-
-
         return average;
     }
 }

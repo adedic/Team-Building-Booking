@@ -2,7 +2,6 @@ package hr.tvz.java.teambuildingbooking.controller;
 
 import hr.tvz.java.teambuildingbooking.facade.OfferFacade;
 import hr.tvz.java.teambuildingbooking.model.Category;
-import hr.tvz.java.teambuildingbooking.model.Feedback;
 import hr.tvz.java.teambuildingbooking.model.Offer;
 import hr.tvz.java.teambuildingbooking.model.User;
 import hr.tvz.java.teambuildingbooking.model.form.*;
@@ -39,15 +38,29 @@ import java.util.Optional;
 @SessionAttributes({"offers", "searchOfferForm", "categories", "topOffers"})
 public class OfferController {
 
+    // --- view names ---------------------------------------------------------
+
     private static final String NEW_OFFER_VIEW_NAME = "offer/new-offer";
     private static final String SEARCH_OFFER_VIEW_NAME = "offer/search-offer";
     private static final String DETAILS_VIEW_NAME = "offer/details";
-    private static final String REVIEWS_VIEW_NAME = "offer/reviews";
     private static final String EDIT_OFFER_VIEW_NAME = "offer/edit-offer";
     private static final String MY_OFFERS_VIEW_NAME = "offer/myOffers";
     private static final String NEW_REVIEW_VIEW_NAME = "offer/new-review";
 
+    // --- view redirects -----------------------------------------------------
+
+    private static final String OFFER_SEARCH_REDIRECT_NAME = "redirect:/offer/search";
+    private static final String OFFER_DETAILS_REDIRECT_NAME = "redirect:/offer/details/";
+
+    // --- model attribute names ----------------------------------------------
+
+    private static final String CATEGORIES_MODEL_ATTRIBUTE_NAME = "categories";
+
+    private static final String OFFER_NOT_FOUND_REDIRECT_ATTRIBUTE = "offerNotFound";
+
     private static final String DATE_FORMAT = "yyyy-MM-dd";
+
+    // --- autowired components -------------------------------------------------
 
     private final OfferService offerService;
 
@@ -61,30 +74,24 @@ public class OfferController {
 
     private final EditOfferFormValidator editOfferFormValidator;
 
-    private final OfferPictureService offerPictureService;
-
     private SearchOfferFormValidator searchOfferFormValidator;
 
-    private final FeedbackService feedbackService;
 
     @Autowired
-    public OfferController(OfferService offerService, CategoryService categoryService, UserService userService, OfferFacade offerFacade, NewOfferFormValidator newOfferFormValidator, EditOfferFormValidator editOfferFormValidator, OfferPictureService offerPictureService, SearchOfferFormValidator searchOfferFormValidator, FeedbackService feedbackService) {
+    public OfferController(OfferService offerService, CategoryService categoryService, UserService userService, OfferFacade offerFacade, NewOfferFormValidator newOfferFormValidator, EditOfferFormValidator editOfferFormValidator, OfferPictureService offerPictureService, SearchOfferFormValidator searchOfferFormValidator) {
         this.offerService = offerService;
         this.categoryService = categoryService;
         this.userService = userService;
         this.offerFacade = offerFacade;
         this.newOfferFormValidator = newOfferFormValidator;
         this.editOfferFormValidator = editOfferFormValidator;
-        this.offerPictureService = offerPictureService;
         this.searchOfferFormValidator = searchOfferFormValidator;
-        this.feedbackService = feedbackService;
     }
-
     @Secured({"PROVIDER, ADMIN"})
     @RequestMapping("/new")
     private String newOffer(Model model) {
         List<Category> categories = categoryService.findAll();
-        model.addAttribute("categories", categories);
+        model.addAttribute(CATEGORIES_MODEL_ATTRIBUTE_NAME, categories);
         model.addAttribute("newOfferForm", new NewOfferForm());
         return NEW_OFFER_VIEW_NAME;
     }
@@ -93,16 +100,17 @@ public class OfferController {
     @PostMapping("/new")
     public String handleNewOfferForm(@RequestParam("file") MultipartFile file, @Valid @ModelAttribute("newOfferForm") NewOfferForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes, Principal principal, Model model) throws ParseException, IOException {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("categories", categoryService.findAll());
+            model.addAttribute(CATEGORIES_MODEL_ATTRIBUTE_NAME, categoryService.findAll());
             return NEW_OFFER_VIEW_NAME;
         }
 
         Offer offer = offerService.createOffer(form, UtilityClass.convertByteArrayToBase64String(file.getBytes(), file.getContentType()), file.getName(), (int) file.getSize(), principal.getName());
         redirectAttributes.addFlashAttribute("createSuccess", "Dodavanje nove ponude je uspjelo!");
 
-        log.info("---> Successfully created offer entity with ID = " + offer.getId() + " ...");
+        createOfferLogMessage(offer.getId());
 
-        return "redirect:/offer/details/" + offer.getId();
+
+        return OFFER_DETAILS_REDIRECT_NAME + offer.getId();
     }
 
     @Secured({"PROVIDER, ADMIN"})
@@ -116,7 +124,7 @@ public class OfferController {
             boolean hasAdminRole = userService.hasRole(principal.getName(), "ROLE_ADMIN");
             if (!receivedOffer.getUser().getUsername().equals(principal.getName()) && !hasAdminRole) {
                 redirectAttributes.addFlashAttribute("invalidOwner", "Ponuda s ID = " + id + " ne pripada vašem računu!");
-                return "redirect:/offer/search";
+                return OFFER_SEARCH_REDIRECT_NAME;
             }
 
             EditOfferForm editOfferForm = offerFacade.mapOfferToEditOfferForm(receivedOffer);
@@ -126,10 +134,10 @@ public class OfferController {
             model.addAttribute("editOfferForm", editOfferForm);
 
             List<Category> categories = categoryService.findAll();
-            model.addAttribute("categories", categories);
+            model.addAttribute(CATEGORIES_MODEL_ATTRIBUTE_NAME, categories);
         } else {
-            redirectAttributes.addFlashAttribute("offerNotFound", "Ponuda s ID = " + id + " nije pronađena!");
-            return "redirect:/offer/search";
+            redirectAttributes.addFlashAttribute(OFFER_NOT_FOUND_REDIRECT_ATTRIBUTE, getOfferNotFoundRedirectAttribute(id));
+            return OFFER_SEARCH_REDIRECT_NAME;
         }
 
         return EDIT_OFFER_VIEW_NAME;
@@ -139,7 +147,7 @@ public class OfferController {
     @PostMapping("/edit")
     public String handleEditOfferForm(@RequestParam("file") MultipartFile file, @Valid @ModelAttribute("editOfferForm") EditOfferForm editOfferForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model, Principal principal) throws ParseException, IOException {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("categories", categoryService.findAll());
+            model.addAttribute(CATEGORIES_MODEL_ATTRIBUTE_NAME, categoryService.findAll());
             return EDIT_OFFER_VIEW_NAME;
         }
 
@@ -148,12 +156,12 @@ public class OfferController {
 
         log.info("---> Successfully edited offer entity with ID = " + offer.getId() + " ...");
 
-        return "redirect:/offer/details/" + offer.getId();
+        return OFFER_DETAILS_REDIRECT_NAME + offer.getId();
     }
 
     @GetMapping("/search")
     private String searchOffer(Model model) {
-        model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute(CATEGORIES_MODEL_ATTRIBUTE_NAME, categoryService.findAll());
         model.addAttribute("topOffers", offerService.findAll());
         model.addAttribute("offers", new ArrayList<Offer>());
         model.addAttribute("searchOfferForm", new SearchOfferForm());
@@ -167,47 +175,15 @@ public class OfferController {
         if (bindingResult.hasErrors()) {
             return SEARCH_OFFER_VIEW_NAME;
         }
+        log.info("---> Fetching offers ...");
         List<Offer> offerResults = offerService.findOffers(searchOfferForm);
         model.addAttribute("offers", offerResults);
         if (offerResults.isEmpty()) {
             model.addAttribute("noResults", true);
+            log.info("---> No results!");
         }
         model.addAttribute("titleResults", "Rezultati pretrage:");
-        //model.addAttribute("searchOfferForm", searchOfferForm);
         return SEARCH_OFFER_VIEW_NAME;
-    }
-
-
-
-    @RequestMapping("/details/{id}")
-    private String showDetails(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
-        Optional<Offer> offer = offerService.findOne(id);
-
-        if (offer.isPresent()) {
-            ReservationForm reservationForm = new ReservationForm(offer.get().getId(), null, null);
-            model.addAttribute("offer", offer.get());
-            model.addAttribute("reservationForm", reservationForm);
-            log.info("---> Fetching offer entity with ID = " + id + " and all its children from the database ...");
-        } else {
-            redirectAttributes.addFlashAttribute("offerNotFound", "Ponuda s ID = " + id + " nije pronađena!");
-            return "redirect:/offer/search";
-        }
-
-        return DETAILS_VIEW_NAME;
-    }
-
-    @RequestMapping("/details/{id}/reviews")
-    private String showReviews(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
-        Optional<Offer> offer = offerService.findOne(id);
-        if (offer.isPresent()) {
-            model.addAttribute("feedbacks", offer.get().getFeedbacks());
-            log.info("---> Fetching offer entity with ID = " + id + " and all its children from the database ...");
-        } else {
-            redirectAttributes.addFlashAttribute("offerNotFound", "Ponuda s ID = " + id + " nije pronađena!");
-            return "redirect:/offer/search";
-        }
-
-        return REVIEWS_VIEW_NAME;
     }
 
     @RequestMapping("/newReview/{id}")
@@ -219,23 +195,27 @@ public class OfferController {
             return NEW_REVIEW_VIEW_NAME;
         }
         else{
-            redirectAttributes.addFlashAttribute("offerNotFound", "Ponuda s ID = " + id + "nije pronađena!");
-            return "redirect:/offer/search";
+            redirectAttributes.addFlashAttribute(OFFER_NOT_FOUND_REDIRECT_ATTRIBUTE, getOfferNotFoundRedirectAttribute(id));
+            return OFFER_SEARCH_REDIRECT_NAME;
         }
     }
 
-    @PostMapping("/newReview")
-    private String handleNewReviewForm(@Valid @ModelAttribute ("newReviewForm") NewReviewForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes, Principal principal, Model model) throws ParseException, IOException{
-        if(bindingResult.hasErrors()){
-            return NEW_REVIEW_VIEW_NAME;
+    @RequestMapping("/details/{id}")
+    private String showDetails(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        Optional<Offer> offer = offerService.findOne(id);
+
+        if (offer.isPresent()) {
+            //double average = feedbackService.average(id); prosjecna ocjena
+            ReservationForm reservationForm = new ReservationForm(offer.get().getId(), null, null);
+            model.addAttribute("offer", offer.get());
+            model.addAttribute("reservationForm", reservationForm);
+            fetchOfferLogMessage(id);
+        } else {
+            redirectAttributes.addFlashAttribute(OFFER_NOT_FOUND_REDIRECT_ATTRIBUTE, getOfferNotFoundRedirectAttribute(id));
+            return OFFER_SEARCH_REDIRECT_NAME;
         }
 
-        Feedback feedback = feedbackService.createFeedback(form, principal.getName());
-        //redirectAttributes.addFlashAttribute("createSuccess", "Dodavanje osvrta je uspjelo.!");
-
-        //log.info("Successfully created review with ID = " + feedback.getId());
-
-        return "redirect:/offer/search";
+        return DETAILS_VIEW_NAME;
     }
 
 
@@ -245,7 +225,7 @@ public class OfferController {
         Optional<Offer> offer = offerService.findOne(id);
         if (offer.isPresent()) {
             model.addAttribute("feedbacks", offer.get().getFeedbacks());
-            log.info("---> Fetching offer entity with ID = " + id + " and all its children from the database ...");
+            fetchOfferLogMessage(id);
 
             Offer receivedOffer = offer.get();
 
@@ -264,8 +244,8 @@ public class OfferController {
             model.addAttribute(receivedOffer);
 
         } else {
-            redirectAttributes.addFlashAttribute("offerNotFound", "Ponuda s ID = " + id + " nije pronađena!");
-            return "redirect:/offer/search";
+            redirectAttributes.addFlashAttribute(OFFER_NOT_FOUND_REDIRECT_ATTRIBUTE, getOfferNotFoundRedirectAttribute(id));
+            return OFFER_SEARCH_REDIRECT_NAME;
         }
 
         return DETAILS_VIEW_NAME;
@@ -278,6 +258,19 @@ public class OfferController {
         List<Offer> offers = offerService.findOffersByUserOrderByDateAdded(currentUser);
         model.addAttribute("myOffers", offers);
         return new ModelAndView(MY_OFFERS_VIEW_NAME);
+    }
+
+    //logger messages
+    private void fetchOfferLogMessage(Long id) {
+        log.info("---> Fetching offer entity with ID = " + id + " and all its children from the database ...");
+    }
+
+    private void createOfferLogMessage(Long id){
+        log.info("---> Successfully created offer entity with ID = " + id + " ...");
+    }
+
+    private String getOfferNotFoundRedirectAttribute(Long id) {
+        return "Ponuda s ID = " + id + " nije pronađena!";
     }
 
     // form validators

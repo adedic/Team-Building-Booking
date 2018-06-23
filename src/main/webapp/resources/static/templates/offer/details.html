@@ -124,11 +124,12 @@
 
                         </div>
                         <div class="col-sm text-right" th:if="${i.index > 1}" th:remove="${!i.last} ? all" >
-                            <a th:href="@{'/offer/details/' + ${offer.id} + '/reviews'}" th:text="#{msg.offer.details.reviews.link-all}"></a>
+                            <a th:href="@{'/review/details/' + ${offer.id} + '/reviews'}" th:text="#{msg.offer.details.reviews.link-all}"></a>
                         </div>
                     </div>
-                    <a th:text="#{msg.offer.details.reviews.newReview.link}" th:href="@{'/offer/newReview/' + ${offer.id} }" class="btn btn-primary active">Dodaj novi osvrt</a>
-
+                    <div sec:authorize="hasRole('ROLE_USER')">
+                        <a th:text="#{msg.offer.details.reviews.newReview.link}" th:href="@{'/review/newReview/' + ${offer.id} }" class="btn btn-primary active">Dodaj novi osvrt</a>
+                    </div>
                 </div>
             </div>
         </div>

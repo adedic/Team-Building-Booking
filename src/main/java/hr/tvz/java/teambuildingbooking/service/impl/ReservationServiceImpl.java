@@ -31,11 +31,14 @@ public class ReservationServiceImpl implements ReservationService {
     @Transactional
     public Reservation insertNewReservation(ReservationForm reservationForm, User user) {
         Optional<Offer> optional = offerService.findOne(reservationForm.getOfferId());
-        Offer offer = optional.get();
 
         Reservation reservation = new Reservation();
-        reservation.setOffer(offer);
+        if(optional.isPresent()) {
+            Offer offer = optional.get();
+            reservation.setOffer(offer);
+        }
         reservation.setUser(user);
+        reservation.setNotificationSent(false);
         reservation.setDateOfReservation(reservationForm.getDate());
         reservation.setNumberOfUsers(reservationForm.getNumberOfUsers());
         reservation.setDateLastEdited(reservationForm.getDate());
@@ -45,8 +48,6 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public List<Reservation> getAllReservationsByOffer(ReservationForm reservationForm) {
-        List<Reservation> reservations = reservationRepository.getReservationsByOffer(reservationForm.getDate(), reservationForm.getOfferId());
-
-        return reservations;
+        return reservationRepository.getReservationsByOffer(reservationForm.getDate(), reservationForm.getOfferId());
     }
 }

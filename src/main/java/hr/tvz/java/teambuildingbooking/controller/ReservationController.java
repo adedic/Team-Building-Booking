@@ -7,6 +7,7 @@ import hr.tvz.java.teambuildingbooking.model.form.ReservationForm;
 import hr.tvz.java.teambuildingbooking.service.OfferService;
 import hr.tvz.java.teambuildingbooking.service.ReservationService;
 import hr.tvz.java.teambuildingbooking.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Controller
 @RequestMapping("/reservation")
 public class ReservationController {
@@ -33,6 +35,7 @@ public class ReservationController {
     private static final String MESSAGE_OFFER_RESSERVED_BY_THIS_USER = "Već ste rezervirali ovu ponudu!";
     private static final String MESSAGE_OFFER_INVALID = "Ponuda nije dostupna za odabrani datum/broj ljudi!";
     private static final String MESSAGE_OFFER_IS_NOT_AVAILABLE = "Ponuda nije dostupna.";
+    private static final String ERROR_MESSAGE_ATR_NAME = "errorMessage";
 
     @Autowired
     OfferService offerService;
@@ -55,8 +58,8 @@ public class ReservationController {
         User user = userService.findByUsername(principal.getName());
         String isNewReservationValid = isNewReservationValid(reservationForm, user);
 
-        if (isNewReservationValid != "Valid") {
-            model.addAttribute("errorMessage" ,isNewReservationValid);
+        if (isNewReservationValid != MESSAGE_OFFER_VALID) {
+            model.addAttribute(ERROR_MESSAGE_ATR_NAME ,isNewReservationValid);
         }
 
         return RESERVATION_CHECKOUT;
@@ -71,14 +74,14 @@ public class ReservationController {
 
         if (isNewReservationValid.equals("Valid")) {
             try {
-                Reservation reservation = reservationService.insertNewReservation(reservationForm, user);
+                reservationService.insertNewReservation(reservationForm, user);
                 return SAVE_SUCCESSFUL;
             } catch (Exception e) {
-                e.printStackTrace();
+                log.info(e.getMessage());
                 return SAVE_UNSUCCESSFUL;
             }
         } else {
-            model.addAttribute("errorMessage", isNewReservationValid);
+            model.addAttribute(ERROR_MESSAGE_ATR_NAME, isNewReservationValid);
             return SAVE_UNSUCCESSFUL;
         }
     }
@@ -89,7 +92,7 @@ public class ReservationController {
         if (offer.isPresent() && user != null) {
             if (offerService.isOfferValid(reservationForm)) {
                 List<Reservation> reservations = reservationService.getAllReservationsByOffer(reservationForm);
-                if (reservations.size() > 0) {
+                if (!reservations.isEmpty()) {
                     Optional<Reservation> reservedByThisUser = reservations.stream().findFirst().filter(r -> r.getUser().getId() == user.getId());
                     if (reservedByThisUser.isPresent()) {
                         return MESSAGE_OFFER_RESSERVED_BY_THIS_USER;

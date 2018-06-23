@@ -2,7 +2,6 @@ package hr.tvz.java.teambuildingbooking.validator;
 
 import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
 import hr.tvz.java.teambuildingbooking.service.CategoryService;
-import hr.tvz.java.teambuildingbooking.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -14,12 +13,10 @@ import java.util.regex.Pattern;
 @Component
 public class SearchOfferFormValidator implements Validator {
 
-    private final OfferService offerService;
     private final CategoryService categoryService;
 
     @Autowired
-    public SearchOfferFormValidator(OfferService offerService, CategoryService categoryService) {
-        this.offerService = offerService;
+    public SearchOfferFormValidator(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
@@ -40,18 +37,14 @@ public class SearchOfferFormValidator implements Validator {
     }
 
     private void validateCategory(String category, Errors errors) {
-        if(category != null && !category.equals("")) {
-            if(!categoryService.existsByNameIgnoreCase(category)) {
+        if((category != null && !category.equals("")) && !categoryService.existsByNameIgnoreCase(category)) {
                 errors.rejectValue("category", "error.searchOffer.category", "Izaberite jednu od postojećih kategorija");
-            }
         }
     }
 
     private void validateNumOfPeople(Integer numOfPeople, Errors errors) {
-        if(numOfPeople != null) {
-            if(numOfPeople <= 0 || numOfPeople > 250) {
+        if(numOfPeople != null && (numOfPeople <= 0 || numOfPeople > 250)) {
                 errors.rejectValue("numOfPeople", "error.searchOffer.numOfPeople", "Broj ljudi mora biti veći od 0 i manji ili jednak 250.");
-            }
         }
     }
 

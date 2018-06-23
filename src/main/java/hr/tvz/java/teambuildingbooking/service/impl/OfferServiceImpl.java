@@ -1,10 +1,7 @@
 package hr.tvz.java.teambuildingbooking.service.impl;
 
 import hr.tvz.java.teambuildingbooking.mapper.OfferMapper;
-import hr.tvz.java.teambuildingbooking.model.Category;
-import hr.tvz.java.teambuildingbooking.model.Offer;
-import hr.tvz.java.teambuildingbooking.model.OfferPicture;
-import hr.tvz.java.teambuildingbooking.model.User;
+import hr.tvz.java.teambuildingbooking.model.*;
 import hr.tvz.java.teambuildingbooking.model.criteria.SearchCriteria;
 import hr.tvz.java.teambuildingbooking.model.form.EditOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
@@ -13,6 +10,7 @@ import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
 import hr.tvz.java.teambuildingbooking.repository.CategoryRepository;
 import hr.tvz.java.teambuildingbooking.repository.OfferDaoRepository;
 import hr.tvz.java.teambuildingbooking.repository.OfferRepository;
+import hr.tvz.java.teambuildingbooking.repository.ReservationRepository;
 import hr.tvz.java.teambuildingbooking.service.OfferPictureService;
 import hr.tvz.java.teambuildingbooking.service.OfferService;
 import hr.tvz.java.teambuildingbooking.service.UserService;
@@ -32,9 +30,11 @@ import java.util.*;
 public class OfferServiceImpl implements OfferService {
 
     private static final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final String DATE_FORMAT_2 = "dd.MM.yyyy";
 
     private OfferRepository offerRepository;
     private CategoryRepository categoryRepository;
+    private ReservationRepository reservationRepository;
 
     private OfferDaoRepository offerDaoRepository;
 
@@ -44,12 +44,13 @@ public class OfferServiceImpl implements OfferService {
 
     @Autowired
     public OfferServiceImpl(OfferRepository offerRepository, OfferDaoRepository offerDaoRepository,
-                            CategoryRepository categoryRepository, UserService userService, OfferPictureService offerPictureService) {
+                            CategoryRepository categoryRepository, UserService userService, OfferPictureService offerPictureService, ReservationRepository reservationRepository) {
         this.offerRepository = offerRepository;
         this.offerDaoRepository = offerDaoRepository;
         this.categoryRepository = categoryRepository;
         this.userService = userService;
         this.offerPictureService = offerPictureService;
+        this.reservationRepository = reservationRepository;
     }
 
     @Override
@@ -64,6 +65,36 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public List<Offer> findOffers(SearchOfferForm searchOffer) {
+        List<SearchCriteria> searchCriteria = getSearchCriteria(searchOffer);
+
+        return getSearchedOffers(searchOffer, searchCriteria);
+    }
+
+    private List<Offer> getSearchedOffers(SearchOfferForm searchOffer, List<SearchCriteria> searchCriteria) {
+        List<Offer> offerList = offerDaoRepository.findOffers(searchCriteria);
+        List<Offer> finalList = new ArrayList<>();
+
+        for(Offer offer : offerList) {
+            Date date = parseDate(searchOffer);
+            List<Reservation> reservationList = reservationRepository.getReservationsByOffer(date, offer.getId());
+
+            Integer numOfPeople = 0;
+            for(Reservation reservation : reservationList) {
+                numOfPeople += reservation.getNumberOfUsers();
+            }
+
+            if(searchOffer.getNumOfPeople() != null) {
+                if ((numOfPeople + searchOffer.getNumOfPeople()) <= offer.getMaxNumberOfUsers()) {
+                    finalList.add(offer);
+                }
+            } else {
+                finalList.add(offer);
+            }
+        }
+        return finalList;
+    }
+
+    private List<SearchCriteria> getSearchCriteria(SearchOfferForm searchOffer) {
         List<SearchCriteria> searchCriteria = new ArrayList<>();
         if (searchOffer != null) {
             if (searchOffer.getCategory() != null && !searchOffer.getCategory().equals("")) {
@@ -80,17 +111,23 @@ public class OfferServiceImpl implements OfferService {
                 searchCriteria.add(new SearchCriteria("maxNumberOfUsers", ">", searchOffer.getNumOfPeople()));
             }
             if (searchOffer.getDate() != null && !searchOffer.getDate().equals("")) {
-                Date date1 = null;
-                SimpleDateFormat tDateFormatter1 = new SimpleDateFormat("dd.MM.yyyy");
-                try {
-                    date1 = tDateFormatter1.parse(searchOffer.getDate());
-                } catch (ParseException pE) {
-                }
+                Date date1 = parseDate(searchOffer);
                 searchCriteria.add(new SearchCriteria("availableFrom", ":>", date1));
                 searchCriteria.add(new SearchCriteria("availableTo", ":<", date1));
             }
         }
-        return offerDaoRepository.findOffers(searchCriteria);
+        return searchCriteria;
+    }
+
+    private Date parseDate(SearchOfferForm searchOffer) {
+        Date date1 = null;
+        SimpleDateFormat tDateFormatter1 = new SimpleDateFormat(DATE_FORMAT_2);
+        try {
+            date1 = tDateFormatter1.parse(searchOffer.getDate());
+        } catch (ParseException pE) {
+            log.info(pE.getMessage());
+        }
+        return date1;
     }
 
     @Override
@@ -111,11 +148,7 @@ public class OfferServiceImpl implements OfferService {
         }
 
         List<Offer> offers = offerDaoRepository.findOffers(searchCriteria);
-        if (offers.size() == 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return offers.size() == 1;
     }
 
     @Override

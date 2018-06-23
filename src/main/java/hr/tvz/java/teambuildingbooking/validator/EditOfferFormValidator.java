@@ -16,6 +16,8 @@ import static org.apache.logging.log4j.util.Strings.isBlank;
 public class EditOfferFormValidator implements Validator {
 
     private static final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final String AVAILABLE_TO = "availableTo";
+    private static final String DESCRIPTION = "description";
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -72,6 +74,7 @@ public class EditOfferFormValidator implements Validator {
     }
 
 
+    @SuppressWarnings("Duplicates")
     private void validateDates(String availableFrom, String availableTo, Errors errors) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
 
@@ -82,15 +85,15 @@ public class EditOfferFormValidator implements Validator {
             availableFromDate = simpleDateFormat.parse(availableFrom);
             availableToDate = simpleDateFormat.parse(availableTo);
         } catch (ParseException e) {
-            errors.rejectValue("availableTo", "error.offer.dates.wrong-format", "Krivi format unešenog datuma!");
+            errors.rejectValue(AVAILABLE_TO, "error.offer.dates.wrong-format", "Krivi format unešenog datuma!");
         }
 
         if (availableFromDate.after(availableToDate)) {
-            errors.rejectValue("availableTo", "error.offer.dates", "Datum početka ponude ne može biti nakon datuma završetka ponude!");
+            errors.rejectValue(AVAILABLE_TO, "error.offer.dates", "Datum početka ponude ne može biti nakon datuma završetka ponude!");
         }
 
         if (availableToDate.before(availableFromDate)) {
-            errors.rejectValue("availableTo", "error.offer.dates", "Datum završetka ponude ne može biti prije datuma početka ponude!");
+            errors.rejectValue(AVAILABLE_TO, "error.offer.dates", "Datum završetka ponude ne može biti prije datuma početka ponude!");
         }
 
     }
@@ -130,15 +133,15 @@ public class EditOfferFormValidator implements Validator {
     void validateDescriptionString(String description, Errors errors) {
 
         if (isBlank(description)) {
-            errors.rejectValue("description", "error.offer.description.empty", "Morate unijeti opis ponude.");
+            errors.rejectValue(DESCRIPTION, "error.offer.description.empty", "Morate unijeti opis ponude.");
         }
 
         if (description.length() > 200) {
-            errors.rejectValue("description", "error.offer.description.too-long", "Opis ponude ne može biti dulji od 200 znakova.");
+            errors.rejectValue(DESCRIPTION, "error.offer.description.too-long", "Opis ponude ne može biti dulji od 200 znakova.");
         }
 
         if (description.length() < 5) {
-            errors.rejectValue("description", "error.offer.description.too-short", "Opis ponude ime mora imati barem 5 znakova.");
+            errors.rejectValue(DESCRIPTION, "error.offer.description.too-short", "Opis ponude ime mora imati barem 5 znakova.");
         }
 
     }
@@ -151,7 +154,7 @@ public class EditOfferFormValidator implements Validator {
 
     private void validateAvailableTo(String availableTo, Errors errors) {
         if (isBlank(availableTo)) {
-            errors.rejectValue("availableTo", "error.offer.availableTo.empty", "Morate unijeti datum do kada je ponuda dostupna.");
+            errors.rejectValue(AVAILABLE_TO, "error.offer.availableTo.empty", "Morate unijeti datum do kada je ponuda dostupna.");
         }
     }
 

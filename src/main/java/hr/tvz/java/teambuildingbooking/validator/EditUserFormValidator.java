@@ -13,6 +13,11 @@ import static org.apache.logging.log4j.util.Strings.isBlank;
 @Component
 public class EditUserFormValidator implements Validator {
 
+
+    private static final String SURNAME = "surname";
+    private static final String EMAIL = "email";
+    private static final String USERNAME = "username";
+
     private final UserService userService;
 
     @Autowired
@@ -48,32 +53,32 @@ public class EditUserFormValidator implements Validator {
 
     void validateLastNameString(String name, Errors errors) {
         if (isBlank(name)) {
-            errors.rejectValue("surname", "error.user.username.empty", "Morate unijeti ime.");
+            errors.rejectValue(SURNAME, "error.user.username.empty", "Morate unijeti ime.");
         }
 
         if (name.length() > 30) {
-            errors.rejectValue("surname", "error.user.surname.too-long", "Prezime ne može biti duže od 30 znakova.");
+            errors.rejectValue(SURNAME, "error.user.surname.too-long", "Prezime ne može biti duže od 30 znakova.");
         }
     }
 
     void validateFirstNameString(String surname, Errors errors) {
         if (isBlank(surname)) {
-            errors.rejectValue("surname", "error.user.surname.empty", "Morate unijeti ime.");
+            errors.rejectValue(SURNAME, "error.user.surname.empty", "Morate unijeti ime.");
         }
 
         if (surname.length() > 30) {
-            errors.rejectValue("surname", "error.user.surname.too-long", "Ime ne može biti duže od 30 znakova.");
+            errors.rejectValue(SURNAME, "error.user.surname.too-long", "Ime ne može biti duže od 30 znakova.");
         }
     }
 
     void validateEmailString(String email, Errors errors) {
 
         if (isBlank(email)) {
-            errors.rejectValue("email", "error.user.email.empty", "Morate unijeti email!");
+            errors.rejectValue(EMAIL, "error.user.email.empty", "Morate unijeti email!");
         }
 
         if (email.length() > 30) {
-            errors.rejectValue("email", "error.user.email.too-long", "Email ne može biti duži od 30 znakova!");
+            errors.rejectValue(EMAIL, "error.user.email.too-long", "Email ne može biti duži od 30 znakova!");
         }
 
     }
@@ -81,15 +86,15 @@ public class EditUserFormValidator implements Validator {
     void validateUsernameString(String username, Errors errors) {
 
         if (isBlank(username)) {
-            errors.rejectValue("username", "error.user.username.empty", "Morate unijeti korisničko ime.");
+            errors.rejectValue(USERNAME, "error.user.username.empty", "Morate unijeti korisničko ime.");
         }
 
         if (username.length() > 15) {
-            errors.rejectValue("username", "error.user.username.too-long", "Korisničko ime ne može biti duže od 15 znakova.");
+            errors.rejectValue(USERNAME, "error.user.username.too-long", "Korisničko ime ne može biti duže od 15 znakova.");
         }
 
         if (username.length() < 5) {
-            errors.rejectValue("username", "error.user.username.too-short", "Korisničko ime mora imati barem 5 znakova");
+            errors.rejectValue(USERNAME, "error.user.username.too-short", "Korisničko ime mora imati barem 5 znakova");
         }
 
     }
@@ -99,7 +104,7 @@ public class EditUserFormValidator implements Validator {
         String oldUsername = user.getUsername();
 
         if (userService.existsByUsernameIgnoreCase(username) && !username.equals(oldUsername)) {
-            errors.rejectValue("username", "error.user.already-exists", "Već postoji korisnik s tim korisničkim imenom u bazi podataka.");
+            errors.rejectValue(USERNAME, "error.user.already-exists", "Već postoji korisnik s tim korisničkim imenom u bazi podataka.");
         }
     }
 
@@ -108,7 +113,7 @@ public class EditUserFormValidator implements Validator {
         String oldEmail = user.getEmail();
 
         if (userService.existsByEmailIgnoreCase(email) && !email.equals(oldEmail)) {
-            errors.rejectValue("email", "error.email.already-exists", "Već postoji korisnik s tim emailom u bazi podataka.");
+            errors.rejectValue(EMAIL, "error.email.already-exists", "Već postoji korisnik s tim emailom u bazi podataka.");
         }
     }
 

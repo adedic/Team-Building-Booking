@@ -35,6 +35,9 @@ public class Reservation implements Serializable {
     @Column(name = "DATE_LAST_EDITED")
     private Date dateLastEdited;
 
+    @Column(name = "NOTIFICATION_SENT", nullable = false, columnDefinition = "boolean default false")
+    private Boolean notificationSent;
+
     public Reservation() {
         // default constructor
     }
@@ -97,4 +100,8 @@ public class Reservation implements Serializable {
     public void setDateLastEdited(Date dateLastEdited) {
         this.dateLastEdited = dateLastEdited;
     }
+
+    public Boolean getNotificationSent() { return notificationSent; }
+
+    public void setNotificationSent(Boolean notificationSent) { this.notificationSent = notificationSent; }
 }
