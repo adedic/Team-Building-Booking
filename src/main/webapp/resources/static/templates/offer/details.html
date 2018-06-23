@@ -142,7 +142,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="dateString" th:text="#{msg.offer.details.reservation.date-of-arrival}"></label>
-                                    <input type="date" autocomplete="autocomplete" th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" th:max="${#dates.format(offer.availableTo, 'yyyy-MM-dd')}" class="form-control form-control-lg col-md-12" required="required"
+                                    <input type="date" autocomplete="autocomplete" th:min="${#dates.format(offer.availableFrom, 'yyyy-MM-dd')}" th:max="${#dates.format(offer.availableTo, 'yyyy-MM-dd')}" class="form-control form-control-lg col-md-12" required="required"
                                            th:field="*{dateString}" th:value="${#dates.format(#dates.createNow(), 'dd.MM.yyyy.')}" name="dateString" id="dateString"/>
                                     <div class="invalid-feedback">
                                        <span th:text="#{msg.offer.details.reservation.date-of-arrival.help}"></span>

@@ -25,7 +25,6 @@ import java.util.Optional;
 public class ReservationController {
 
     private static final String RESERVATION_CHECKOUT = "reservation/checkout";
-    //private static final String SAVE_RESERVATION = "reservation/saveReservation";
     private static final String SAVE_SUCCESSFUL = "reservation/saveSuccessful";
     private static final String SAVE_UNSUCCESSFUL = "reservation/saveUnsuccessful";
 
@@ -45,18 +44,12 @@ public class ReservationController {
     ReservationService reservationService;
 
     @GetMapping("/checkout")
+    @Secured("USER")
     private  String reservationCheckout(Principal principal, Model model, @ModelAttribute("reservationForm")ReservationForm reservationForm) {
         Optional<Offer> offer = offerService.findOne(reservationForm.getOfferId());
         if (offer.isPresent()) {
             model.addAttribute("offer", offer.get());
             model.addAttribute("reservationForm", reservationForm);
-        }
-
-        // user is not logged in or session has been expired
-        if (principal == null) {
-            String errorMessage = "Ne možete rezervirati ponudu dok se ne prijavite u aplikaciju!";
-            model.addAttribute("errorMessage", errorMessage);
-            return RESERVATION_CHECKOUT;
         }
 
         User user = userService.findByUsername(principal.getName());
@@ -71,19 +64,12 @@ public class ReservationController {
 
     @PostMapping("/saveReservation")
     @Secured("USER")
-    // @Secured not working when coding this
     private String saveReservation(Principal principal, Model model, @ModelAttribute("reservationForm")ReservationForm reservationForm){
-        // user is not logged in or session has been expired
-        // use untill "@Secured" is not repaired
-        if (principal == null) {
-            String errorMessage = "Molimo Vas provjerite da li ste prijavljeni u aplikaciju!";
-            model.addAttribute("errorMessage", errorMessage);
-            return SAVE_UNSUCCESSFUL;
-        }
+
         User user = userService.findByUsername(principal.getName());
         String isNewReservationValid = isNewReservationValid(reservationForm, user);
 
-        if (isNewReservationValid == "Valid") {
+        if (isNewReservationValid.equals("Valid")) {
             try {
                 Reservation reservation = reservationService.insertNewReservation(reservationForm, user);
                 return SAVE_SUCCESSFUL;
