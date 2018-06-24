@@ -1,7 +1,7 @@
 package hr.tvz.java.teambuildingbooking.jobs;
 
-import hr.tvz.java.teambuildingbooking.model.Reservation;
 import hr.tvz.java.teambuildingbooking.model.Mail;
+import hr.tvz.java.teambuildingbooking.model.Reservation;
 import hr.tvz.java.teambuildingbooking.repository.ReservationRepository;
 import hr.tvz.java.teambuildingbooking.service.EmailService;
 import lombok.extern.slf4j.Slf4j;
