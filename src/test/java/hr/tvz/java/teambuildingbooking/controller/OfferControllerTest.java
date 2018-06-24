@@ -1,11 +1,15 @@
 package hr.tvz.java.teambuildingbooking.controller;
 
+import hr.tvz.java.teambuildingbooking.config.SpringSecurityConfig;
+import hr.tvz.java.teambuildingbooking.config.ThymeleafConfig;
+import hr.tvz.java.teambuildingbooking.config.WebConfig;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -16,6 +20,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@Import(value = {SpringSecurityConfig.class,
+        ThymeleafConfig.class, WebConfig.class})
 public class OfferControllerTest {
 
     private static final String NEW_OFFER_VIEW_NAME = "offer/new-offer";
