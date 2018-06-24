@@ -48,6 +48,10 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public List<Reservation> getAllReservationsByOffer(ReservationForm reservationForm) {
-        return reservationRepository.getReservationsByOffer(reservationForm.getDate(), reservationForm.getOfferId());
+        if (reservationForm.getDateString() != null && reservationForm.getNumberOfUsers() != null) {
+            return reservationRepository.getReservationsByOffer(reservationForm.getDate(), reservationForm.getOfferId());
+        } else {
+            return null;
+        }
     }
 }

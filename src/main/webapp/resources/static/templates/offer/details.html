@@ -162,6 +162,10 @@
                             <div class="form-group col-md-7" style="margin-top:32px">
                                 <input class="btn btn-lg btn-outline-primary btn-block"
                                        type="submit" th:value="#{msg.offer.details.reservation.book-offer}" />
+                                <!--th:disabled="${reservationErrorMessage}" -->
+                            </div>
+                            <div th:if="${reservationErrorMessage}" class="form-group col-md-7">
+                                <p class="text-danger" th:text="${reservationErrorMessage}"></p>
                             </div>
                             <input type="hidden" th:field="*{offerId}"/>
                         </div>
