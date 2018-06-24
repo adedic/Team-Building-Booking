@@ -18,10 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
 @RestController
@@ -94,9 +91,7 @@ public class OfferRestController {
         Offer offer = null;
         try {
             offer = offerService.editOffer(restEditOffer.getEditOfferForm(), restEditOffer.getBase64string(), restEditOffer.getFileName(), restEditOffer.getFileSize(), restEditOffer.getUsername());
-        } catch (ParseException e) {
-            log.info(e.getMessage());
-        } catch (IOException e) {
+        } catch (ParseException | IOException e) {
             log.info(e.getMessage());
         }
         if (offer != null) {
@@ -118,7 +113,7 @@ public class OfferRestController {
             return new ResponseEntity<>(offer.get(), HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(offer.get(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new Offer(), HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/details/{id}/reviews")
@@ -128,7 +123,8 @@ public class OfferRestController {
         if (offer.isPresent()) {
             return new ResponseEntity<>(offer.get().getFeedbacks(), HttpStatus.OK);
         }
-        return new ResponseEntity<>(offer.get().getFeedbacks(), HttpStatus.NOT_FOUND);
+        Set<Feedback> feedbacks = new HashSet<>();
+        return new ResponseEntity<>(feedbacks, HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/myOffers/{username}")
