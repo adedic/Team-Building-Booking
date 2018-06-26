@@ -4,7 +4,7 @@ import hr.tvz.java.teambuildingbooking.model.Mail;
 
 public interface EmailService {
 
-    void sendSimpleMessage(Mail mail);
+    boolean sendSimpleMessage(Mail mail);
 
 }
 

@@ -13,12 +13,14 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     public JavaMailSender emailSender;
 
-    public void sendSimpleMessage(Mail mail) {
+    public boolean sendSimpleMessage(Mail mail)  {
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(mail.getTo());
         message.setSubject(mail.getSubject());
         message.setText(mail.getContent());
         emailSender.send(message);
+
+        return true;
     }
 }

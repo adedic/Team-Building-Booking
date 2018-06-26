@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.text.ParseException;
 
 public interface FeedbackService {
-    Feedback createFeedback(NewReviewForm newReviewForm, String username) throws ParseException, IOException;
+    Feedback createFeedback(NewReviewForm newReviewForm, String username);
 
     double average(long offerId);
 }

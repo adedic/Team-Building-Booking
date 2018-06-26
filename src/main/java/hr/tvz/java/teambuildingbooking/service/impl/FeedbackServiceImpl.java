@@ -36,7 +36,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public Feedback createFeedback(NewReviewForm newReviewForm, String username) throws ParseException, IOException {
+    public Feedback createFeedback(NewReviewForm newReviewForm, String username) {
         Feedback feedback = FeedbackMapper.INSTANCE.newReviewFormToReview(newReviewForm);
 
         long offerId = newReviewForm.getOfferId();
