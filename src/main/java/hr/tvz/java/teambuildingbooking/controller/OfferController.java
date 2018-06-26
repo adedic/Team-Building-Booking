@@ -189,19 +189,7 @@ public class OfferController {
         return SEARCH_OFFER_VIEW_NAME;
     }
 
-    @RequestMapping("/newReview/{id}")
-    private String newReview(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes){
-        Optional<Offer> offer = offerService.findOne(id);
-        if(offer.isPresent()){
-            model.addAttribute("newReviewForm", new NewReviewForm());
-            model.addAttribute("offer", offer.get());
-            return NEW_REVIEW_VIEW_NAME;
-        }
-        else{
-            redirectAttributes.addFlashAttribute(OFFER_NOT_FOUND_REDIRECT_ATTRIBUTE, getOfferNotFoundRedirectAttribute(id));
-            return OFFER_SEARCH_REDIRECT_NAME;
-        }
-    }
+
 
     @RequestMapping("/details/{id}")
     private String showDetails(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
