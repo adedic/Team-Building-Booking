@@ -15,7 +15,7 @@ public interface UserService {
 
     User createUser(RegistrationForm form) throws ParseException;
 
-    void editUser(EditUserForm editUserForm, String currentUserUsername) throws ParseException;
+    int editUser(EditUserForm editUserForm, String currentUserUsername) throws ParseException;
 
     boolean existsByUsernameIgnoreCase(String username);
 

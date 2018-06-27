@@ -1,31 +1,22 @@
 package hr.tvz.java.teambuildingbooking.service.impl;
 
-import hr.tvz.java.teambuildingbooking.mapper.UserMapper;
-import hr.tvz.java.teambuildingbooking.model.Role;
-import hr.tvz.java.teambuildingbooking.model.User;
+import hr.tvz.java.teambuildingbooking.model.form.EditUserForm;
 import hr.tvz.java.teambuildingbooking.model.form.RegistrationForm;
 import hr.tvz.java.teambuildingbooking.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserServiceImplTest {
 
-    @MockBean
+    @Autowired
     UserService userService;
 
     @Test
@@ -36,8 +27,9 @@ public class UserServiceImplTest {
     @Test
     public void findByUsername() {
         String username = "user";
-        Mockito.when(userService.findByUsername(username)).thenReturn(new User());
+        assertNotNull(userService.findByUsername(username));
     }
+
 
     @Test
     public void createUser() throws ParseException {
@@ -49,41 +41,59 @@ public class UserServiceImplTest {
         registrationForm.setConfirmPassword("pass");
         registrationForm.setSurname("Matić");
         registrationForm.setEmail("mate.mate@mate.ma");
+        registrationForm.setUserRole("ROLE_PROVIDER");
+        registrationForm.setDateOfBirth("2018-06-15");
 
-        User user = UserMapper.INSTANCE.registrationFormToUser(registrationForm);
-        user.setPassword(new BCryptPasswordEncoder().encode(registrationForm.getPassword()));
-        user.setDateOfBirth(new Date());
-        user.setDateOfRegistration(new Date());
-        user.setEnabled(true);
-
-        Mockito.when(userService.createUser(registrationForm)).thenReturn(user);
+        assertNotNull(userService.createUser(registrationForm));
     }
 
-    @Test
-    public void editUser() {
-    }
 
     @Test
-    public void existsByUsernameIgnoreCase() {
-    }
+    public void editUser() throws ParseException {
+        EditUserForm editUserForm = new EditUserForm();
+        editUserForm.setUsername("Jurica");
+        editUserForm.setName("Jure");
+        editUserForm.setSurname("Jurić");
+        editUserForm.setEmail("jure@ju.re");
+        editUserForm.setDateOfBirth("2018-06-15");
+        String currentUserUsername = "user";
 
-    @Test
-    public void existsByEmailIgnoreCase() {
-    }
-
-    @Test
-    public void getById() {
+        assertNotNull(userService.editUser(editUserForm, currentUserUsername));
     }
 
     @Test
     public void findRolesByUsername() {
+        String username = "user";
+        assertNotNull(userService.findRolesByUsername(username));
     }
 
     @Test
     public void hasRole() {
+        String username = "user";
+        String role = "ROLE_USER";
+        assertTrue(userService.hasRole(username, role));
+    }
+
+    @Test
+    public void getById() {
+        assertNotNull(userService.getById(new Long(1)));
+    }
+
+    @Test
+    public void existsByEmailIgnoreCase() {
+        String email = "blabla";
+        assertFalse(userService.existsByEmailIgnoreCase(email));
+    }
+
+    @Test
+    public void existsByUsernameIgnoreCase() {
+        String username = "Matica";
+        assertFalse(userService.existsByUsernameIgnoreCase(username));
     }
 
     @Test
     public void findAll() {
+        assertNotNull(userService.findAll());
     }
+
 }

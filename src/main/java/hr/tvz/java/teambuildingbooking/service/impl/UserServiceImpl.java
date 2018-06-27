@@ -70,14 +70,15 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void editUser(EditUserForm editUserForm, String currentUserUsername) throws ParseException {
+    public int editUser(EditUserForm editUserForm, String currentUserUsername) throws ParseException {
         User user = UserMapper.INSTANCE.editUserFormToUser(editUserForm);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
         Date dateOfBirth = simpleDateFormat.parse(editUserForm.getDateOfBirth());
         user.setDateOfBirth(dateOfBirth);
 
-        userRepository.editUser(user.getUsername(), user.getName(), user.getSurname(), user.getEmail(), user.getTelephone(), user.getDateOfBirth(), currentUserUsername);
+        int i = userRepository.editUser(user.getUsername(), user.getName(), user.getSurname(), user.getEmail(), user.getTelephone(), user.getDateOfBirth(), currentUserUsername);
+        return i;
     }
 
     @Override

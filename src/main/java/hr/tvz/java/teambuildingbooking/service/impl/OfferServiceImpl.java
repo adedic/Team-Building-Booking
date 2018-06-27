@@ -168,7 +168,7 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public Offer createOffer(NewOfferForm newOfferForm, String base64String, String name, Integer size, String username) throws ParseException, IOException {
+    public Offer createOffer(NewOfferForm newOfferForm, String base64String, String name, Integer size, String username) throws ParseException {
         Offer offer = OfferMapper.INSTANCE.newOfferFormToOffer(newOfferForm);
 
         Set<Category> categoriesSet = new HashSet<>();
@@ -209,7 +209,7 @@ public class OfferServiceImpl implements OfferService {
     @Transactional
     @Modifying
     @Override
-    public Offer editOffer(EditOfferForm editOfferForm, String base64String, String name, Integer size, String username) throws ParseException, IOException {
+    public Offer editOffer(EditOfferForm editOfferForm, String base64String, String name, Integer size, String username) throws ParseException {
         Offer offer = OfferMapper.INSTANCE.editOfferFormToOffer(editOfferForm);
 
         offer.setName(editOfferForm.getName());

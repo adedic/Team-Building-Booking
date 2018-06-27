@@ -22,13 +22,13 @@ public interface OfferService {
 
     Optional<Offer> findOne(Long id);
 
-    Offer createOffer(NewOfferForm newOfferForm, String base64String, String name, Integer size, String username) throws ParseException, IOException;
+    Offer createOffer(NewOfferForm newOfferForm, String base64String, String name, Integer size, String username) throws ParseException;
 
     Long getOfferPictureIdByOfferId(Long id);
 
     List<Offer> findOffersByUserOrderByDateAdded(User user);
 
-    Offer editOffer(EditOfferForm editOfferForm, String base64String, String name, Integer size, String username) throws ParseException, IOException;
+    Offer editOffer(EditOfferForm editOfferForm, String base64String, String name, Integer size, String username) throws ParseException;
 
     boolean isOfferValid(ReservationForm reservationForm);
 

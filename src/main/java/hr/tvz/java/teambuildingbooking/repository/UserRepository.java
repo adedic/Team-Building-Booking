@@ -21,7 +21,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Modifying
     @Query("update User u set u.username = ?1, u.name = ?2, u.surname = ?3 , u.email = ?4, u.telephone = ?5, u.dateOfBirth = ?6 where u.username = ?7")
-    void editUser(String username, String name, String surname, String email, String telephone, Date dateOfBirth, String currentUserUsername);
+    int editUser(String username, String name, String surname, String email, String telephone, Date dateOfBirth, String currentUserUsername);
 
     @Query("select u.roles from User u where u.username = ?1")
     Set<Role> findRolesByUsername(String username);

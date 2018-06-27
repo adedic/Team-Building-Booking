@@ -69,8 +69,6 @@ public class OfferRestController {
             offer = offerService.createOffer(restNewOffer.getEditOfferForm(), restNewOffer.getBase64string(), restNewOffer.getFileName(), restNewOffer.getFileSize(), restNewOffer.getUsername());
         } catch (ParseException e) {
             log.info(e.getMessage());
-        } catch (IOException e) {
-            log.info(e.getMessage());
         }
 
         if (offer != null) {
@@ -91,7 +89,7 @@ public class OfferRestController {
         Offer offer = null;
         try {
             offer = offerService.editOffer(restEditOffer.getEditOfferForm(), restEditOffer.getBase64string(), restEditOffer.getFileName(), restEditOffer.getFileSize(), restEditOffer.getUsername());
-        } catch (ParseException | IOException e) {
+        } catch (ParseException e) {
             log.info(e.getMessage());
         }
         if (offer != null) {

@@ -43,7 +43,7 @@ public class EmailServiceImplTest {
         mail.setSubject("Naslov");
         mail.setContent("Poruka");
 
-        Mockito.when(emailService.sendSimpleMessage(mail)).thenThrow(MailAuthenticationException.class);
+       Mockito.when(emailService.sendSimpleMessage(mail)).thenThrow(MailAuthenticationException.class);
     }
 
     @Test
