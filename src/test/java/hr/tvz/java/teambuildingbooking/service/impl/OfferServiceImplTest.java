@@ -1,6 +1,5 @@
 package hr.tvz.java.teambuildingbooking.service.impl;
 
-import hr.tvz.java.teambuildingbooking.model.Category;
 import hr.tvz.java.teambuildingbooking.model.Offer;
 import hr.tvz.java.teambuildingbooking.model.OfferPicture;
 import hr.tvz.java.teambuildingbooking.model.User;
