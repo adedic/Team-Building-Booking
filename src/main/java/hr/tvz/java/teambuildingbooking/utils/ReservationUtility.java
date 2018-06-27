@@ -38,7 +38,7 @@ public class ReservationUtility {
             if (offerService.isOfferValid(reservationForm)) {
                 List<Reservation> reservations = reservationService.getAllReservationsByOffer(reservationForm);
                 if (!reservations.isEmpty()) {
-                    Optional<Reservation> reservedByThisUser = reservations.stream().findFirst().filter(r -> r.getUser().getId() == user.getId());
+                    Optional<Reservation> reservedByThisUser = reservations.stream().filter(r -> r.getUser().getId() == user.getId()).findFirst();
                     if (reservedByThisUser.isPresent()) {
                         return MESSAGE_OFFER_RESSERVED_BY_THIS_USER;
                     } else {
@@ -84,7 +84,7 @@ public class ReservationUtility {
 
     public int numberOfAvailableSpotsInOffer(Offer offer, ReservationForm reservationForm) {
         int maxUsers = offer.getMaxNumberOfUsers();
-        List<Reservation> reservations = reservationService.getAllReservationsByOffer(reservationForm).stream().filter(reservation -> reservation.getDateOfReservation().compareTo(reservationForm.getDate()) == 0).collect(Collectors.toList());
+        List<Reservation> reservations = reservationService.getAllReservationsByOffer(reservationForm).stream().filter(reservation -> reservation.getDateOfReservation().compareTo(reservationForm.getDate()) == 0 && reservation.getCanceled() == false).collect(Collectors.toList());
         int currentNumberOfUsers = reservations.stream().mapToInt(reservation -> reservation.getNumberOfUsers()).sum();
         int availableSpots = maxUsers - currentNumberOfUsers;
 

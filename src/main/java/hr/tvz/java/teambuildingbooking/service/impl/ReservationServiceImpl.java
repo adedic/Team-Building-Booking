@@ -42,6 +42,7 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setDateOfReservation(reservationForm.getDate());
         reservation.setNumberOfUsers(reservationForm.getNumberOfUsers());
         reservation.setDateLastEdited(reservationForm.getDate());
+        reservation.setCanceled(false);
 
         return reservationRepository.saveAndFlush(reservation);
     }
@@ -53,5 +54,10 @@ public class ReservationServiceImpl implements ReservationService {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public List<Reservation> getAllReservationsByUser(Long userId) {
+        return reservationRepository.findAllByUser_Id(userId);
     }
 }
