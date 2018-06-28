@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="#{msg.reservation.checkout.heading}"></title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="container" style="padding-top: 20vh;">
+
+        <div class="row justify-content-md-center">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title "> Moje rezervacije</h3>
+                    <div class="row">
+
+                    </div>
+                </div>
+                <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Open modal for @getbootstrap</button>-->
+                <div class="panel-body">
+                    <div class="row" th:if="${reservations.size() > 0}">
+                        <table class="table table-hover">
+                            <thead class="text-info text-center">
+                                <tr>
+                                    <th class="text-left">Naziv ponude</th>
+                                    <th>Datum</th>
+                                    <th>Broj ljudi</th>
+                                    <th>Status ponude</th>
+                                    <th>Akcije</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-muted text-center">
+                                <tr th:each="reservation : ${reservations}">
+                                    <td class="text-left"><a th:href="@{'/offer/details/' + ${reservation.offer.id}}" th:text="${reservation.offer.name}"></a></td>
+                                    <td th:text="${#dates.format(reservation.dateOfReservation, 'dd.MM.yyyy')}"></td>
+                                    <td th:text="${reservation.numberOfUsers}"></td>
+                                    <td th:if="${reservation.canceled == false && #dates.createNow().compareTo(reservation.dateOfReservation) < 0}" class="text-success">Aktivna</td>
+                                    <td th:if="${reservation.canceled == false && #dates.createNow().compareTo(reservation.dateOfReservation) >= 0}" class="text-warning">Prošla</td>
+                                    <td th:if="${reservation.canceled == true}" class="text-danger">Otkazana</td>
+                                    <td th:if="${reservation.canceled == false}"><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModal" th:attr="data-target='#myModal' + ${reservation.id}" >Otkaži</button></td>
+
+                                    <!-- The Modal -->
+                                    <div class="modal fade" th:id="myModal+${reservation.id}">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Otkazivanje rezervacije</h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+
+                                                <!-- Modal body -->
+                                                <div class="modal-body">
+                                                    Jeste li sigurni da želite otkazati vašu rezervaciju ?
+                                                </div>
+
+                                                <!-- Modal footer -->
+                                                <div class="modal-footer">
+                                                    <form name="cancelReservation" role="form" method="POST" th:action="@{/profile/myReservations/cancelReservation}">
+                                                        <input type="hidden" th:name="reservationId" th:value="${reservation.id}">
+                                                        <input type="submit" class="btn btn-danger" value="Otkaži">
+                                                    </form>
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Odustani</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div th:if="${reservations.isEmpty()}">
+                        <p class="text-danger">Trenutno nemate niti jednu rezerviranu ponudu!</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
