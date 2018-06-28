@@ -37,7 +37,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     public Feedback createFeedback(NewReviewForm newReviewForm, String username) {
         Feedback feedback = FeedbackMapper.INSTANCE.newReviewFormToReview(newReviewForm);
 
-        long offerId = newReviewForm.getOfferId();
+        Long offerId = newReviewForm.getOfferId();
         Optional<Offer> offer = offerService.findOne(offerId);
         if(offer.isPresent()) {
             feedback.setOffer(offer.get());

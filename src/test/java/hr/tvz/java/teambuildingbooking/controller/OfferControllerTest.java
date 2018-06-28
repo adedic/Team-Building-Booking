@@ -3,6 +3,7 @@ package hr.tvz.java.teambuildingbooking.controller;
 import hr.tvz.java.teambuildingbooking.TeamBuildingBookingApplication;
 import hr.tvz.java.teambuildingbooking.constants.ImageBase64String;
 import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
+import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
 import hr.tvz.java.teambuildingbooking.service.OfferService;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -18,8 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -184,22 +184,26 @@ public class OfferControllerTest {
     }
 
     //TODO
-//    @Test
-//    public void findSearchResults() throws Exception {
-//        this.mockMvc
-//                .perform(post("/offer/search").with(user("admin").password("secret").roles("ADMIN"))
-//                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-//                        .sessionAttr("searchOfferForm", new SearchOfferForm())
-//                        .param("category", "Sport")
-//                        .param("date", "2018-06-29")
-//                        .param("numOfPeople", "12")
-//                        .param("country", "Hrvatska")
-//                        .param("city", "Nacionalni Park Krka"))
-//                .andExpect(status().isOk())
-//                .andExpect(model().attributeExists("offers", "titleResults"))
-//                .andExpect(model().attribute("offers", Matchers.hasSize(1)))
-//                .andExpect(view().name(SEARCH_OFFER_VIEW_NAME));
-//    }
+    @Test
+    public void findSearchResults() {
+        try {
+            this.mockMvc
+                    .perform(post("/offer/search")
+                            .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+                            .param("category", "")
+                            .param("numOfPeople", "")
+                            .param("country", "Hrvatska")
+                            .param("city", "")
+                            .param("date", "")
+                            .sessionAttr("searchOfferForm", new SearchOfferForm()))
+                    .andExpect(status().isOk())
+                    .andExpect(model().attributeExists("offers", "titleResults"))
+                    .andExpect(model().attribute("offers", Matchers.hasSize(3)))
+                    .andExpect(view().name(SEARCH_OFFER_VIEW_NAME));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     public void showDetails() throws Exception {

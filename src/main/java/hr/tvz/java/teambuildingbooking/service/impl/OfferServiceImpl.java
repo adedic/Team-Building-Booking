@@ -171,7 +171,7 @@ public class OfferServiceImpl implements OfferService {
         Offer offer = OfferMapper.INSTANCE.newOfferFormToOffer(newOfferForm);
 
         Set<Category> categoriesSet = new HashSet<>();
-        if (!newOfferForm.getCategories().isEmpty()) {
+        if (newOfferForm.getCategories() != null && !newOfferForm.getCategories().isEmpty()) {
             for (String categoryName : newOfferForm.getCategories()) {
                 Category selectedCategory = categoryRepository.findByName(categoryName);
                 categoriesSet.add(selectedCategory);
@@ -221,7 +221,7 @@ public class OfferServiceImpl implements OfferService {
         offer.setAvailableTo(availableTo);
         offer.setDateAdded(dateAdded);
 
-        if (!editOfferForm.getCategories().isEmpty()) {
+        if (editOfferForm.getCategories() != null && !editOfferForm.getCategories().isEmpty()) {
             Set<Category> categories = updateCategories(editOfferForm.getCategories());
             offer.setCategories(categories);
         }
