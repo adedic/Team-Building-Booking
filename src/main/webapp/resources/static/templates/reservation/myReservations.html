@@ -29,7 +29,7 @@
                                     <th>Datum</th>
                                     <th>Broj ljudi</th>
                                     <th>Status ponude</th>
-                                    <th>Akcije</th>
+                                    <th colspan = 2>Akcije</th>
                                 </tr>
                             </thead>
                             <tbody class="text-muted text-center">
@@ -41,7 +41,7 @@
                                     <td th:if="${reservation.canceled == false && #dates.createNow().compareTo(reservation.dateOfReservation) >= 0}" class="text-warning">Prošla</td>
                                     <td th:if="${reservation.canceled == true}" class="text-danger">Otkazana</td>
                                     <td th:if="${reservation.canceled == false}"><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModal" th:attr="data-target='#myModal' + ${reservation.id}" >Otkaži</button></td>
-
+                                    <td><a th:href="@{'/review/newReview/' + ${reservation.offer.id} }"><button type="button" class="btn btn-sm btn-info"><span th:text="#{msg.offer.details.reviews.newReview.link}"></span></button></a></td>
                                     <!-- The Modal -->
                                     <div class="modal fade" th:id="myModal+${reservation.id}">
                                         <div class="modal-dialog">
