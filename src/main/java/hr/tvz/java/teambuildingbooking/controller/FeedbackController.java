@@ -60,7 +60,7 @@ public class FeedbackController {
         return REVIEWS_VIEW_NAME;
     }
 
-    @Secured({"USER"})
+    @Secured({"USER, ADMIN"})
     @RequestMapping("/newReview/{id}")
     private String newReview(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes){
         Optional<Offer> offer = offerService.findOne(id);
@@ -75,7 +75,7 @@ public class FeedbackController {
         }
     }
 
-    @Secured({"USER"})
+    @Secured({"USER, ADMIN"})
     @PostMapping("/newReview")
     private String handleNewReviewForm(@Valid @ModelAttribute("newReviewForm") NewReviewForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes, Principal principal, Model model) throws ParseException, IOException {
         if(bindingResult.hasErrors()){

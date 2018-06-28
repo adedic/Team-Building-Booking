@@ -143,7 +143,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="dateString" th:text="#{msg.offer.details.reservation.date-of-arrival}"></label>
-                                    <input type="date" autocomplete="autocomplete" th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" th:max="${#dates.format(offer.availableTo, 'yyyy-MM-dd')}" class="form-control form-control-lg col-md-12" required="required"
+                                    <input type="date" autocomplete="autocomplete" th:min="${#dates.format(offer.availableFrom, 'yyyy-MM-dd')}" th:max="${#dates.format(offer.availableTo, 'yyyy-MM-dd')}" class="form-control form-control-lg col-md-12" required="required"
                                            th:field="*{dateString}" th:value="${#dates.format(#dates.createNow(), 'dd.MM.yyyy.')}" name="dateString" id="dateString"/>
                                     <div class="invalid-feedback">
                                        <span th:text="#{msg.offer.details.reservation.date-of-arrival.help}"></span>
@@ -162,6 +162,10 @@
                             <div class="form-group col-md-7" style="margin-top:32px">
                                 <input class="btn btn-lg btn-outline-primary btn-block"
                                        type="submit" th:value="#{msg.offer.details.reservation.book-offer}" />
+                                <!--th:disabled="${reservationErrorMessage}" -->
+                            </div>
+                            <div th:if="${reservationErrorMessage}" class="form-group col-md-7">
+                                <p class="text-danger" th:text="${reservationErrorMessage}"></p>
                             </div>
                             <input type="hidden" th:field="*{offerId}"/>
                         </div>

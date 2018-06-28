@@ -55,7 +55,7 @@
                        role="button" data-toggle="dropdown" aria-haspopup="true"
                        aria-expanded="false"><strong sec:authentication="name"></strong></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#" sec:authorize="!hasAnyRole('ROLE_PROVIDER')">
+                        <a class="dropdown-item" th:href="@{/profile/myReservations}" sec:authorize="!hasAnyRole('ROLE_PROVIDER')">
                             <i class="fa fa-pencil-square"></i> <span th:text="#{msg.nav.myReservations}"></span>
                         </a>
                         <a class="dropdown-item" th:href="@{/offer/myOffers}" sec:authorize="hasAnyRole('ROLE_ADMIN, ROLE_PROVIDER')">

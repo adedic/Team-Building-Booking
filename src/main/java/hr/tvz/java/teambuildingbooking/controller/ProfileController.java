@@ -1,8 +1,11 @@
 package hr.tvz.java.teambuildingbooking.controller;
 
 import hr.tvz.java.teambuildingbooking.mapper.UserMapper;
+import hr.tvz.java.teambuildingbooking.model.Reservation;
 import hr.tvz.java.teambuildingbooking.model.User;
 import hr.tvz.java.teambuildingbooking.model.form.EditUserForm;
+import hr.tvz.java.teambuildingbooking.repository.ReservationRepository;
+import hr.tvz.java.teambuildingbooking.service.ReservationService;
 import hr.tvz.java.teambuildingbooking.service.UserService;
 import hr.tvz.java.teambuildingbooking.validator.EditUserFormValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +22,8 @@ import java.security.Principal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -27,16 +32,21 @@ public class ProfileController {
 
     private static final String PROFILE_VIEW_NAME = "/profile/profile";
     private static final String EDIT_PROFILE_VIEW_NAME = "/profile/edit-profile";
+    private static final String MY_RESERVATIONS = "/reservation/myReservations";
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
     private UserService userService;
+    private ReservationService reservationService;
+    private ReservationRepository reservationRepository;
 
     private EditUserFormValidator editUserFormValidator;
 
     @Autowired
-    public ProfileController(UserService userService, EditUserFormValidator editUserFormValidator) {
+    public ProfileController(UserService userService, EditUserFormValidator editUserFormValidator, ReservationService reservationService, ReservationRepository reservationRepository) {
         this.userService = userService;
         this.editUserFormValidator = editUserFormValidator;
+        this.reservationService = reservationService;
+        this.reservationRepository = reservationRepository;
     }
 
     @RequestMapping("/me")
@@ -82,6 +92,33 @@ public class ProfileController {
         redirectAttributes.addFlashAttribute("editSuccess", "Uređivanje uspješno! Prijavite se ponovno kako bi vidjeli izmjene.");
 
         return "redirect:/logout?editSuccess";
+    }
+
+    @GetMapping("/myReservations")
+    private String myReservations(Principal principal, Model model) {
+        if (principal == null) {
+            return "redirect:/login";
+        } else {
+            String username = principal.getName();
+            User user = userService.findByUsername(username);
+            List<Reservation> userReservations = reservationService.getAllReservationsByUser(user.getId());
+            model.addAttribute("reservations", userReservations);
+            return MY_RESERVATIONS;
+        }
+    }
+
+    @PostMapping("/myReservations/cancelReservation")
+    private String cancelReservation(@RequestParam Long reservationId) {
+        try {
+            Optional<Reservation> reservationOptional = reservationRepository.findById(reservationId);
+            Reservation reservation = reservationOptional.get();
+            reservation.setCanceled(true);
+            reservationRepository.saveAndFlush(reservation);
+        } catch (Exception e) {
+            log.info(e.getMessage());
+        }
+
+        return "redirect:/profile/myReservations";
     }
 
     // form validators

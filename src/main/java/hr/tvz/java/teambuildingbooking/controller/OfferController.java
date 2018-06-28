@@ -9,6 +9,8 @@ import hr.tvz.java.teambuildingbooking.service.CategoryService;
 import hr.tvz.java.teambuildingbooking.service.OfferPictureService;
 import hr.tvz.java.teambuildingbooking.service.OfferService;
 import hr.tvz.java.teambuildingbooking.service.UserService;
+import hr.tvz.java.teambuildingbooking.service.*;
+import hr.tvz.java.teambuildingbooking.utils.ReservationUtility;
 import hr.tvz.java.teambuildingbooking.utils.UtilityClass;
 import hr.tvz.java.teambuildingbooking.validator.EditOfferFormValidator;
 import hr.tvz.java.teambuildingbooking.validator.NewOfferFormValidator;
@@ -57,26 +59,23 @@ public class OfferController {
     // --- model attribute names ----------------------------------------------
 
     private static final String CATEGORIES_MODEL_ATTRIBUTE_NAME = "categories";
-
     private static final String OFFER_NOT_FOUND_REDIRECT_ATTRIBUTE = "offerNotFound";
-
     private static final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final String RESERVATION_ERROR_MESSAGE = "reservationErrorMessage";
+    private static final String NEED_LOGIN = "Molimo prijavite se u aplikaciju kako bi ste mogli rezervirati ovu ponudu!";
 
     // --- autowired components -------------------------------------------------
 
     private final OfferService offerService;
-
     private final CategoryService categoryService;
-
     private final UserService userService;
-
     private final OfferFacade offerFacade;
-
     private final NewOfferFormValidator newOfferFormValidator;
-
     private final EditOfferFormValidator editOfferFormValidator;
-
     private SearchOfferFormValidator searchOfferFormValidator;
+
+    @Autowired
+    ReservationUtility reservationUtility;
 
 
     @Autowired
@@ -191,8 +190,9 @@ public class OfferController {
 
 
     @RequestMapping("/details/{id}")
-    private String showDetails(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+    private String showDetails(Principal principal, Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         Optional<Offer> offer = offerService.findOne(id);
+        String username = principal != null ? principal.getName() : null;
 
         if (offer.isPresent()) {
             //double average = feedbackService.average(id); prosjecna ocjena
