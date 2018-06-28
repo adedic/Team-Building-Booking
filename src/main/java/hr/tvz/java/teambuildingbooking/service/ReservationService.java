@@ -12,4 +12,6 @@ public interface ReservationService {
 
     List<Reservation> getAllReservationsByOffer(ReservationForm reservationForm);
 
+    List<Reservation> getAllReservationsByUser(Long userId);
+
 }

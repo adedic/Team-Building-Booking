@@ -38,6 +38,9 @@ public class Reservation implements Serializable {
     @Column(name = "NOTIFICATION_SENT", nullable = false, columnDefinition = "boolean default false")
     private Boolean notificationSent;
 
+    @Column(name = "CANCELED", nullable = false, columnDefinition = "boolean default false")
+    private Boolean canceled;
+
     public Reservation() {
         // default constructor
     }
@@ -104,4 +107,12 @@ public class Reservation implements Serializable {
     public Boolean getNotificationSent() { return notificationSent; }
 
     public void setNotificationSent(Boolean notificationSent) { this.notificationSent = notificationSent; }
+
+    public Boolean getCanceled() {
+        return canceled;
+    }
+
+    public void setCanceled(Boolean canceled) {
+        this.canceled = canceled;
+    }
 }
