@@ -17,6 +17,7 @@ public class SearchOfferFormValidator implements Validator {
 
     @Autowired
     public SearchOfferFormValidator(CategoryService categoryService) {
+        super();
         this.categoryService = categoryService;
     }
 
@@ -69,8 +70,8 @@ public class SearchOfferFormValidator implements Validator {
     }
 
     private void validateDate(String date, Errors errors) {
-        if(date != null) {
-        Pattern pattern = Pattern.compile("\\d{2}\\.\\d{2}\\.\\d{4}\\.");
+        if(date != null && !date.equals("")) {
+            Pattern pattern = Pattern.compile("\\d{2}\\.\\d{2}\\.\\d{4}\\.");
             Matcher matcher = pattern.matcher(date);
             if(!matcher.matches()) {
                 errors.rejectValue("date", "error.searchOffer.date", "Unesite valjan datum.");
