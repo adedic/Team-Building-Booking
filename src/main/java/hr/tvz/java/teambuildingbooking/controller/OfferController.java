@@ -61,8 +61,6 @@ public class OfferController {
     private static final String CATEGORIES_MODEL_ATTRIBUTE_NAME = "categories";
     private static final String OFFER_NOT_FOUND_REDIRECT_ATTRIBUTE = "offerNotFound";
     private static final String DATE_FORMAT = "yyyy-MM-dd";
-    private static final String RESERVATION_ERROR_MESSAGE = "reservationErrorMessage";
-    private static final String NEED_LOGIN = "Molimo prijavite se u aplikaciju kako bi ste mogli rezervirati ovu ponudu!";
 
     // --- autowired components -------------------------------------------------
 
@@ -164,6 +162,7 @@ public class OfferController {
     private String searchOffer(Model model) {
         model.addAttribute(CATEGORIES_MODEL_ATTRIBUTE_NAME, categoryService.findAll());
         model.addAttribute("topOffers", offerService.findAll());
+
         model.addAttribute("offers", new ArrayList<Offer>());
         model.addAttribute("searchOfferForm", new SearchOfferForm());
         return SEARCH_OFFER_VIEW_NAME;
@@ -192,7 +191,6 @@ public class OfferController {
     @RequestMapping("/details/{id}")
     private String showDetails(Principal principal, Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         Optional<Offer> offer = offerService.findOne(id);
-        String username = principal != null ? principal.getName() : null;
 
         if (offer.isPresent()) {
             //double average = feedbackService.average(id); prosjecna ocjena
