@@ -110,8 +110,11 @@ public class ProfileController {
     @PostMapping("/myReservations/cancelReservation")
     private String cancelReservation(@RequestParam Long reservationId) {
         try {
+            Reservation reservation = new Reservation();
             Optional<Reservation> reservationOptional = reservationRepository.findById(reservationId);
-            Reservation reservation = reservationOptional.get();
+            if(reservationOptional.isPresent()){
+                reservation = reservationOptional.get();
+            }
             reservation.setCanceled(true);
             reservationRepository.saveAndFlush(reservation);
         } catch (Exception e) {

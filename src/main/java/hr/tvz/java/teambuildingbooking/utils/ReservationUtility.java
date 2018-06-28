@@ -64,7 +64,7 @@ public class ReservationUtility {
 
     public int numberOfAvailableSpotsInOffer(Offer offer, ReservationForm reservationForm) {
         int maxUsers = offer.getMaxNumberOfUsers();
-        List<Reservation> reservations = reservationService.getAllReservationsByOffer(reservationForm).stream().filter(reservation -> reservation.getDateOfReservation().compareTo(reservationForm.getDate()) == 0 && reservation.getCanceled() == false).collect(Collectors.toList());
+        List<Reservation> reservations = reservationService.getAllReservationsByOffer(reservationForm).stream().filter(reservation -> reservation.getDateOfReservation().compareTo(reservationForm.getDate()) == 0 && !reservation.getCanceled()).collect(Collectors.toList());
         int currentNumberOfUsers = reservations.stream().mapToInt(reservation -> reservation.getNumberOfUsers()).sum();
         int availableSpots = maxUsers - currentNumberOfUsers;
 

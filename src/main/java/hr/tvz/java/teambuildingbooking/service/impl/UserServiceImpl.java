@@ -77,8 +77,7 @@ public class UserServiceImpl implements UserService {
         Date dateOfBirth = simpleDateFormat.parse(editUserForm.getDateOfBirth());
         user.setDateOfBirth(dateOfBirth);
 
-        int i = userRepository.editUser(user.getUsername(), user.getName(), user.getSurname(), user.getEmail(), user.getTelephone(), user.getDateOfBirth(), currentUserUsername);
-        return i;
+        return userRepository.editUser(user.getUsername(), user.getName(), user.getSurname(), user.getEmail(), user.getTelephone(), user.getDateOfBirth(), currentUserUsername);
     }
 
     @Override

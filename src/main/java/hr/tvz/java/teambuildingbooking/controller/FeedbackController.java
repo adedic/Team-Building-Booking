@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.security.Principal;
-import java.text.ParseException;
 import java.util.Optional;
 
 @Slf4j
@@ -77,7 +75,7 @@ public class FeedbackController {
 
     @Secured({"USER, ADMIN"})
     @PostMapping("/newReview")
-    private String handleNewReviewForm(@Valid @ModelAttribute("newReviewForm") NewReviewForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes, Principal principal, Model model) throws ParseException, IOException {
+    private String handleNewReviewForm(@Valid @ModelAttribute("newReviewForm") NewReviewForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes, Principal principal, Model model) {
         if(bindingResult.hasErrors()){
             return NEW_REVIEW_VIEW_NAME;
         }
