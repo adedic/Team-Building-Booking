@@ -48,7 +48,6 @@ public class OfferController {
     private static final String DETAILS_VIEW_NAME = "offer/details";
     private static final String EDIT_OFFER_VIEW_NAME = "offer/edit-offer";
     private static final String MY_OFFERS_VIEW_NAME = "offer/myOffers";
-    private static final String NEW_REVIEW_VIEW_NAME = "offer/new-review";
 
     // --- view redirects -----------------------------------------------------
 

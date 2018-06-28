@@ -7,7 +7,6 @@ import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.ReservationForm;
 import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
