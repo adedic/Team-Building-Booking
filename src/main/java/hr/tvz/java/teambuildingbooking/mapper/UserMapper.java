@@ -24,7 +24,7 @@ public interface UserMapper {
     @Mapping(target = "roles", ignore = true)
     @Mapping(target = "dateOfRegistration", ignore = true)
     @Mapping(target = "dateOfBirth", ignore = true)
-    User editUserFormToUser(EditUserForm registrationForm);
+    User editUserFormToUser(EditUserForm editUserForm);
 
     EditUserForm userToUserEditForm(User user);
 }

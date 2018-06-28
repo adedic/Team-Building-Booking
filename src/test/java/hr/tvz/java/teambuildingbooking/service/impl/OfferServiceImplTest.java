@@ -5,6 +5,8 @@ import hr.tvz.java.teambuildingbooking.model.OfferPicture;
 import hr.tvz.java.teambuildingbooking.model.User;
 import hr.tvz.java.teambuildingbooking.model.form.EditOfferForm;
 import hr.tvz.java.teambuildingbooking.model.form.NewOfferForm;
+import hr.tvz.java.teambuildingbooking.model.form.ReservationForm;
+import hr.tvz.java.teambuildingbooking.model.form.SearchOfferForm;
 import hr.tvz.java.teambuildingbooking.service.CategoryService;
 import hr.tvz.java.teambuildingbooking.service.OfferService;
 import hr.tvz.java.teambuildingbooking.service.UserService;
@@ -44,10 +46,27 @@ public class OfferServiceImplTest {
 
     @Test
     public void findOffers() {
+        SearchOfferForm searchOffer = new SearchOfferForm();
+        searchOffer.setNumOfPeople(5);
+        searchOffer.setCategory("Sport");
+        searchOffer.setCity("Pag");
+        searchOffer.setCountry("Hrvatska");
+        searchOffer.setDate("2018-06-10");
+
+        assertNotNull(offerService.findOffers(searchOffer));
+
+
     }
 
     @Test
     public void isOfferValid() {
+        ReservationForm reservationForm = new ReservationForm();
+        reservationForm.setNumberOfUsers(4);
+        reservationForm.setDateString("2018-10-10");
+        reservationForm.setDate(new Date());
+        reservationForm.setOfferId(new Long(1));
+
+        assertFalse(offerService.isOfferValid(reservationForm));
     }
 
     @Test
@@ -147,5 +166,6 @@ public class OfferServiceImplTest {
     public void getOfferPictureIdByOfferId() {
         assertNotNull(offerService.getOfferPictureIdByOfferId(new Long(1)));
     }
+
 
 }
