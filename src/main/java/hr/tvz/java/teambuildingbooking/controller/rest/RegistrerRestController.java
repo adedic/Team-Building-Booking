@@ -25,15 +25,20 @@ public class RegistrerRestController {
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody RegistrationForm form) throws ParseException {
 
+        User user = null;
+
+        try {
             userService.createUser(form);
+            user = userService.findByUsername(form.getUsername());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-            User user = userService.findByUsername(form.getUsername());
+        if(user != null) {
+            return new ResponseEntity<>(user, HttpStatus.CREATED);
+        }
 
-            if(user != null) {
-                return new ResponseEntity<>(user, HttpStatus.CREATED);
-            }
-
-            return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
 
     }
 }
