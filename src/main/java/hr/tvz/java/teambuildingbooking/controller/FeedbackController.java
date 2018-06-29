@@ -21,7 +21,6 @@ import java.util.Optional;
 @Slf4j
 @Controller
 @RequestMapping("/review")
-@SessionAttributes({"offers", "searchOfferForm", "categories", "topOffers"})
 public class FeedbackController {
 
     //view names
@@ -45,7 +44,7 @@ public class FeedbackController {
     }
 
     @RequestMapping("/details/{id}/reviews")
-    private String showReviews(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+    private String showReviews(Model model, @PathVariable Long id, RedirectAttributes redirectAttributes) {
         Optional<Offer> offer = offerService.findOne(id);
         if (offer.isPresent()) {
             model.addAttribute("feedbacks", offer.get().getFeedbacks());
@@ -62,7 +61,7 @@ public class FeedbackController {
 
     @Secured({"USER, ADMIN"})
     @RequestMapping("/newReview/{id}")
-    private String newReview(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes){
+    private String newReview(Model model, @PathVariable Long id, RedirectAttributes redirectAttributes){
         Optional<Offer> offer = offerService.findOne(id);
         if(offer.isPresent()){
             model.addAttribute("newReviewForm", new NewReviewForm());

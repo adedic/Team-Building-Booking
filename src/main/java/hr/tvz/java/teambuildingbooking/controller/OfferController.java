@@ -9,7 +9,6 @@ import hr.tvz.java.teambuildingbooking.service.CategoryService;
 import hr.tvz.java.teambuildingbooking.service.OfferPictureService;
 import hr.tvz.java.teambuildingbooking.service.OfferService;
 import hr.tvz.java.teambuildingbooking.service.UserService;
-import hr.tvz.java.teambuildingbooking.service.*;
 import hr.tvz.java.teambuildingbooking.utils.ReservationUtility;
 import hr.tvz.java.teambuildingbooking.utils.UtilityClass;
 import hr.tvz.java.teambuildingbooking.validator.EditOfferFormValidator;
@@ -23,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -107,14 +107,12 @@ public class OfferController {
         redirectAttributes.addFlashAttribute("createSuccess", "Dodavanje nove ponude je uspjelo!");
 
         createOfferLogMessage(offer.getId());
-
-
         return OFFER_DETAILS_REDIRECT_NAME + offer.getId();
     }
 
     @Secured({"PROVIDER, ADMIN"})
     @RequestMapping("/edit/{id}")
-    private String editOffer(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes, Principal principal) {
+    private String editOffer(Model model, @PathVariable Long id, RedirectAttributes redirectAttributes, Principal principal) {
         Optional<Offer> offer = offerService.findOne(id);
 
         if (offer.isPresent()) {
@@ -170,7 +168,7 @@ public class OfferController {
 
     @PostMapping("/search")
     private String findSearchResults(@Valid @ModelAttribute("searchOfferForm") SearchOfferForm
-                                             searchOfferForm, Model model, BindingResult bindingResult) throws ParseException {
+                                             searchOfferForm, Model model, BindingResult bindingResult, SessionStatus status) {
 
         if (bindingResult.hasErrors()) {
             return SEARCH_OFFER_VIEW_NAME;
@@ -182,6 +180,7 @@ public class OfferController {
             model.addAttribute("noResults", true);
             log.info("---> No results!");
         }
+        status.setComplete();
         model.addAttribute("titleResults", "Rezultati pretrage:");
         return SEARCH_OFFER_VIEW_NAME;
     }
@@ -189,7 +188,7 @@ public class OfferController {
 
 
     @RequestMapping("/details/{id}")
-    private String showDetails(Principal principal, Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+    private String showDetails(Principal principal, Model model, @PathVariable Long id, RedirectAttributes redirectAttributes) {
         Optional<Offer> offer = offerService.findOne(id);
 
         if (offer.isPresent()) {
@@ -209,7 +208,7 @@ public class OfferController {
 
     @Secured({"PROVIDER, ADMIN"})
     @GetMapping("/updateActivity/{id}")
-    private String updateActivity(Model model, @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+    private String updateActivity(Model model, @PathVariable Long id, RedirectAttributes redirectAttributes) {
         Optional<Offer> offer = offerService.findOne(id);
         if (offer.isPresent()) {
             model.addAttribute("feedbacks", offer.get().getFeedbacks());
