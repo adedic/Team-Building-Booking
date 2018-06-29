@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         ThymeleafConfig.class, WebConfig.class})
 public class FeedbackControllerTest {
     private static final String NEW_REVIEW_VIEW_NAME = "offer/new-review";
-    private static final String OFFER_SEARCH_REDIRECT_NAME = "/offer/search-offer";
+    private static final String OFFER_DETAILS_REDIRECT_NAME = "redirect:/offer/details";
 
     @Autowired
     private MockMvc mockMvc;
@@ -53,13 +53,13 @@ public class FeedbackControllerTest {
     @Test
     public void handleNewReviewForm()throws Exception{
         this.mockMvc
-                .perform(get("/review/newReview/1").with(user("user").password("secret").roles("USER"))
+                .perform(post("/review/newReview").with(user("user").password("secret").roles("USER"))
                         .param("offerId", "1")
                         .param("id", "1")
                         .param("numberOfStars", "3")
                         .param("comment", "comment"))
-                .andExpect(status().isOk())
-                .andExpect(view().name(NEW_REVIEW_VIEW_NAME));
+                .andExpect(status().isFound())
+                .andExpect(view().name(OFFER_DETAILS_REDIRECT_NAME + "/1"));
     }
 }
 
