@@ -19,7 +19,7 @@ import static org.junit.Assert.assertNotNull;
 public class CustomUserDetailsServiceTest {
 
     @Autowired
-    private CustomUserDetailsService customUserDetailsService;
+    CustomUserDetailsService customUserDetailsService;
 
     @Test
     public void CustomUserDetailsServiceAutowired() {
@@ -51,7 +51,7 @@ public class CustomUserDetailsServiceTest {
     }
 
     @Test(expected = UsernameNotFoundException.class)
-    public void loadUserByUsername_WhenUsernameDoesNotExists() {
+    public void loadUserByUsername_WhenUsernameDoesNotExist(){
         // arrange ...
         String username = "Matica";
 
@@ -69,7 +69,7 @@ public class CustomUserDetailsServiceTest {
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
 
         // assert ...
-        assertNotNull(userDetails);
+        assertNotNull(username);
         assertNotEquals(cud.getUsername(), userDetails.getUsername());
     }
 
