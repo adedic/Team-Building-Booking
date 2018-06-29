@@ -7,33 +7,32 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mail.MailAuthenticationException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class EmailServiceImplTest {
 
     @MockBean
-    EmailService emailService;
+    private EmailService emailService;
 
     @Autowired
-    JavaMailSender emailSender;
+    private JavaMailSender emailSender;
 
     @Test
     public void EmailServiceAutowired() {
         assertNotNull(emailService);
-    };
+    }
 
     @Test
     public void JavaMailSenderAutowired() {
         assertNotNull(emailSender);
-    };
+    }
 
     @Test
     public void sendSimpleMessageException() {
@@ -43,7 +42,7 @@ public class EmailServiceImplTest {
         mail.setSubject("Naslov");
         mail.setContent("Poruka");
 
-       Mockito.when(emailService.sendSimpleMessage(mail)).thenThrow(MailAuthenticationException.class);
+        Mockito.when(emailService.sendSimpleMessage(mail)).thenThrow(MailAuthenticationException.class);
     }
 
     @Test

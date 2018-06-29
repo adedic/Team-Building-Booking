@@ -6,25 +6,29 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CustomUserDetailsServiceTest {
 
     @Autowired
-    CustomUserDetailsService customUserDetailsService;
+    private CustomUserDetailsService customUserDetailsService;
 
     @Test
     public void CustomUserDetailsServiceAutowired() {
         assertNotNull(customUserDetailsService);
-    };
+    }
 
     @Test
-    public void loadUserByUsername() {
+    public void loadUserByUsername_WhenUsernameExists() {
+        // arrange ...
         String username = "user";
 
         User user = new User();
@@ -37,12 +41,18 @@ public class CustomUserDetailsServiceTest {
 
         CustomUserDetails cud = new CustomUserDetails(user);
 
-        assertEquals(cud.getUsername(), customUserDetailsService.loadUserByUsername(username).getUsername());
+        // act ...
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+
+        // assert ...
+        assertNotNull(userDetails);
+        assertEquals(cud.getUsername(), userDetails.getUsername());
 
     }
 
     @Test(expected = UsernameNotFoundException.class)
-    public void loadUserByUsernameNotFoundException() {
+    public void loadUserByUsername_WhenUsernameDoesNotExists() {
+        // arrange ...
         String username = "Matica";
 
         User user = new User();
@@ -55,8 +65,12 @@ public class CustomUserDetailsServiceTest {
 
         CustomUserDetails cud = new CustomUserDetails(user);
 
-        assertEquals(cud.getUsername(), customUserDetailsService.loadUserByUsername(username).getUsername());
+        // act ...
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
 
+        // assert ...
+        assertNotNull(userDetails);
+        assertNotEquals(cud.getUsername(), userDetails.getUsername());
     }
 
 }
