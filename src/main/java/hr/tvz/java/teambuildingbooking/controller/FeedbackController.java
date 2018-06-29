@@ -49,6 +49,8 @@ public class FeedbackController {
         Optional<Offer> offer = offerService.findOne(id);
         if (offer.isPresent()) {
             model.addAttribute("feedbacks", offer.get().getFeedbacks());
+            model.addAttribute("offer", offer.get());
+            model.addAttribute("feedbackService", feedbackService);
             log.info("---> Fetching offer entity with ID = " + id + " and all its children from the database ...");
         } else {
             redirectAttributes.addFlashAttribute(OFFER_NOT_FOUND_REDIRECT_ATTRIBUTE, "Ponuda s ID = " + id + " nije pronađena!");
